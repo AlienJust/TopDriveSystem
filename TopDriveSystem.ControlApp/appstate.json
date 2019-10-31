@@ -1,0 +1,20 @@
+{
+  "$type": "TopDriveSystem.ControlApp.ViewModels.MainWindowViewModel, TopDriveSystem.ControlApp",
+  "Router": {
+    "$type": "ReactiveUI.RoutingState, ReactiveUI",
+    "_navigationStack": {
+      "$type": "System.Collections.ObjectModel.ObservableCollection`1[[ReactiveUI.IRoutableViewModel, ReactiveUI]], System.ObjectModel",
+      "$values": [
+        {
+          "$type": "TopDriveSystem.ControlApp.ViewModels.Telemetry.Telemetry100ViewModel, TopDriveSystem.ControlApp"
+        },
+        {
+          "$type": "TopDriveSystem.ControlApp.ViewModels.Settings.SettingsViewModel, TopDriveSystem.ControlApp"
+        },
+        {
+          "$type": "TopDriveSystem.ControlApp.ViewModels.Telemetry.Telemetry100ViewModel, TopDriveSystem.ControlApp"
+        }
+      ]
+    }
+  }
+}

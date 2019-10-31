@@ -1,0 +1,50 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <LangVersion>8.0</LangVersion>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <OutputPath>..\Release</OutputPath>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <OutputPath>..\Debug</OutputPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.IO.Ports" Version="4.7.0-preview1.19504.10" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\TopDriveSystem.Commands.Contracts\TopDriveSystem.Commands.Contracts.csproj" />
+    <ProjectReference Include="..\TopDriveSystem.CommandSenders.Contracts\TopDriveSystem.CommandSenders.Contracts.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="AlienJust.Support.Concurrent.Contracts">
+      <HintPath>..\References\AlienJust.Support.Concurrent.Contracts.dll</HintPath>
+    </Reference>
+    <Reference Include="AlienJust.Support.Loggers.Contracts">
+      <HintPath>..\References\AlienJust.Support.Loggers.Contracts.dll</HintPath>
+    </Reference>
+    <Reference Include="AlienJust.Support.Numeric">
+      <HintPath>..\References\AlienJust.Support.Numeric.dll</HintPath>
+    </Reference>
+    <Reference Include="AlienJust.Support.Serial">
+      <HintPath>..\References\AlienJust.Support.Serial.dll</HintPath>
+    </Reference>
+    <Reference Include="AlienJust.Support.Text">
+      <HintPath>..\References\AlienJust.Support.Text.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>

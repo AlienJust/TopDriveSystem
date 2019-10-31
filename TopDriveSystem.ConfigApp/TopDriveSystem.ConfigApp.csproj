@@ -1,0 +1,992 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{00CCAD16-B013-4DDB-BD55-6900664603A0}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>TopDriveSystem.ConfigApp</RootNamespace>
+    <AssemblyName>TopDriveSystem.ConfigApp</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>intelecon x gray.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Abt.Controls.SciChart.Wpf.2.2, Version=2.2.5076.36477, Culture=neutral, PublicKeyToken=b55dd9efe817e823, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\References\Abt.Controls.SciChart.Wpf.2.2.dll</HintPath>
+    </Reference>
+    <Reference Include="AlienJust.Support.Mvvm">
+      <HintPath>..\References\AlienJust.Support.Mvvm.dll</HintPath>
+    </Reference>
+    <Reference Include="AlienJust.Support.UI.Contracts">
+      <HintPath>..\References\AlienJust.Support.UI.Contracts.dll</HintPath>
+    </Reference>
+    <Reference Include="AlienJust.Support.Wpf, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\References\AlienJust.Support.Wpf.dll</HintPath>
+    </Reference>
+    <Reference Include="AlienJust.Support.Collections, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\References\AlienJust.Support.Collections.dll</HintPath>
+    </Reference>
+    <Reference Include="AlienJust.Support.Concurrent, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\References\AlienJust.Support.Concurrent.dll</HintPath>
+    </Reference>
+    <Reference Include="AlienJust.Support.Concurrent.Contracts, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\References\AlienJust.Support.Concurrent.Contracts.dll</HintPath>
+    </Reference>
+    <Reference Include="AlienJust.Support.Conversion.Contracts">
+      <HintPath>..\References\AlienJust.Support.Conversion.Contracts.dll</HintPath>
+    </Reference>
+    <Reference Include="AlienJust.Support.Loggers, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\References\AlienJust.Support.Loggers.dll</HintPath>
+    </Reference>
+    <Reference Include="AlienJust.Support.Loggers.Contracts, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\References\AlienJust.Support.Loggers.Contracts.dll</HintPath>
+    </Reference>
+    <Reference Include="AlienJust.Support.Numeric, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\References\AlienJust.Support.Numeric.dll</HintPath>
+    </Reference>
+    <Reference Include="AlienJust.Support.Reflection, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\References\AlienJust.Support.Reflection.dll</HintPath>
+    </Reference>
+    <Reference Include="AlienJust.Support.Text, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\References\AlienJust.Support.Text.dll</HintPath>
+    </Reference>
+    <Reference Include="AlienJust.Support.Text.Contracts, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\References\AlienJust.Support.Text.Contracts.dll</HintPath>
+    </Reference>
+    <Reference Include="ControlzEx, Version=3.0.2.4, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ControlzEx.3.0.2.4\lib\net462\ControlzEx.dll</HintPath>
+    </Reference>
+    <Reference Include="MahApps.Metro, Version=1.6.5.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MahApps.Metro.1.6.5\lib\net47\MahApps.Metro.dll</HintPath>
+    </Reference>
+    <Reference Include="MahApps.Metro.IconPacks, Version=2.3.0.4, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MahApps.Metro.IconPacks.2.3.0\lib\net46\MahApps.Metro.IconPacks.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Expression.Interactions, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Windows.Interactivity.WPF.2.0.20525\lib\net40\Microsoft.Expression.Interactions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Xaml.Behaviors, Version=1.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Xaml.Behaviors.Wpf.1.0.30\lib\net45\Microsoft.Xaml.Behaviors.dll</HintPath>
+    </Reference>
+    <Reference Include="OxyPlot, Version=2.0.0.0, Culture=neutral, PublicKeyToken=638079a8f0bd61e9, processorArchitecture=MSIL">
+      <HintPath>..\packages\OxyPlot.Core.2.0.0\lib\net45\OxyPlot.dll</HintPath>
+    </Reference>
+    <Reference Include="OxyPlot.Wpf, Version=2.0.0.0, Culture=neutral, PublicKeyToken=75e952ba404cdbb0, processorArchitecture=MSIL">
+      <HintPath>..\packages\OxyPlot.Wpf.2.0.0\lib\net45\OxyPlot.Wpf.dll</HintPath>
+    </Reference>
+    <Reference Include="ReachFramework" />
+    <Reference Include="RPD.SciChartControl, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\References\RPD.SciChartControl.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.IO.Ports, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.Ports.4.7.0-preview1.19504.10\lib\net461\System.IO.Ports.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Printing" />
+    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\ControlzEx.3.0.2.4\lib\net462\System.Windows.Interactivity.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="Xceed.Wpf.Themes, Version=3.0.16174.17450, Culture=neutral, PublicKeyToken=ba83ff368b7563c6, processorArchitecture=MSIL">
+      <HintPath>..\packages\Xceed.Wpf.Themes.3.0.16174.17450\lib\net40\Xceed.Wpf.Themes.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Xceed.Wpf.Themes.Metro, Version=3.0.16174.17450, Culture=neutral, PublicKeyToken=ba83ff368b7563c6, processorArchitecture=MSIL">
+      <HintPath>..\packages\Xceed.Wpf.Themes.Metro.3.0.16174.17450\lib\net40\Xceed.Wpf.Themes.Metro.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Xceed.Wpf.Themes.Office2007, Version=3.0.16174.17450, Culture=neutral, PublicKeyToken=ba83ff368b7563c6, processorArchitecture=MSIL">
+      <HintPath>..\packages\Xceed.Wpf.Themes.Office2007.3.0.16174.17450\lib\net40\Xceed.Wpf.Themes.Office2007.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Xceed.Wpf.Toolkit, Version=3.0.16174.17450, Culture=neutral, PublicKeyToken=ba83ff368b7563c6, processorArchitecture=MSIL">
+      <HintPath>..\packages\Xceed.Wpf.Toolkit.3.0.16174.17450\lib\net40\Xceed.Wpf.Toolkit.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="AppControl\App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="AciIdentify\AciIdentifyView.xaml.cs">
+      <DependentUpon>AciIdentifyView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="AinCommand\AinCommandAndCommonTelemetryView.xaml.cs">
+      <DependentUpon>AinCommandAndCommonTelemetryView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="AinCommand\AinCommandView.xaml.cs">
+      <DependentUpon>AinCommandView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="AinCommand\AinCommandAndMinimalCommonTelemetryViewModel.cs" />
+    <Compile Include="AinCommand\AinCommandAndCommonTelemetryViewModel.cs" />
+    <Compile Include="AinCommand\AinCommandViewModel.cs" />
+    <Compile Include="AinCommand\AinCommandAndMinimalCommonTelemetryView.xaml.cs">
+      <DependentUpon>AinCommandAndMinimalCommonTelemetryView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="AinCommand\CommandWindowViewModel.cs" />
+    <Compile Include="AinCommand\LogScaleConverter.cs" />
+    <Compile Include="AinCommand\ModeSetVariantForAinCommandExtensions.cs" />
+    <Compile Include="AinCommand\ModeSetVariantForAinCommand.cs" />
+    <Compile Include="AinCommand\NullableBoolToStringConverter.cs" />
+    <Compile Include="AinsLinkInformationHasBeenUpdatedDelegate.cs" />
+    <Compile Include="AinCommand\CommandWindow.xaml.cs">
+      <DependentUpon>CommandWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="AppControl\AinsCounter\AinsCountInSystemHasBeenChangedDelegate.cs" />
+    <Compile Include="AppControl\AinsCounter\IAinsCounterRaisable.cs" />
+    <Compile Include="AppControl\AinsCounter\AinsCounterThreadSafe.cs" />
+    <Compile Include="AppControl\AinSettingsRead\IAinSettingsReadNotifyRaisable.cs" />
+    <Compile Include="AppControl\AinSettingsStorage\AinSettingsStorageThreadSafe.cs" />
+    <Compile Include="AppControl\EngineSettingsSpace\EngineSettingsReadCompleteDelegate.cs" />
+    <Compile Include="AppControl\EngineSettingsSpace\EngineSettingsReadStartedDelegate.cs" />
+    <Compile Include="AppControl\EngineSettingsSpace\EngineSettingsWriter.cs" />
+    <Compile Include="AppControl\EngineSettingsSpace\EngineSettingsReader.cs" />
+    <Compile Include="AppControl\EngineSettingsSpace\EngineSettingsPartWritable.cs" />
+    <Compile Include="AppControl\EngineSettingsSpace\EngineSettingsWritable.cs" />
+    <Compile Include="AppControl\EngineSettingsSpace\EngineSettingsStorageThreadSafe.cs" />
+    <Compile Include="AppControl\EngineSettingsSpace\IAinSettingsReadNotifyRaisable.cs" />
+    <Compile Include="AppControl\EngineSettingsSpace\IengineSettingsExtensions.cs" />
+    <Compile Include="AppControl\EngineSettingsSpace\IEngineSettingsReadNotify.cs" />
+    <Compile Include="AppControl\EngineSettingsSpace\IEngineSettingsReadNotifyRaisable.cs" />
+    <Compile Include="AppControl\EngineSettingsSpace\IEngineSettingsWriter.cs" />
+    <Compile Include="AppControl\EngineSettingsSpace\IEngineSettingsPart.cs" />
+    <Compile Include="AppControl\EngineSettingsSpace\IEngineSettingsReader.cs" />
+    <Compile Include="AppControl\EngineSettingsSpace\IEngineSettingsStorageUpdatedNotify.cs" />
+    <Compile Include="AppControl\EngineSettingsSpace\IEngineSettingsStorage.cs" />
+    <Compile Include="AppControl\AinSettingsStorage\StoredAinSettingsUpdatedDelegate.cs" />
+    <Compile Include="AppControl\AinSettingsStorage\IAinSettingsStorageUpdatedNotify.cs" />
+    <Compile Include="AppControl\AinSettingsStorage\IAinSettingsStorage.cs" />
+    <Compile Include="AppControl\AinSettingsStorage\IAinSettingsStorageSettable.cs" />
+    <Compile Include="AppControl\AinSettingsWrite\IainSettingsExtensions.cs" />
+    <Compile Include="AppControl\Cycle\CycleThreadHolderThreadSafe.cs" />
+    <Compile Include="AppControl\EngineSettingsSpace\IEngineSettingsStorageSettable.cs" />
+    <Compile Include="AppControl\EngineSettingsSpace\StoredEngineSettingsUpdatedDelegate.cs" />
+    <Compile Include="AppControl\IWindowSystemModel.cs" />
+    <Compile Include="AppControl\LoggerHost\ILoggerRegistrationPoint.cs" />
+    <Compile Include="AppControl\LoggerHost\LoggerRegistrationPointThreadSafe.cs" />
+    <Compile Include="AppControl\NotifySendingEnabled\INotifySendingEnabledRaisable.cs" />
+    <Compile Include="AppControl\NotifySendingEnabled\NotifySendingEnabledThreadSafe.cs" />
+    <Compile Include="AppControl\ParamLogger\IParamLoggerRegistrationPoint.cs" />
+    <Compile Include="AppControl\ParamLogger\ParamLoggerRegistrationPointThreadSafe.cs" />
+    <Compile Include="AppControl\SimpleUiRoot.cs" />
+    <Compile Include="AppControl\TargetAddressHost\TargetAddressHostThreadSafe.cs" />
+    <Compile Include="AppControl\TargetAddressHost\ITargetAddressHostSettable.cs" />
+    <Compile Include="AppControl\WindowSystemModel.cs" />
+    <Compile Include="AutoTimeSetter.cs" />
+    <Compile Include="AppControl\CommandSenderHost\CommandSenderHostThreadSafe.cs" />
+    <Compile Include="AppControl\CommandSenderHost\ICommandSenderHostSettable.cs" />
+    <Compile Include="BsEthernetLogs\AppendTextBehavior.cs" />
+    <Compile Include="BsEthernetLogs\AutoScrollingBehavior.cs" />
+    <Compile Include="BsEthernetLogs\IcAnotherLogLineWasReadedOrNot.cs" />
+    <Compile Include="BsEthernetLogs\IReadCycleModel.cs" />
+    <Compile Include="BsEthernetLogs\ReadCycleModel.cs" />
+    <Compile Include="BsEthernetLogs\TextBoxBehaviour.cs" />
+    <Compile Include="BsEthernetLogs\WindowView.xaml.cs">
+      <DependentUpon>WindowView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="BsEthernetLogs\WindowViewModel.cs" />
+    <Compile Include="DebugLogger.cs" />
+    <Compile Include="EngineAutoSetup\EngineAutoSetupView.xaml.cs">
+      <DependentUpon>EngineAutoSetupView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="EngineAutoSetup\EngineAutoSetupViewModel.cs" />
+    <Compile Include="EngineAutoSetup\EngineTestParamsSetAllFirst.cs" />
+    <Compile Include="EngineAutoSetup\TableView.xaml.cs">
+      <DependentUpon>TableView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="EngineAutoSetup\TableViewModel.cs" />
+    <Compile Include="EngineSettings\EngineSettingsView.xaml.cs">
+      <DependentUpon>EngineSettingsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="EngineSettings\EngineSettingsViewModel.cs" />
+    <Compile Include="AinsSettings\AinSettingsViewModel.cs" />
+    <Compile Include="AinsSettings\NullableShortToNullableDoubleConverter01.cs" />
+    <Compile Include="AinTelemetry\AinTelemetryExpandedView.xaml.cs">
+      <DependentUpon>AinTelemetryExpandedView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="AinTelemetry\AinTelemetryExpandedViewModel.cs" />
+    <Compile Include="AinTelemetry\IAinTelemetriesCycleControl.cs" />
+    <Compile Include="AinTelemetry\ICommonAinTelemetryVm.cs" />
+    <Compile Include="AinTelemetry\TelemetryCommonView.xaml.cs">
+      <DependentUpon>TelemetryCommonView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="AinTelemetry\TelemetryCommonViewModel.cs" />
+    <Compile Include="IAinsLinkControl.cs" />
+    <Compile Include="IAinsLinkControlViewModel.cs" />
+    <Compile Include="AppControl\AinSettingsWrite\AinSettingsPartWritable.cs" />
+    <Compile Include="AppControl\AinSettingsRead\AinSettingsReader.cs" />
+    <Compile Include="Logs\ILogLine.cs" />
+    <Compile Include="Logs\LogLineSimple.cs" />
+    <Compile Include="LookedLikeAbb\AinSettingsRw\AinSettingsReaderWriter.cs" />
+    <Compile Include="AppControl\AinSettingsRead\AinSettingsReadCompleteDelegate.cs" />
+    <Compile Include="AppControl\AinSettingsRead\AinSettingsReadStartedDelegate.cs" />
+    <Compile Include="AppControl\AinSettingsWrite\AinSettingsWritable.cs" />
+    <Compile Include="AppControl\AinSettingsWrite\AinSettingsWriter.cs" />
+    <Compile Include="AppControl\AinSettingsRead\IAinSettingsReadNotify.cs" />
+    <Compile Include="AppControl\AinSettingsRead\IAinSettingsReader.cs" />
+    <Compile Include="AppControl\AinSettingsWrite\IAinSettingsWriter.cs" />
+    <Compile Include="LookedLikeAbb\Chart\ChartView.xaml.cs">
+      <DependentUpon>ChartView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="LookedLikeAbb\Chart\IUpdatable.cs" />
+    <Compile Include="LookedLikeAbb\Chart\WindowChart.xaml.cs">
+      <DependentUpon>WindowChart.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="LookedLikeAbb\Chart\WindowChartViewModel.cs" />
+    <Compile Include="EngineAutoSetup\EngineTestIdExtensions.cs" />
+    <Compile Include="EngineAutoSetup\EngineTestParamsBuilderAciIdentifyIni.cs" />
+    <Compile Include="LookedLikeAbb\Group07Parameters\McwParameter\McwParameterView.xaml.cs">
+      <DependentUpon>McwParameterView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="LookedLikeAbb\Group07Parameters\McwParameter\McwParameterViewModel.cs" />
+    <Compile Include="LookedLikeAbb\Group08Parameters\AswParameter\AswParameterView.xaml.cs">
+      <DependentUpon>AswParameterView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="LookedLikeAbb\Group08Parameters\AswParameter\AswParameterViewModel.cs" />
+    <Compile Include="LookedLikeAbb\Group08Parameters\MswParameter\MswParameterView.xaml.cs">
+      <DependentUpon>MswParameterView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="LookedLikeAbb\Group08Parameters\MswParameter\MswParameterViewModel.cs" />
+    <Compile Include="LookedLikeAbb\Group09Parameters\AinBitsParameter\AinBitsParameterView.xaml.cs">
+      <DependentUpon>AinBitsParameterView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="LookedLikeAbb\Group09Parameters\AinBitsParameter\AinBitsParameterViewModel.cs" />
+    <Compile Include="LookedLikeAbb\Group09Parameters\Group09ParametersView.xaml.cs">
+      <DependentUpon>Group09ParametersView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="LookedLikeAbb\Group08Parameters\Group08ParametersView.xaml.cs">
+      <DependentUpon>Group08ParametersView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="LookedLikeAbb\Group09Parameters\Group09ParametersViewModel.cs" />
+    <Compile Include="LookedLikeAbb\Group08Parameters\Group08ParametersViewModel.cs" />
+    <Compile Include="LookedLikeAbb\Group07Parameters\Group07ParametersView.xaml.cs">
+      <DependentUpon>Group07ParametersView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="LookedLikeAbb\Group07Parameters\Group07ParametersViewModel.cs" />
+    <Compile Include="LookedLikeAbb\Group04ParametersViewModel.cs" />
+    <Compile Include="LookedLikeAbb\Group03ParametersViewModel.cs" />
+    <Compile Include="LookedLikeAbb\Group04ParametersView.xaml.cs">
+      <DependentUpon>Group04ParametersView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="LookedLikeAbb\Group03ParametersView.xaml.cs">
+      <DependentUpon>Group03ParametersView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="LookedLikeAbb\Group02ParametersViewModel.cs" />
+    <Compile Include="LookedLikeAbb\Group02ParametersView.xaml.cs">
+      <DependentUpon>Group02ParametersView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="LookedLikeAbb\Group100SettingsView.xaml.cs">
+      <DependentUpon>Group100SettingsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="LookedLikeAbb\Group100SettingsViewModel.cs" />
+    <Compile Include="LookedLikeAbb\Group104SettingsView.xaml.cs">
+      <DependentUpon>Group104SettingsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="LookedLikeAbb\Group103SettingsView.xaml.cs">
+      <DependentUpon>Group103SettingsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="LookedLikeAbb\Group104SettingsViewModel.cs" />
+    <Compile Include="LookedLikeAbb\Group103SettingsViewModel.cs" />
+    <Compile Include="LookedLikeAbb\Group102SettingsView.xaml.cs">
+      <DependentUpon>Group102SettingsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="LookedLikeAbb\Group101SettingsView.xaml.cs">
+      <DependentUpon>Group101SettingsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="LookedLikeAbb\Group102SettingsViewModel.cs" />
+    <Compile Include="LookedLikeAbb\Group101SettingsViewModel.cs" />
+    <Compile Include="LookedLikeAbb\Group107SettingsView.xaml.cs">
+      <DependentUpon>Group107SettingsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="LookedLikeAbb\Group107SettingsViewModel.cs" />
+    <Compile Include="LookedLikeAbb\Group106Settings\Group106SettingsView.xaml.cs">
+      <DependentUpon>Group106SettingsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="LookedLikeAbb\Group105SettingsView.xaml.cs">
+      <DependentUpon>Group105SettingsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="LookedLikeAbb\Group106Settings\Group106SettingsViewModel.cs" />
+    <Compile Include="LookedLikeAbb\Group105SettingsViewModel.cs" />
+    <Compile Include="LookedLikeAbb\Group106Settings\ImvcParameter\ImcwParameterView.xaml.cs">
+      <DependentUpon>ImcwParameterView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="LookedLikeAbb\Group106Settings\ImvcParameter\ImcwParameterViewModel.cs" />
+    <Compile Include="LookedLikeAbb\Group99SettingsView.xaml.cs">
+      <DependentUpon>Group99SettingsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="LookedLikeAbb\Group99SettingsViewModel.cs" />
+    <Compile Include="LookedLikeAbb\Group27SettingsViewModel.cs" />
+    <Compile Include="LookedLikeAbb\Group25SettingsViewModel.cs" />
+    <Compile Include="LookedLikeAbb\Group25SettingsView.xaml.cs">
+      <DependentUpon>Group25SettingsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="LookedLikeAbb\Group26SettingsView.xaml.cs">
+      <DependentUpon>Group26SettingsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="LookedLikeAbb\Group26SettingsViewModel.cs" />
+    <Compile Include="LookedLikeAbb\Group24SettingsViewModel.cs" />
+    <Compile Include="LookedLikeAbb\Group23SettingsViewModel.cs" />
+    <Compile Include="LookedLikeAbb\Group23SettingsView.xaml.cs">
+      <DependentUpon>Group23SettingsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="LookedLikeAbb\Group22SettingsViewModel.cs" />
+    <Compile Include="LookedLikeAbb\Group27SettingsView.xaml.cs">
+      <DependentUpon>Group27SettingsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="LookedLikeAbb\Group24SettingsView.xaml.cs">
+      <DependentUpon>Group24SettingsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="LookedLikeAbb\Group22SettingsView.xaml.cs">
+      <DependentUpon>Group22SettingsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="AppControl\AinsCounter\IAinsCounter.cs" />
+    <Compile Include="AppControl\Cycle\ICyclePart.cs" />
+    <Compile Include="AppControl\Cycle\ICycleThreadHolder.cs" />
+    <Compile Include="IDebugInformationShower.cs" />
+    <Compile Include="BsEthernetNominals\BsEthernetNominalsExporterXml.cs" />
+    <Compile Include="BsEthernetNominals\BsEthernetNominalsImporterXml.cs" />
+    <Compile Include="BsEthernetNominals\BsEthernetNominalsSerializationConstants.cs" />
+    <Compile Include="BsEthernetNominals\BsEthernetNominalsSimple.cs" />
+    <Compile Include="BsEthernetNominals\IBsEthernetNominalsExporter.cs" />
+    <Compile Include="BsEthernetNominals\IBsEthernetNominalsImporter.cs" />
+    <Compile Include="BsEthernetSettings\FtRoleViewModel.cs" />
+    <Compile Include="GridControl.cs" />
+    <Compile Include="AppControl\NotifySendingEnabled\INotifySendingEnabled.cs" />
+    <Compile Include="CoolerTelemetry\CoolerTelemetriesView.xaml.cs">
+      <DependentUpon>CoolerTelemetriesView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CoolerTelemetry\CoolerTelemetriesViewModel.cs" />
+    <Compile Include="CoolerTelemetry\CoolerTelemetryView.xaml.cs">
+      <DependentUpon>CoolerTelemetryView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CoolerTelemetry\CoolerTelemetryViewModel.cs" />
+    <Compile Include="ListBoxBehavior.cs" />
+    <Compile Include="LookedLikeAbb\Group01ParametersView.xaml.cs">
+      <DependentUpon>Group01ParametersView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="LookedLikeAbb\Group20SettingsView.xaml.cs">
+      <DependentUpon>Group20SettingsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="LookedLikeAbb\Group01ParametersViewModel.cs" />
+    <Compile Include="LookedLikeAbb\Group20SettingsViewModel.cs" />
+    <Compile Include="AppControl\AinSettingsWrite\IAinSettingsPart.cs" />
+    <Compile Include="LookedLikeAbb\AinSettingsRw\IAinSettingsReaderWriter.cs" />
+    <Compile Include="LookedLikeAbb\ICheckableParameter.cs" />
+    <Compile Include="LookedLikeAbb\Chart\ChartViewModel.cs" />
+    <Compile Include="AppControl\ParamLogger\IParameterLogger.cs" />
+    <Compile Include="LookedLikeAbb\Oscilloscope\OscilloscopeLogger.cs" />
+    <Compile Include="LookedLikeAbb\Oscilloscope\OscilloscopeWindow.xaml.cs">
+      <DependentUpon>OscilloscopeWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="LookedLikeAbb\Oscilloscope\OscilloscopeWindowSciVm.cs" />
+    <Compile Include="LookedLikeAbb\Oscilloscope\OscilloscopeWindowVm.cs" />
+    <Compile Include="LookedLikeAbb\Oscilloscope\PanModifierOnPause.cs" />
+    <Compile Include="LookedLikeAbb\Oscilloscope\PanModifierOnResume.cs" />
+    <Compile Include="LookedLikeAbb\Parameters\ParameterBooleanEditCheck\ParameterBooleanEditCheckView.xaml.cs">
+      <DependentUpon>ParameterBooleanEditCheckView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="LookedLikeAbb\Parameters\ParameterBooleanEditCheck\ParameterBooleanEditCheckViewModel.cs" />
+    <Compile Include="LookedLikeAbb\Parameters\ParameterBooleanReadonly\ParameterBooleanReadonlyView.xaml.cs">
+      <DependentUpon>ParameterBooleanReadonlyView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="LookedLikeAbb\Parameters\ParameterBooleanReadonly\ParameterBooleanReadonlyViewModel.cs" />
+    <Compile Include="LookedLikeAbb\Parameters\ParameterComboEditable\ComboItemViewModel.cs" />
+    <Compile Include="LookedLikeAbb\Parameters\ParameterComboEditable\ParameterComboEditableView.xaml.cs">
+      <DependentUpon>ParameterComboEditableView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="LookedLikeAbb\Parameters\ParameterComboEditable\ParameterComboEditableViewModel.cs" />
+    <Compile Include="LookedLikeAbb\Parameters\ParameterDoubleEditCheck\ParameterDecimalEditCheckViewModel.cs" />
+    <Compile Include="LookedLikeAbb\Parameters\ParameterDoubleEditCheck\ParameterDecimalEditCheckView.xaml.cs">
+      <DependentUpon>ParameterDecimalEditCheckView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="LookedLikeAbb\Parameters\ParameterDoubleEdit\ParameterDoubleEditView.xaml.cs">
+      <DependentUpon>ParameterDoubleEditView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="LookedLikeAbb\Parameters\ParameterDoubleEdit\ParameterDoubleEditViewModel.cs" />
+    <Compile Include="LookedLikeAbb\Parameters\ParameterHexadecimalEditable\ParameterHexadecimalEditableView.xaml.cs">
+      <DependentUpon>ParameterHexadecimalEditableView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="LookedLikeAbb\Parameters\ParameterHexadecimalEditable\ParameterHexadecimalEditableViewModel.cs" />
+    <Compile Include="LookedLikeAbb\Parameters\ParameterHexEditable\ParameterHexEditableView.xaml.cs">
+      <DependentUpon>ParameterHexEditableView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="LookedLikeAbb\Parameters\ParameterHexEditable\ParameterHexEditableViewModel.cs" />
+    <Compile Include="LookedLikeAbb\Parameters\ParameterDoubleReadonly\ParameterDoubleReadonlyView.xaml.cs">
+      <DependentUpon>ParameterDoubleReadonlyView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="LookedLikeAbb\Parameters\ParameterDoubleEditCheck\ParameterDoubleEditCheckView.xaml.cs">
+      <DependentUpon>ParameterDoubleEditCheckView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="LookedLikeAbb\Parameters\ParameterDoubleEditCheck\ParameterDoubleEditCheckViewModel.cs" />
+    <Compile Include="LookedLikeAbb\Parameters\ParameterDoubleReadonly\ParameterDoubleReadonlyViewModel.cs" />
+    <Compile Include="LookedLikeAbb\Chart\PointsSeriesAndAdditionalData.cs" />
+    <Compile Include="LookedLikeAbb\Parameters\ParameterStringReadonly\ParameterStringReadonlyView.xaml.cs">
+      <DependentUpon>ParameterStringReadonlyView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="LookedLikeAbb\Parameters\ParameterStringReadonly\ParameterStringReadonlyViewModel.cs" />
+    <Compile Include="MnemonicCheme\MnemonicChemeView.xaml.cs">
+      <DependentUpon>MnemonicChemeView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MnemonicCheme\MnemonicChemeViewModel.cs" />
+    <Compile Include="NewLook\Archive\ArchiveRecordView.xaml.cs">
+      <DependentUpon>ArchiveRecordView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="NewLook\Archive\ArchiveRecordViewModel.cs" />
+    <Compile Include="NewLook\Archive\ArchivesView.xaml.cs">
+      <DependentUpon>ArchivesView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="NewLook\Archive\ArchivesViewModel.cs" />
+    <Compile Include="NewLook\Archive\ArchiveView.xaml.cs">
+      <DependentUpon>ArchiveView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="NewLook\Archive\ArchiveViewModel.cs" />
+    <Compile Include="NewLook\Archive\IArchiveRecordViewModel.cs" />
+    <Compile Include="NewLook\Archive\IArchivesViewModel.cs" />
+    <Compile Include="NewLook\Archive\IArchiveViewModel.cs" />
+    <Compile Include="NewLook\OldLook\OldLookView.xaml.cs">
+      <DependentUpon>OldLookView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="NewLook\OldLook\OldLookViewModel.cs" />
+    <Compile Include="AppControl\AinSettingsRead\AutoSettingsReader.cs" />
+    <Compile Include="NewLook\Settings\ImportExportView.xaml.cs">
+      <DependentUpon>ImportExportView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="NewLook\Settings\ImportExportViewModel.cs" />
+    <Compile Include="RectifierTelemetry\RectifierTelemetriesViewModel.cs" />
+    <Compile Include="RectifierTelemetry\RectifierTelemetryViewModel.cs" />
+    <Compile Include="RectifierTelemetry\RectifierTelemetriesView.xaml.cs">
+      <DependentUpon>RectifierTelemetriesView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="RectifierTelemetry\RectifierTelemetryView.xaml.cs">
+      <DependentUpon>RectifierTelemetryView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="AppControl\NotifySendingEnabled\SendingEnabledChangedDelegate.cs" />
+    <Compile Include="ILinkContol.cs" />
+    <Compile Include="LookedLikeAbb\Chart\SeriesAdditionalData.cs" />
+    <Compile Include="NewLook\Settings\SettingsView.xaml.cs">
+      <DependentUpon>SettingsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="NewLook\Settings\SettingsViewModel.cs" />
+    <Compile Include="SystemControl\ConvertHelp.cs" />
+    <Compile Include="SystemControl\DebugParametersTrendView.xaml.cs">
+      <DependentUpon>DebugParametersTrendView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SystemControl\DebugParametersView.xaml.cs">
+      <DependentUpon>DebugParametersView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SystemControl\DebugParametersTrendViewModel.cs" />
+    <Compile Include="SystemControl\DebugParametersViewModel.cs" />
+    <Compile Include="SystemControl\INamedTrendsControl.cs" />
+    <Compile Include="SystemControl\SystemControlViewModel.cs" />
+    <Compile Include="SystemControl\SystemControlView.xaml.cs">
+      <DependentUpon>SystemControlView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SystemControl\TrendControlView.xaml.cs">
+      <DependentUpon>TrendControlView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SystemControl\TrendControlViewModel.cs" />
+    <Compile Include="NewLook\Telemetry\TelemetryView.xaml.cs">
+      <DependentUpon>TelemetryView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="NewLook\Telemetry\TelemetryViewModel.cs" />
+    <Compile Include="WindowControl\WindowControlView.xaml.cs">
+      <DependentUpon>WindowControlView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WindowControl\WindowControlViewModel.cs" />
+    <Page Include="AciIdentify\AciIdentifyView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AinCommand\AinCommandAndCommonTelemetryView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AinCommand\AinCommandView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="AinCommand\AinCommandAndMinimalCommonTelemetryView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AinCommand\CommandWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="BsEthernetLogs\WindowView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="EngineAutoSetup\EngineAutoSetupView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="EngineAutoSetup\TableView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="EngineSettings\EngineSettingsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="AinsSettings\AinSettingsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="AinTelemetry\AinTelemetriesView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AinTelemetry\AinTelemetryExpandedView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AinTelemetry\AinTelemetryView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="AinTelemetry\TelemetryCommonView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="BsEthernetNominals\BsEthernetNominalsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="BsEthernetSettings\BsEthernetSettingsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="LookedLikeAbb\Chart\ChartView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="LookedLikeAbb\Chart\WindowChart.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="LookedLikeAbb\Group07Parameters\McwParameter\McwParameterView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="LookedLikeAbb\Group08Parameters\AswParameter\AswParameterView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="LookedLikeAbb\Group08Parameters\MswParameter\MswParameterView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="LookedLikeAbb\Group09Parameters\AinBitsParameter\AinBitsParameterView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="LookedLikeAbb\Group09Parameters\Group09ParametersView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="LookedLikeAbb\Group08Parameters\Group08ParametersView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="LookedLikeAbb\Group07Parameters\Group07ParametersView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="LookedLikeAbb\Group04ParametersView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="LookedLikeAbb\Group03ParametersView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="LookedLikeAbb\Group02ParametersView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="LookedLikeAbb\Group01ParametersView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="LookedLikeAbb\Group100SettingsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="LookedLikeAbb\Group104SettingsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="LookedLikeAbb\Group103SettingsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="LookedLikeAbb\Group102SettingsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="LookedLikeAbb\Group101SettingsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="LookedLikeAbb\Group107SettingsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="LookedLikeAbb\Group106Settings\Group106SettingsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="LookedLikeAbb\Group105SettingsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="LookedLikeAbb\Group106Settings\ImvcParameter\ImcwParameterView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="LookedLikeAbb\Group99SettingsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="LookedLikeAbb\Group25SettingsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="LookedLikeAbb\Group26SettingsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="LookedLikeAbb\Group23SettingsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="LookedLikeAbb\Group27SettingsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="LookedLikeAbb\Group24SettingsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="LookedLikeAbb\Group22SettingsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="LookedLikeAbb\Group20SettingsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="LookedLikeAbb\Oscilloscope\OscilloscopeWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="LookedLikeAbb\Parameters\ParameterBooleanEditCheck\ParameterBooleanEditCheckView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="LookedLikeAbb\Parameters\ParameterBooleanReadonly\ParameterBooleanReadonlyView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="LookedLikeAbb\Parameters\ParameterComboEditable\ParameterComboEditableView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="LookedLikeAbb\Parameters\ParameterDoubleEditCheck\ParameterDecimalEditCheckView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="LookedLikeAbb\Parameters\ParameterDoubleEdit\ParameterDoubleEditView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="LookedLikeAbb\Parameters\ParameterHexadecimalEditable\ParameterHexadecimalEditableView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="LookedLikeAbb\Parameters\ParameterHexEditable\ParameterHexEditableView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="LookedLikeAbb\Parameters\ParameterDoubleReadonly\ParameterDoubleReadonlyView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="LookedLikeAbb\Parameters\ParameterDoubleEditCheck\ParameterDoubleEditCheckView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="LookedLikeAbb\Parameters\ParameterStringReadonly\ParameterStringReadonlyView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="AinsSettings\AinSettingsView.xaml.cs">
+      <DependentUpon>AinSettingsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="AinTelemetry\AinTelemetriesView.xaml.cs">
+      <DependentUpon>AinTelemetriesView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="AinTelemetry\AinTelemetryView.xaml.cs">
+      <DependentUpon>AinTelemetryView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="AinTelemetry\AinTelemetriesViewModel.cs" />
+    <Compile Include="AinTelemetry\AinTelemetryViewModel.cs" />
+    <Compile Include="AppControl\App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="BsEthernetNominals\BsEthernetNominalsView.xaml.cs">
+      <DependentUpon>BsEthernetNominalsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="BsEthernetNominals\BsEthernetNominalsViewModel.cs" />
+    <Compile Include="BsEthernetNominals\IBsEthernetRatedSettings.cs" />
+    <Compile Include="BsEthernetSettings\BsEthernetSettingsXmlWorker.cs" />
+    <Compile Include="BsEthernetSettings\BsEthernetSettingsView.xaml.cs">
+      <DependentUpon>BsEthernetSettingsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="BsEthernetSettings\BsEthernetSettingsViewModel.cs" />
+    <Compile Include="BsEthernetSettings\IBsEthernetSettingsExporter.cs" />
+    <Compile Include="BsEthernetSettings\IBsEthernetSettingsImporter.cs" />
+    <Compile Include="AppControl\CommandSenderHost\ICommandSenderHost.cs" />
+    <Compile Include="AppControl\TargetAddressHost\ITargetAddressHost.cs" />
+    <Compile Include="IUserInterfaceRoot.cs" />
+    <Compile Include="MainViewModel.cs" />
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Page Include="MnemonicCheme\MnemonicChemeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="NewLook\Archive\ArchiveRecordView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="NewLook\Archive\ArchivesView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="NewLook\Archive\ArchiveView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="NewLook\OldLook\OldLookView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Logs\ProgramLogView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CoolerTelemetry\CoolerTelemetriesView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="CoolerTelemetry\CoolerTelemetryView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="NewLook\Settings\ImportExportView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="RectifierTelemetry\RectifierTelemetriesView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="RectifierTelemetry\RectifierTelemetryView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="NewLook\Settings\SettingsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SystemControl\DebugParametersTrendView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SystemControl\DebugParametersView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SystemControl\SystemControlView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SystemControl\TrendControlView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="NewLook\Telemetry\TelemetryView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WindowControl\WindowControlView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Logs\ProgramLogView.xaml.cs">
+      <DependentUpon>ProgramLogView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Logs\ProgramLogViewModel.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="aci_identify.ini">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="flash.bat">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TopDriveSystem.Commands.Contracts\TopDriveSystem.Commands.Contracts.csproj">
+      <Project>{c812c14e-bbdb-445a-bec7-5703cbbd094e}</Project>
+      <Name>TopDriveSystem.Commands.Contracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TopDriveSystem.CommandSenders.Contracts\TopDriveSystem.CommandSenders.Contracts.csproj">
+      <Project>{b78fce5f-5d75-40c0-b0b9-64f33b86ce0d}</Project>
+      <Name>TopDriveSystem.CommandSenders.Contracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TopDriveSystem.CommandSenders.SerialPortBased\TopDriveSystem.CommandSenders.SerialPortBased.csproj">
+      <Project>{f4deada9-e3c6-4fd4-bad0-d9472394928a}</Project>
+      <Name>TopDriveSystem.CommandSenders.SerialPortBased</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TopDriveSystem.CommandSenders.TestCommandSender\TopDriveSystem.CommandSenders.TestCommandSender.csproj">
+      <Project>{490f02e4-3826-4fe8-8e98-405271e18c5e}</Project>
+      <Name>TopDriveSystem.CommandSenders.TestCommandSender</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TopDriveSystem.Commands\TopDriveSystem.Commands.csproj">
+      <Project>{316042fc-f3d0-491f-8998-8acfcbffa908}</Project>
+      <Name>TopDriveSystem.Commands</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="intelecon x gray.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="SciChartLicense.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="mnemoniccheme.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

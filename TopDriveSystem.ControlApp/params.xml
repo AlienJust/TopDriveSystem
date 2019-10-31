@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Parameters>
+  <Parameter Key="param_001_003_reply_001" Identifier="31f59c53-d41a-4120-93fc-4f3ada0b6271" Comment="БС-Ethernet и АИН-1. Чтение телеметрии: ответ - Fe, Вычисленная частота вращения, Гц" />
+  <Parameter Key="param_001_003_reply_002" Identifier="3428b589-9af9-4e3c-9710-aa4f5c68d8ac" Comment="БС-Ethernet и АИН-1. Чтение телеметрии: ответ - Uout, Коэффициент модуляции ШИМ, %" />
+  <Parameter Key="param_001_003_reply_003" Identifier="3e143d5e-ccfe-40d8-95b3-a998be1972a9" Comment="БС-Ethernet и АИН-1. Чтение телеметрии: ответ - IQset,Задание моментного тока, А" />
+  <Parameter Key="param_001_003_reply_004" Identifier="4047ec71-047e-41c0-b476-0e6cb68b4a09" Comment="БС-Ethernet и АИН-1. Чтение телеметрии: ответ - T, Температура радиатора, град" />
+  <Parameter Key="param_001_003_reply_005" Identifier="4515ae9a-f6b1-4114-ad78-ba086076a8a2" Comment="БС-Ethernet и АИН-1. Чтение телеметрии: ответ - Udc, Напряжение шины DC, В" />
+  <Parameter Key="param_001_003_reply_006" Identifier="1ed48a30-1fd3-4355-a5b2-1eb7e0083969" Comment="БС-Ethernet и АИН-1. Чтение телеметрии: ответ - Isum, Амплитуда огибающей тока по всем трем фазам, А" />
+  <Parameter Key="param_001_003_reply_007" Identifier="48917cb6-73fe-4d1b-beb5-c338131c1702" Comment="БС-Ethernet и АИН-1. Чтение телеметрии: ответ - Ud, Выход регулятора тока D" />
+  <Parameter Key="param_001_003_reply_008" Identifier="68674a2c-dd5b-4b82-9dd6-432686a08699" Comment="БС-Ethernet и АИН-1. Чтение телеметрии: ответ - Uq, Выход регулятора тока Q" />
+  <Parameter Key="param_001_003_reply_009" Identifier="f0e5ed2a-c95e-4e10-9e92-454ae68265d6" Comment="БС-Ethernet и АИН-1. Чтение телеметрии: ответ - Fout, Выход задатчика интенсивности частоты (электрической), Гц" />
+  <Parameter Key="param_001_003_reply_010" Identifier="bdf6e98d-1e1f-4bfa-bfbf-cc29cd1be7f2" Comment="БС-Ethernet и АИН-1. Чтение телеметрии: ответ - FIset, Уставка потока, мВб" />
+  <Parameter Key="param_001_003_reply_011" Identifier="0245497e-f280-43bc-9092-6e808815e6ae" Comment="БС-Ethernet и АИН-1. Чтение телеметрии: ответ - Torq, Измеренный момент, Нм" />
+  <Parameter Key="param_001_003_reply_012" Identifier="e642f050-45f3-4f0a-8e09-a603a202dfb8" Comment="БС-Ethernet и АИН-1. Чтение телеметрии: ответ - Mout, Выход регулятора скорости или уставка момента, Нм" />
+  <Parameter Key="param_001_003_reply_013" Identifier="883d2dec-e5e5-4dbd-97ab-f17d34fff6bb" Comment="БС-Ethernet и АИН-1. Чтение телеметрии: ответ - FImag, Измеренный поток, мВб" />
+  <Parameter Key="param_001_003_reply_014" Identifier="143c5974-7658-4da8-bf3e-45b1e59ccb68" Comment="БС-Ethernet и АИН-1. Чтение телеметрии: ответ - IDset, Задание тока возбуждения, А" />
+  <Parameter Key="param_001_003_reply_015" Identifier="ad4dfedf-9aaf-4ffe-84c4-88f37240582c" Comment="БС-Ethernet и АИН-1. Чтение телеметрии: ответ - RUNMODE, Текущий режим работы" />
+  <Parameter Key="param_001_003_reply_016" Identifier="d559c125-d55b-4bf6-93e3-1f270cc8711b" Comment="БС-Ethernet и АИН-1. Чтение телеметрии: ответ - STATUS, Биты ошибок" />
+  <Parameter Key="param_001_003_reply_017" Identifier="e7dcd119-2c11-4465-96de-a6a411b66097" Comment="БС-Ethernet и АИН-1. Чтение телеметрии: ответ - Fm, Частота вращения, измеренная ДЧВ (электрическая)" />
+  <Parameter Key="param_001_003_reply_018" Identifier="4ce7d986-bf1a-4bbc-a84e-6fbc5531b109" Comment="БС-Ethernet и АИН-1. Чтение телеметрии: ответ - Ffb_f, Частота на ОС регулятора скорости после фильтра" />
+  <Parameter Key="param_001_003_reply_019" Identifier="513ed649-7a2c-402e-9273-f58254b82ec3" Comment="БС-Ethernet и АИН-1. Чтение телеметрии: ответ - FImag_f, FImag после фильтра" />
+  <Parameter Key="param_001_003_reply_020" Identifier="23de8a31-bd16-43da-8925-15b245c8f797" Comment="БС-Ethernet и АИН-1. Чтение телеметрии: ответ - Id, Измеренная составляющая тока D" />
+  <Parameter Key="param_001_003_reply_021" Identifier="4e9a243a-7e97-4602-aa6c-842ce5ec3951" Comment="БС-Ethernet и АИН-1. Чтение телеметрии: ответ - Iq, Измеренная составляющая тока Q" />
+  <Parameter Key="param_001_003_reply_022" Identifier="d1b1a1bb-0829-46a7-abe3-b2b5ec028855" Comment="БС-Ethernet и АИН-1. Чтение телеметрии: ответ - Fset_f, Fset после фильтра" />
+  <Parameter Key="param_001_003_reply_023" Identifier="f12617a4-1645-4984-b3ca-753b886772e5" Comment="БС-Ethernet и АИН-1. Чтение телеметрии: ответ - Torq_f, Torq после фильтра" />
+  <Parameter Key="param_001_003_reply_024" Identifier="c1be0f00-954e-4c7e-a4af-2256448fc320" Comment="БС-Ethernet и АИН-1. Чтение телеметрии: ответ - Text, Температура внешняя" />
+  <Parameter Key="param_001_003_reply_025" Identifier="cdb7b43f-426c-4161-bb14-9562d265b1b9" Comment="БС-Ethernet и АИН-1. Чтение телеметрии: ответ - Ed, Пропорциональная часть регулятора тока D, А" />
+  <Parameter Key="param_001_003_reply_026" Identifier="0861df06-d9c8-41de-8698-f89396f4ae9b" Comment="БС-Ethernet и АИН-1. Чтение телеметрии: ответ - Eq, Пропорциональная часть регулятора тока Q, А" />
+  <Parameter Key="param_001_003_reply_027" Identifier="d491c37d-0430-43b8-bb84-4ea1dc5c53a1" Comment="БС-Ethernet и АИН-1. Чтение телеметрии: ответ - Ef, Пропорциональная часть регулятора скорости, Гц" />
+  <Parameter Key="param_001_003_reply_028" Identifier="3324e95a-e280-4c1c-87ec-92e25303ee49" Comment="БС-Ethernet и АИН-1. Чтение телеметрии: ответ - Efi, Пропорциональная часть регулятора потока, мВб" />
+  <Parameter Key="param_001_003_reply_029" Identifier="1aa5dc64-23e4-4e1a-bee1-4ac8af061c4a" Comment="БС-Ethernet и АИН-1. Чтение телеметрии: ответ - Ucomp_D, Выход регулятора компенсатора вычислителя потока D, В" />
+  <Parameter Key="param_001_003_reply_030" Identifier="5c93b658-5b35-4ab3-b136-68e8f1713605" Comment="БС-Ethernet и АИН-1. Чтение телеметрии: ответ - Ucomp_Q, Выход регулятора компенсатора вычислителя потока Q, В" />
+  <Parameter Key="param_001_003_reply_031" Identifier="687349c5-ab3b-4e06-83ae-789b388434c7" Comment="БС-Ethernet и АИН-1. Чтение телеметрии: ответ - AUX1, Вспомогательная ячейка 1" />
+  <Parameter Key="param_001_003_reply_032" Identifier="c6c47307-2796-4142-a008-c8d9a466d5f6" Comment="БС-Ethernet и АИН-1. Чтение телеметрии: ответ - AUX2, Вспомогательная ячейка 2" />
+  <Parameter Key="param_001_003_reply_033" Identifier="e98a2408-28f1-4dfb-8c27-9529d804a708" Comment="БС-Ethernet и АИН-1. Чтение телеметрии: ответ - PVER, Версия ПО" />
+  <Parameter Key="param_001_003_reply_034" Identifier="daaea3df-ff7f-434b-89cb-b0fbc54d574f" Comment="БС-Ethernet и АИН-1. Чтение телеметрии: ответ - PVDATE, Дата билда ПО" />
+</Parameters>

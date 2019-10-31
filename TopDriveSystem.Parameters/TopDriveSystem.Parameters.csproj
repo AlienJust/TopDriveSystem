@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Library</OutputType>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <ApplicationIcon />
+    <StartupObject />
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CoreCLR-NCalc" Version="2.2.70" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="AlienJust.Support.Identy.Contracts">
+      <HintPath>..\References\AlienJust.Support.Identy.Contracts.dll</HintPath>
+    </Reference>
+    <Reference Include="DataAbstractionLevel.Low">
+      <HintPath>..\References\DataAbstractionLevel.Low.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>

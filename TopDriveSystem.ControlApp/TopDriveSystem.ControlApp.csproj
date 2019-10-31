@@ -1,0 +1,68 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <ApplicationIcon />
+    <StartupObject />
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <LangVersion>8.0</LangVersion>
+  </PropertyGroup>
+  
+  <ItemGroup>
+    <Compile Update="**\*.xaml.cs">
+      <DependentUpon>%(Filename)</DependentUpon>
+    </Compile>
+    <AvaloniaResource Include="**\*.xaml">
+      <SubType>Designer</SubType>
+    </AvaloniaResource>
+    <AvaloniaResource Include="Assets\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <AvaloniaResource Remove="Assets\intelecon-gray-red.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Avalonia" Version="0.9.0-preview4" />
+    <PackageReference Include="Avalonia.Desktop" Version="0.9.0-preview4" />
+    <PackageReference Include="Avalonia.ReactiveUI" Version="0.9.0-preview4" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.1.0-preview1.19506.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3-beta2" />
+    <PackageReference Include="System.IO.Ports" Version="4.7.0-preview1.19504.10" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TopDriveSystem.Commands.Contracts\TopDriveSystem.Commands.Contracts.csproj" />
+    <ProjectReference Include="..\TopDriveSystem.CommandSenders.Contracts\TopDriveSystem.CommandSenders.Contracts.csproj" />
+    <ProjectReference Include="..\TopDriveSystem.CommandSenders.SerialPortBased\TopDriveSystem.CommandSenders.SerialPortBased.csproj" />
+    <ProjectReference Include="..\TopDriveSystem.CommandSenders.TestCommandSender\TopDriveSystem.CommandSenders.TestCommandSender.csproj" />
+    <ProjectReference Include="..\TopDriveSystem.Commands\TopDriveSystem.Commands.csproj" />
+    <ProjectReference Include="..\TopDriveSystem.ControlApp.Models\TopDriveSystem.ControlApp.Models.csproj" />
+    <ProjectReference Include="..\TopDriveSystem.Model.Listening\TopDriveSystem.Model.Listening.csproj" />
+    <ProjectReference Include="..\TopDriveSystem.Parameters\TopDriveSystem.Parameters.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="AlienJust.Support.Concurrent.Contracts">
+      <HintPath>..\References\AlienJust.Support.Concurrent.Contracts.dll</HintPath>
+    </Reference>
+    <Reference Include="AlienJust.Support.Identy.Contracts">
+      <HintPath>..\References\AlienJust.Support.Identy.Contracts.dll</HintPath>
+    </Reference>
+    <Reference Include="AlienJust.Support.Text">
+      <HintPath>..\References\AlienJust.Support.Text.dll</HintPath>
+    </Reference>
+    <Reference Include="DataAbstractionLevel.Low">
+      <HintPath>..\References\DataAbstractionLevel.Low.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="psn.Буровая.АИН1.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="params.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+</Project>

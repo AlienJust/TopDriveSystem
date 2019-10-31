@@ -1,0 +1,34 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.IO.Ports" Version="4.7.0-preview1.19504.10" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\TopDriveSystem.Commands.Contracts\TopDriveSystem.Commands.Contracts.csproj" />
+    <ProjectReference Include="..\TopDriveSystem.CommandSenders.Contracts\TopDriveSystem.CommandSenders.Contracts.csproj" />
+    <ProjectReference Include="..\TopDriveSystem.CommandSenders.SerialPortBased\TopDriveSystem.CommandSenders.SerialPortBased.csproj" />
+    <ProjectReference Include="..\TopDriveSystem.CommandSenders.TestCommandSender\TopDriveSystem.CommandSenders.TestCommandSender.csproj" />
+    <ProjectReference Include="..\TopDriveSystem.Commands\TopDriveSystem.Commands.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="AlienJust.Support.Collections">
+      <HintPath>..\References\AlienJust.Support.Collections.dll</HintPath>
+    </Reference>
+    <Reference Include="AlienJust.Support.Concurrent">
+      <HintPath>..\References\AlienJust.Support.Concurrent.dll</HintPath>
+    </Reference>
+    <Reference Include="AlienJust.Support.Concurrent.Contracts">
+      <HintPath>..\References\AlienJust.Support.Concurrent.Contracts.dll</HintPath>
+    </Reference>
+    <Reference Include="AlienJust.Support.Loggers.Contracts">
+      <HintPath>..\References\AlienJust.Support.Loggers.Contracts.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,37 @@
+﻿<UserControl x:Class="TopDriveSystem.ConfigApp.LookedLikeAbb.Group08Parameters.Group08ParametersView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TopDriveSystem.ConfigApp.LookedLikeAbb"
+             xmlns:group08Parameters="clr-namespace:TopDriveSystem.ConfigApp.LookedLikeAbb.Group08Parameters"
+             xmlns:mswParameter="clr-namespace:TopDriveSystem.ConfigApp.LookedLikeAbb.Group08Parameters.MswParameter"
+             xmlns:aswParameter="clr-namespace:TopDriveSystem.ConfigApp.LookedLikeAbb.Group08Parameters.AswParameter"
+             xmlns:parameterDoubleReadonly="clr-namespace:TopDriveSystem.ConfigApp.LookedLikeAbb.Parameters.ParameterDoubleReadonly"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition/>
+			<RowDefinition Height="Auto"/>
+		</Grid.RowDefinitions>
+		<ScrollViewer>
+			<StackPanel Orientation="Vertical">
+				<mswParameter:MswParameterView DataContext="{Binding Path=Parameter01Vm, Mode=OneTime}"/>
+				<aswParameter:AswParameterView DataContext="{Binding Path=Parameter02Vm, Mode=OneTime}"/>
+				<parameterDoubleReadonly:ParameterDoubleReadonlyView DataContext="{Binding Path=Parameter03Vm, Mode=OneTime}"/>
+				<parameterDoubleReadonly:ParameterDoubleReadonlyView DataContext="{Binding Path=Parameter04Vm, Mode=OneTime}"/>
+				<parameterDoubleReadonly:ParameterDoubleReadonlyView DataContext="{Binding Path=Parameter05Vm, Mode=OneTime}"/>
+				<parameterDoubleReadonly:ParameterDoubleReadonlyView DataContext="{Binding Path=Parameter06Vm, Mode=OneTime}"/>
+			</StackPanel>
+		</ScrollViewer>
+		<Grid Grid.Row="1">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition/>
+				<ColumnDefinition/>
+			</Grid.ColumnDefinitions>
+			<Button Content="Читать циклически" Command="{Binding Path=ReadCycleCmd, Mode=OneTime}" Style="{DynamicResource AccentedSquareButtonStyle}" Margin="2,2,2,2"/>
+			<Button Grid.Column="1" Content="Остановка" Command="{Binding Path=StopReadCycleCmd, Mode=OneTime}" Style="{DynamicResource SquareButtonStyle}" Margin="2,2,2,2"/>
+		</Grid>
+	</Grid>
+</UserControl>

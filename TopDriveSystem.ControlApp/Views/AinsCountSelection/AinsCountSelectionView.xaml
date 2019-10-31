@@ -1,0 +1,41 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             
+             xmlns:viewModels="clr-namespace:TopDriveSystem.ControlApp.ViewModels"
+             
+             mc:Ignorable="d" d:DesignWidth="200" d:DesignHeight="30"
+             
+             x:Class="TopDriveSystem.ControlApp.Views.AinsCountSelection.AinsCountSelectionView">
+  <StackPanel Grid.Row="0" Orientation="Horizontal">
+    <StackPanel Orientation="Horizontal">
+      <Ellipse
+          Width="10"
+          Height="10"
+          VerticalAlignment="Center"
+          Margin="1"/>
+      <Ellipse
+          Width="10"
+          Height="10"
+          VerticalAlignment="Center"
+          Margin="1" />
+      <Ellipse
+          Width="10"
+          Height="10"
+          VerticalAlignment="Center"
+          Margin="1" />
+    </StackPanel>
+    <StackPanel
+        Orientation="Horizontal">
+      <TextBlock
+          Margin="2,2,2,2"
+          Text="Количество АИН:"
+          VerticalAlignment="Center" />
+      <ComboBox
+          Margin="2,2,2,2"
+          Items="{Binding AinsCountList}"
+          SelectedItem="{Binding SelectedAinsCount}" />
+    </StackPanel>
+  </StackPanel>
+</UserControl>
