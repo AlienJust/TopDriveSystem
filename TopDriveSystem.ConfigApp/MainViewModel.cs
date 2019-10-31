@@ -30,7 +30,6 @@ using TopDriveSystem.ConfigApp.BsEthernetLogs;
 using TopDriveSystem.ConfigApp.EngineAutoSetup;
 using TopDriveSystem.ConfigApp.Logs;
 using TopDriveSystem.ConfigApp.LookedLikeAbb.AinSettingsRw;
-using TopDriveSystem.ConfigApp.LookedLikeAbb.Chart;
 using TopDriveSystem.ConfigApp.MnemonicCheme;
 using TopDriveSystem.ConfigApp.NewLook.Archive;
 using TopDriveSystem.ConfigApp.NewLook.OldLook;
@@ -251,7 +250,6 @@ namespace TopDriveSystem.ConfigApp
             _logger.Log("Программа загружена");
         }
 
-        public ChartViewModel ChartControlVm { get; set; }
         public IParameterLogger ExternalParamLogger { get; set; }
 
         public AinCommandAndCommonTelemetryViewModel AinCommandAndCommonTelemetryVm { get; }

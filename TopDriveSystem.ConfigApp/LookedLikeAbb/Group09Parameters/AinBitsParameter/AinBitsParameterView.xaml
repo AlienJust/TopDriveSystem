@@ -6,7 +6,6 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:parameterBooleanReadonly="clr-namespace:TopDriveSystem.ConfigApp.LookedLikeAbb.Parameters.ParameterBooleanReadonly"
     xmlns:parameterStringReadonly="clr-namespace:TopDriveSystem.ConfigApp.LookedLikeAbb.Parameters.ParameterStringReadonly"
-    xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="300">

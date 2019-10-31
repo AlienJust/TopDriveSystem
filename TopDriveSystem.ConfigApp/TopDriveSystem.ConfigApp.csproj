@@ -64,10 +64,6 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Abt.Controls.SciChart.Wpf.2.2, Version=2.2.5076.36477, Culture=neutral, PublicKeyToken=b55dd9efe817e823, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\References\Abt.Controls.SciChart.Wpf.2.2.dll</HintPath>
-    </Reference>
     <Reference Include="AlienJust.Support.Mvvm">
       <HintPath>..\References\AlienJust.Support.Mvvm.dll</HintPath>
     </Reference>
@@ -123,9 +119,6 @@
     <Reference Include="MahApps.Metro, Version=1.6.5.1, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MahApps.Metro.1.6.5\lib\net47\MahApps.Metro.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Expression.Interactions, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Windows.Interactivity.WPF.2.0.20525\lib\net40\Microsoft.Expression.Interactions.dll</HintPath>
-    </Reference>
     <Reference Include="OxyPlot, Version=2.0.0.0, Culture=neutral, PublicKeyToken=638079a8f0bd61e9, processorArchitecture=MSIL">
       <HintPath>..\packages\OxyPlot.Core.2.0.0\lib\net45\OxyPlot.dll</HintPath>
     </Reference>
@@ -133,10 +126,6 @@
       <HintPath>..\packages\OxyPlot.Wpf.2.0.0\lib\net45\OxyPlot.Wpf.dll</HintPath>
     </Reference>
     <Reference Include="ReachFramework" />
-    <Reference Include="RPD.SciChartControl, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\References\RPD.SciChartControl.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
@@ -144,9 +133,6 @@
       <HintPath>..\packages\System.IO.Ports.4.7.0-preview1.19504.10\lib\net461\System.IO.Ports.dll</HintPath>
     </Reference>
     <Reference Include="System.Printing" />
-    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\ControlzEx.3.0.2.4\lib\net462\System.Windows.Interactivity.dll</HintPath>
-    </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -157,22 +143,6 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
-    <Reference Include="Xceed.Wpf.Themes, Version=3.0.16174.17450, Culture=neutral, PublicKeyToken=ba83ff368b7563c6, processorArchitecture=MSIL">
-      <HintPath>..\packages\Xceed.Wpf.Themes.3.0.16174.17450\lib\net40\Xceed.Wpf.Themes.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Xceed.Wpf.Themes.Metro, Version=3.0.16174.17450, Culture=neutral, PublicKeyToken=ba83ff368b7563c6, processorArchitecture=MSIL">
-      <HintPath>..\packages\Xceed.Wpf.Themes.Metro.3.0.16174.17450\lib\net40\Xceed.Wpf.Themes.Metro.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Xceed.Wpf.Themes.Office2007, Version=3.0.16174.17450, Culture=neutral, PublicKeyToken=ba83ff368b7563c6, processorArchitecture=MSIL">
-      <HintPath>..\packages\Xceed.Wpf.Themes.Office2007.3.0.16174.17450\lib\net40\Xceed.Wpf.Themes.Office2007.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Xceed.Wpf.Toolkit, Version=3.0.16174.17450, Culture=neutral, PublicKeyToken=ba83ff368b7563c6, processorArchitecture=MSIL">
-      <HintPath>..\packages\Xceed.Wpf.Toolkit.3.0.16174.17450\lib\net40\Xceed.Wpf.Toolkit.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -232,7 +202,6 @@
     <Compile Include="AppControl\Cycle\CycleThreadHolderThreadSafe.cs" />
     <Compile Include="AppControl\EngineSettingsSpace\IEngineSettingsStorageSettable.cs" />
     <Compile Include="AppControl\EngineSettingsSpace\StoredEngineSettingsUpdatedDelegate.cs" />
-    <Compile Include="AppControl\IWindowSystemModel.cs" />
     <Compile Include="AppControl\LoggerHost\ILoggerRegistrationPoint.cs" />
     <Compile Include="AppControl\LoggerHost\LoggerRegistrationPointThreadSafe.cs" />
     <Compile Include="AppControl\NotifySendingEnabled\INotifySendingEnabledRaisable.cs" />
@@ -242,12 +211,9 @@
     <Compile Include="AppControl\SimpleUiRoot.cs" />
     <Compile Include="AppControl\TargetAddressHost\TargetAddressHostThreadSafe.cs" />
     <Compile Include="AppControl\TargetAddressHost\ITargetAddressHostSettable.cs" />
-    <Compile Include="AppControl\WindowSystemModel.cs" />
     <Compile Include="AutoTimeSetter.cs" />
     <Compile Include="AppControl\CommandSenderHost\CommandSenderHostThreadSafe.cs" />
     <Compile Include="AppControl\CommandSenderHost\ICommandSenderHostSettable.cs" />
-    <Compile Include="BsEthernetLogs\AppendTextBehavior.cs" />
-    <Compile Include="BsEthernetLogs\AutoScrollingBehavior.cs" />
     <Compile Include="BsEthernetLogs\IcAnotherLogLineWasReadedOrNot.cs" />
     <Compile Include="BsEthernetLogs\IReadCycleModel.cs" />
     <Compile Include="BsEthernetLogs\ReadCycleModel.cs" />
@@ -296,14 +262,6 @@
     <Compile Include="AppControl\AinSettingsRead\IAinSettingsReadNotify.cs" />
     <Compile Include="AppControl\AinSettingsRead\IAinSettingsReader.cs" />
     <Compile Include="AppControl\AinSettingsWrite\IAinSettingsWriter.cs" />
-    <Compile Include="LookedLikeAbb\Chart\ChartView.xaml.cs">
-      <DependentUpon>ChartView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="LookedLikeAbb\Chart\IUpdatable.cs" />
-    <Compile Include="LookedLikeAbb\Chart\WindowChart.xaml.cs">
-      <DependentUpon>WindowChart.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="LookedLikeAbb\Chart\WindowChartViewModel.cs" />
     <Compile Include="EngineAutoSetup\EngineTestIdExtensions.cs" />
     <Compile Include="EngineAutoSetup\EngineTestParamsBuilderAciIdentifyIni.cs" />
     <Compile Include="LookedLikeAbb\Group07Parameters\McwParameter\McwParameterView.xaml.cs">
@@ -443,16 +401,7 @@
     <Compile Include="AppControl\AinSettingsWrite\IAinSettingsPart.cs" />
     <Compile Include="LookedLikeAbb\AinSettingsRw\IAinSettingsReaderWriter.cs" />
     <Compile Include="LookedLikeAbb\ICheckableParameter.cs" />
-    <Compile Include="LookedLikeAbb\Chart\ChartViewModel.cs" />
     <Compile Include="AppControl\ParamLogger\IParameterLogger.cs" />
-    <Compile Include="LookedLikeAbb\Oscilloscope\OscilloscopeLogger.cs" />
-    <Compile Include="LookedLikeAbb\Oscilloscope\OscilloscopeWindow.xaml.cs">
-      <DependentUpon>OscilloscopeWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="LookedLikeAbb\Oscilloscope\OscilloscopeWindowSciVm.cs" />
-    <Compile Include="LookedLikeAbb\Oscilloscope\OscilloscopeWindowVm.cs" />
-    <Compile Include="LookedLikeAbb\Oscilloscope\PanModifierOnPause.cs" />
-    <Compile Include="LookedLikeAbb\Oscilloscope\PanModifierOnResume.cs" />
     <Compile Include="LookedLikeAbb\Parameters\ParameterBooleanEditCheck\ParameterBooleanEditCheckView.xaml.cs">
       <DependentUpon>ParameterBooleanEditCheckView.xaml</DependentUpon>
     </Compile>
@@ -490,7 +439,6 @@
     </Compile>
     <Compile Include="LookedLikeAbb\Parameters\ParameterDoubleEditCheck\ParameterDoubleEditCheckViewModel.cs" />
     <Compile Include="LookedLikeAbb\Parameters\ParameterDoubleReadonly\ParameterDoubleReadonlyViewModel.cs" />
-    <Compile Include="LookedLikeAbb\Chart\PointsSeriesAndAdditionalData.cs" />
     <Compile Include="LookedLikeAbb\Parameters\ParameterStringReadonly\ParameterStringReadonlyView.xaml.cs">
       <DependentUpon>ParameterStringReadonlyView.xaml</DependentUpon>
     </Compile>
@@ -533,7 +481,6 @@
     </Compile>
     <Compile Include="AppControl\NotifySendingEnabled\SendingEnabledChangedDelegate.cs" />
     <Compile Include="ILinkContol.cs" />
-    <Compile Include="LookedLikeAbb\Chart\SeriesAdditionalData.cs" />
     <Compile Include="NewLook\Settings\SettingsView.xaml.cs">
       <DependentUpon>SettingsView.xaml</DependentUpon>
     </Compile>
@@ -625,14 +572,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="BsEthernetSettings\BsEthernetSettingsView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="LookedLikeAbb\Chart\ChartView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="LookedLikeAbb\Chart\WindowChart.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -745,10 +684,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="LookedLikeAbb\Group20SettingsView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="LookedLikeAbb\Oscilloscope\OscilloscopeWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

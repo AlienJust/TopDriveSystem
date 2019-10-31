@@ -4,7 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+    xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
     mc:Ignorable="d"
     d:DesignHeight="400"
     d:DesignWidth="500">
@@ -48,7 +48,7 @@
                         Grid.Column="0"
                         VerticalAlignment="Center"
                         Text="Номинальный ток двигателя, А" />
-                    <xctk:DecimalUpDown
+                    <mah:NumericUpDown
                         Grid.Column="1"
                         Value="{Binding Path=Inom, Mode=TwoWay}" />
                 </Grid>
@@ -64,7 +64,7 @@
                         Grid.Column="0"
                         VerticalAlignment="Center"
                         Text="Номинальная скорость двигателя, об/мин" />
-                    <xctk:DecimalUpDown
+                    <mah:NumericUpDown
                         Grid.Column="1"
                         Value="{Binding Path=Nnom, Mode=TwoWay}" />
                 </Grid>
@@ -80,7 +80,7 @@
                         Grid.Column="0"
                         VerticalAlignment="Center"
                         Text="Максимальная скорость двигателя, об/мин" />
-                    <xctk:DecimalUpDown
+                    <mah:NumericUpDown
                         Grid.Column="1"
                         Value="{Binding Path=Nmax, Mode=TwoWay}" />
                 </Grid>
@@ -96,10 +96,10 @@
                         Grid.Column="0"
                         VerticalAlignment="Center"
                         Text="Номинальная Мощность двигателя [кВт]" />
-                    <xctk:DecimalUpDown
+                    <mah:NumericUpDown
                         Grid.Column="1"
                         Value="{Binding Path=Pnom, Mode=TwoWay}"
-                        FormatString="f3" />
+                        StringFormat="f3" />
                 </Grid>
 
                 <Grid>
@@ -113,10 +113,10 @@
                         Grid.Column="0"
                         VerticalAlignment="Center"
                         Text="CosФ" />
-                    <xctk:DecimalUpDown
+                    <mah:NumericUpDown
                         Grid.Column="1"
                         Value="{Binding Path=CosFi, Mode=TwoWay}"
-                        FormatString="f2" />
+                        StringFormat="f2" />
                 </Grid>
 
                 <Grid>
@@ -130,10 +130,10 @@
                         Grid.Column="0"
                         VerticalAlignment="Center"
                         Text="КПД двигателя, %" />
-                    <xctk:DecimalUpDown
+                    <mah:NumericUpDown
                         Grid.Column="1"
                         Value="{Binding Path=Eff, Mode=TwoWay}"
-                        FormatString="f1" />
+                        StringFormat="f1" />
                 </Grid>
 
                 <Grid>
@@ -147,7 +147,7 @@
                         Grid.Column="0"
                         VerticalAlignment="Center"
                         Text="Масса двигателя, кг" />
-                    <xctk:DecimalUpDown
+                    <mah:NumericUpDown
                         Grid.Column="1"
                         Value="{Binding Path=Mass, Mode=TwoWay}" />
                 </Grid>
@@ -163,7 +163,7 @@
                         Grid.Column="0"
                         VerticalAlignment="Center"
                         Text="Кратность момента" />
-                    <xctk:DecimalUpDown
+                    <mah:NumericUpDown
                         Grid.Column="1"
                         Value="{Binding Path=MmM, Mode=TwoWay}" />
                 </Grid>
@@ -179,7 +179,7 @@
                         Grid.Column="0"
                         VerticalAlignment="Center"
                         Text="Высота двигателя, мм" />
-                    <xctk:DecimalUpDown
+                    <mah:NumericUpDown
                         Grid.Column="1"
                         Value="{Binding Path=Height, Mode=TwoWay}" />
                 </Grid>
@@ -195,7 +195,7 @@
                         Grid.Column="0"
                         VerticalAlignment="Center"
                         Text="ГРАНИЦА ПЕРЕГРЕВА, [АМПЕР^2 *0.1сек]" />
-                    <xctk:DecimalUpDown
+                    <mah:NumericUpDown
                         Grid.Column="1"
                         Value="{Binding Path=I2Tmax, Mode=TwoWay}" />
                 </Grid>
@@ -211,7 +211,7 @@
                         Grid.Column="0"
                         VerticalAlignment="Center"
                         Text="Номинальный ток, при котором остывание равно нагреву (RMS) [А]" />
-                    <xctk:IntegerUpDown
+                    <mah:NumericUpDown
                         Grid.Column="1"
                         Value="{Binding Path=Icontinious, Mode=TwoWay}" />
                 </Grid>
@@ -227,7 +227,7 @@
                         Grid.Column="0"
                         VerticalAlignment="Center"
                         Text="*0.1Гц Скорость вращения (электрическая) ниже нулевого предела (ZERO_SPEED)" />
-                    <xctk:IntegerUpDown
+                    <mah:NumericUpDown
                         Grid.Column="1"
                         Value="{Binding Path=ZeroF, Mode=TwoWay}" />
                 </Grid>

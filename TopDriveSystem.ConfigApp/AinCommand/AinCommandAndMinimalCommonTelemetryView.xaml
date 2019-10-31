@@ -4,7 +4,6 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:TopDriveSystem.ConfigApp.AinCommand"
-    xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
     xmlns:custom="http://metro.mahapps.com/winfx/xaml/controls"
     x:Class="TopDriveSystem.ConfigApp.AinCommand.AinCommandAndMinimalCommonTelemetryView"
     mc:Ignorable="d"
@@ -236,7 +235,7 @@
                     Grid.Column="1"
                     Text="{Binding MsetReceived, Mode=OneWay}" />
             </Grid>
-            <xctk:IntegerUpDown
+            <custom:NumericUpDown
                 Grid.Column="1"
                 Grid.Row="3"
                 Value="{Binding Mset, Mode=TwoWay}"
@@ -263,7 +262,7 @@
                     Text="{Binding Reserve3Received, Mode=OneWay}"
                     Margin="0,0,4,0" />
             </Grid>
-            <xctk:IntegerUpDown
+            <custom:NumericUpDown
                 Grid.Column="1"
                 Grid.Row="4"
                 Value="{Binding Set3, Mode=TwoWay}"
@@ -290,7 +289,7 @@
                     Text="{Binding MMinReceived, Mode=OneWay}"
                     Margin="0,0,4,0" />
             </Grid>
-            <xctk:IntegerUpDown
+            <custom:NumericUpDown
                 Grid.Column="1"
                 Grid.Row="5"
                 Value="{Binding Mmin, Mode=TwoWay}"
@@ -316,7 +315,7 @@
                     Grid.Column="1"
                     Text="{Binding MMaxReceived, Mode=OneWay}" />
             </Grid>
-            <xctk:IntegerUpDown
+            <custom:NumericUpDown
                 Grid.Column="1"
                 Grid.Row="6"
                 Value="{Binding Mmax, Mode=TwoWay}"
