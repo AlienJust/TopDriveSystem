@@ -51,11 +51,13 @@
             </StackPanel>
         </controls:WindowCommands>
     </controls:MetroWindow.RightWindowCommands>
+    <!--
     <interactivity1:Interaction.Triggers>
         <interactivity1:EventTrigger EventName="Closing">
             <interactivity1:InvokeCommandAction Command="{Binding Path=ClosingWindowCommand, Mode=OneTime}" />
         </interactivity1:EventTrigger>
     </interactivity1:Interaction.Triggers>
+    -->
     <ScrollViewer>
         <!--<interactivity1:Interaction.Behaviors>
 			<bsEthernetLogs:AutoScrollingBehavior UpdateTrigger="{Binding LogText, Mode=TwoWay}" />

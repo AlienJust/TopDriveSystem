@@ -1,14 +1,12 @@
 ﻿using System;
-using System.Windows.Input;
 using AlienJust.Support.Mvvm;
 using AlienJust.Support.Reflection;
 using TopDriveSystem.Commands.BsEthernetLogs;
 
 namespace TopDriveSystem.ConfigApp.BsEthernetLogs
 {
-    internal class WindowViewModel : ViewModelBase
+    internal class WindowViewModel : ViewModelBase, IDisposable
     {
-        private readonly RelayCommand _closingWindowCommand;
         private readonly string _logTextName;
         private readonly IReadCycleModel _model;
         private readonly IUserInterfaceRoot _uiRoot;
@@ -17,27 +15,8 @@ namespace TopDriveSystem.ConfigApp.BsEthernetLogs
         private IBsEthernetLogLine _lastLogLine;
 
         private string _logText;
-
-        public WindowViewModel(IUserInterfaceRoot uiRoot, ReadCycleModel model)
-        {
-            _uiRoot = uiRoot;
-
-            _logTextName = ReflectedProperty.GetName(() => LogText);
-            LogText = string.Empty;
-
-            _closingWindowCommand = new RelayCommand(WindowClosing, () => true);
-            _lastLogLine = null;
-
-            _errorsCount = 0;
-
-            //_model = new ReadCycleModel(commandSenderHost, targetAddressHost, notifySendingEnabled);
-            _model = model;
-            _model.AnotherLogLineWasReaded +=
-                ModelOnAnotherLogLineWasReaded; // TODO: unsubscribe on win close, also _destroy model
-        }
-
-        public Action<string> AppendTextAction { get; set; }
-
+        
+        //public Action<string> AppendTextAction { get; set; }
 
         public bool IsActive
         {
@@ -59,8 +38,20 @@ namespace TopDriveSystem.ConfigApp.BsEthernetLogs
             }
         }
 
-        public ICommand ClosingWindowCommand => _closingWindowCommand;
+        public WindowViewModel(IUserInterfaceRoot uiRoot, ReadCycleModel model)
+        {
+            _uiRoot = uiRoot;
 
+            _logTextName = ReflectedProperty.GetName(() => LogText);
+            LogText = string.Empty;
+
+            _lastLogLine = null;
+
+            _errorsCount = 0;
+
+            _model = model;
+            _model.AnotherLogLineWasReaded += ModelOnAnotherLogLineWasReaded; // TODO: unsubscribe on win close, also _destroy model
+        }
 
         private void ModelOnAnotherLogLineWasReaded(IBsEthernetLogLine logLine)
         {
@@ -91,12 +82,44 @@ namespace TopDriveSystem.ConfigApp.BsEthernetLogs
         }
 
 
-        private void WindowClosing()
-        {
-            IsActive = false;
-            RaisePropertyChanged(() => IsActive);
+        #region IDisposable Support
+        private bool disposedValue = false; // To detect redundant calls
 
-            _model.StopBackgroundThreadAndWaitForIt();
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposedValue)
+            {
+                if (disposing)
+                {
+                    // TODO: dispose managed state (managed objects).
+                    IsActive = false;
+                    RaisePropertyChanged(() => IsActive);
+                    _model.StopBackgroundThreadAndWaitForIt();
+                    _model.AnotherLogLineWasReaded -= ModelOnAnotherLogLineWasReaded;
+                }
+
+                // TODO: free unmanaged resources (unmanaged objects) and override a finalizer below.
+                // TODO: set large fields to null.
+
+                disposedValue = true;
+            }
         }
+
+        // TODO: override a finalizer only if Dispose(bool disposing) above has code to free unmanaged resources.
+        // ~WindowViewModel()
+        // {
+        //   // Do not change this code. Put cleanup code in Dispose(bool disposing) above.
+        //   Dispose(false);
+        // }
+
+        // This code added to correctly implement the disposable pattern.
+        public void Dispose()
+        {
+            // Do not change this code. Put cleanup code in Dispose(bool disposing) above.
+            Dispose(true);
+            // TODO: uncomment the following line if the finalizer is overridden above.
+            // GC.SuppressFinalize(this);
+        }
+        #endregion
     }
 }

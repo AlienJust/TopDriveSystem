@@ -109,12 +109,9 @@
                     FontWeight="SemiBold"
                     FontSize="12"
                     BorderThickness="0"
-                    Style="{DynamicResource AccentedSquareButtonStyle}">
-                    <iconPacks:PackIconMaterial
-                        Width="Auto"
-                        Height="Auto"
-                        Kind="Refresh" />
-                </Button>
+                    Style="{DynamicResource AccentedSquareButtonStyle}"
+                    Content="O"
+                     />
             </StackPanel>
             <Button
                 Margin="2,2,2,2"

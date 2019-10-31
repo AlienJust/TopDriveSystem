@@ -36,21 +36,17 @@
             <StackPanel Orientation="Horizontal">
                 <Button x:Name="ButtonZoomOut" Click="ButtonZoomOut_Click" BorderThickness="2"
                         BorderBrush="Transparent"
-                        Style="{DynamicResource AccentedSquareButtonStyle}">
-                    <iconPacks:PackIconModern Kind="Minus" />
-                </Button>
+                        Style="{DynamicResource AccentedSquareButtonStyle}" 
+                        Content="-"/>
+
                 <Button x:Name="ButtonZoomIn" Click="ButtonZoomIn_Click" BorderThickness="2" BorderBrush="Transparent"
-                        Style="{DynamicResource AccentedSquareButtonStyle}">
-                    <iconPacks:PackIconModern Kind="Add" />
-                </Button>
+                        Style="{DynamicResource AccentedSquareButtonStyle}" Content="+"/>
                 <Button x:Name="ButtonPause" Click="ButtonPause_Click" BorderThickness="2" BorderBrush="Transparent"
-                        Style="{DynamicResource AccentedSquareButtonStyle}">
-                    <iconPacks:PackIconMaterial Kind="Pause" />
-                </Button>
+                        Style="{DynamicResource AccentedSquareButtonStyle}" Content="||}"/>
                 <Button x:Name="ButtonResume" Click="ButtonResume_Click" BorderThickness="2" BorderBrush="Transparent"
-                        Style="{DynamicResource AccentedSquareButtonStyle}">
-                    <iconPacks:PackIconMaterial Kind="Play" />
-                </Button>
+                        Style="{DynamicResource AccentedSquareButtonStyle}" Content="|>}"/>
+                
+
             </StackPanel>
             <StackPanel Orientation="Horizontal">
                 <TextBlock Text="Автомасштаб" VerticalAlignment="Center" />
