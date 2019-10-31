@@ -3,13 +3,13 @@
 namespace TopDriveSystem.ConfigApp.AinsSettings
 {
 	/// <summary>
-	/// Interaction logic for BsEthernetNominalsView.xaml
+	///     Interaction logic for BsEthernetNominalsView.xaml
 	/// </summary>
 	public partial class AinSettingsView : UserControl
-	{
-		public AinSettingsView()
-		{
-			InitializeComponent();
-		}
-	}
+    {
+        public AinSettingsView()
+        {
+            InitializeComponent();
+        }
+    }
 }

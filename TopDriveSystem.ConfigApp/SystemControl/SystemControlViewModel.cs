@@ -11,154 +11,175 @@ using TopDriveSystem.ConfigApp.AppControl.CommandSenderHost;
 using TopDriveSystem.ConfigApp.AppControl.NotifySendingEnabled;
 using TopDriveSystem.ConfigApp.AppControl.TargetAddressHost;
 
-namespace TopDriveSystem.ConfigApp.SystemControl {
-	internal class SystemControlViewModel : ViewModelBase, IDebugInformationShower {
-		private readonly ICommandSenderHost _commandSenderHost;
-		private readonly ITargetAddressHost _targerAddressHost;
-		private readonly IUserInterfaceRoot _userInterfaceRoot;
-		private readonly ILogger _logger;
-		private readonly IWindowSystem _windowSystem;
-		private readonly INotifySendingEnabled _sendingEnabledControl;
-		private readonly ILinkContol _linkControl;
+namespace TopDriveSystem.ConfigApp.SystemControl
+{
+    internal class SystemControlViewModel : ViewModelBase, IDebugInformationShower
+    {
+        private readonly RelayCommand _cmdSetBootloader;
+        private readonly ICommandSenderHost _commandSenderHost;
+        private readonly ILinkContol _linkControl;
+        private readonly ILogger _logger;
+        private readonly INotifySendingEnabled _sendingEnabledControl;
+        private readonly ITargetAddressHost _targerAddressHost;
+        private readonly IUserInterfaceRoot _userInterfaceRoot;
+        private readonly IWindowSystem _windowSystem;
 
-		private readonly RelayCommand _cmdSetBootloader;
-		private readonly RelayCommand _cmdRestart;
-		private readonly RelayCommand _cmdFlash;
+        public SystemControlViewModel(ICommandSenderHost commandSenderHost, ITargetAddressHost targerAddressHost,
+            IUserInterfaceRoot userInterfaceRoot, ILogger logger, IWindowSystem windowSystem,
+            INotifySendingEnabled sendingEnabledControl, ILinkContol linkControl,
+            TelemetryCommonViewModel commonTelemetryVm)
+        {
+            _commandSenderHost = commandSenderHost;
+            _targerAddressHost = targerAddressHost;
+            _userInterfaceRoot = userInterfaceRoot;
+            _logger = logger;
+            _windowSystem = windowSystem;
+            _sendingEnabledControl = sendingEnabledControl;
+            _linkControl = linkControl;
 
-		public SystemControlViewModel(ICommandSenderHost commandSenderHost, ITargetAddressHost targerAddressHost, IUserInterfaceRoot userInterfaceRoot, ILogger logger, IWindowSystem windowSystem, INotifySendingEnabled sendingEnabledControl, ILinkContol linkControl, TelemetryCommonViewModel commonTelemetryVm) {
-			_commandSenderHost = commandSenderHost;
-			_targerAddressHost = targerAddressHost;
-			_userInterfaceRoot = userInterfaceRoot;
-			_logger = logger;
-			_windowSystem = windowSystem;
-			_sendingEnabledControl = sendingEnabledControl;
-			_linkControl = linkControl;
+            CommonTelemetryVm = commonTelemetryVm;
 
-			CommonTelemetryVm = commonTelemetryVm;
+            _cmdSetBootloader = new RelayCommand(SetBootloader, () => _sendingEnabledControl.IsSendingEnabled);
+            CmdRestart = new RelayCommand(Restart, () => _sendingEnabledControl.IsSendingEnabled);
+            CmdFlash = new RelayCommand(Flash, () => _sendingEnabledControl.IsSendingEnabled);
 
-			_cmdSetBootloader = new RelayCommand(SetBootloader, () => _sendingEnabledControl.IsSendingEnabled);
-			_cmdRestart = new RelayCommand(Restart, () => _sendingEnabledControl.IsSendingEnabled);
-			_cmdFlash = new RelayCommand(Flash, () => _sendingEnabledControl.IsSendingEnabled);
+            _sendingEnabledControl.SendingEnabledChanged += SendingEnabledControlOnSendingEnabledChanged;
 
-			_sendingEnabledControl.SendingEnabledChanged += SendingEnabledControlOnSendingEnabledChanged;
-
-			DebugParametersTrendVm = new DebugParametersTrendViewModel();
-			DebugParametersVm = new DebugParametersViewModel();
-		}
-
-		private void SendingEnabledControlOnSendingEnabledChanged(bool issendingenabled) {
-			_cmdSetBootloader.RaiseCanExecuteChanged();
-			_cmdRestart.RaiseCanExecuteChanged();
-			_cmdFlash.RaiseCanExecuteChanged();
-		}
-
-		private void SetBootloader() {
-			try {
-				_logger.Log("Переход в режим bootloader");
-
-				var cmd = new SetBootloaderCommand();
-
-				_logger.Log("Команда перехода в режим bootloader поставлена в очередь");
-				_commandSenderHost.Sender.SendCommandAsync(
-					_targerAddressHost.TargetAddress
-					, cmd
-					, TimeSpan.FromSeconds(1.0), 1
-					, (exception, bytes) => _userInterfaceRoot.Notifier.Notify(() => {
-						try {
-							if (exception != null) {
-								throw new Exception("Ошибка при передаче данных: " + exception.Message, exception);
-							}
-							_logger.Log("Команда перехода в режим bootloader была отправлена");
-						}
-						catch (Exception ex) {
-							_logger.Log(ex.Message);
-						}
-					}));
-			}
-			catch (Exception ex) {
-				_logger.Log("Не удалось поставить команду перехода в режим bootloader в очередь: " + ex.Message);
-			}
-		}
+            DebugParametersTrendVm = new DebugParametersTrendViewModel();
+            DebugParametersVm = new DebugParametersViewModel();
+        }
 
 
-		private void Flash() {
-			try {
-				_logger.Log("Переход в режим bootloader");
+        public ICommand CmdSetBootloader => _cmdSetBootloader;
 
-				var cmd = new SetBootloaderCommand();
-
-				_logger.Log("Команда перехода в режим bootloader поставлена в очередь");
-				_commandSenderHost.Sender.SendCommandAsync(
-					_targerAddressHost.TargetAddress
-					, cmd
-					, TimeSpan.FromSeconds(1.0), 1
-					, (exception, bytes) => _userInterfaceRoot.Notifier.Notify(() => {
-						try {
-							if (exception != null) {
-								//throw new Exception("Ошибка при передаче данных: " + exception.Message, exception);
-								_logger.Log("Произошла ошибка при передаче данных, но это нормально");
-							}
-							_logger.Log("Команда перехода в режим bootloader была отправлена, отключаемся от COM-порта");
-							var psi = new ProcessStartInfo("flash.bat");
-							var process = new Process {StartInfo = psi};
-							process.Start();
-						}
-						catch (Exception ex) {
-							_logger.Log(ex.Message);
-						}
-					}));
-				_linkControl.CloseComPort();
-			}
-			catch (Exception ex) {
-				_logger.Log("Не удалось поставить команду перехода в режим bootloader в очередь: " + ex.Message);
-			}
-		}
-
-		private void Restart() {
-			var cmd = new RestartCommand();
-			try {
-				_logger.Log(cmd.Name);
-				_logger.Log("Команда <" + cmd.Name + "> поставлена в очередь");
-				_commandSenderHost.Sender.SendCommandAsync(
-					_targerAddressHost.TargetAddress
-					, cmd
-					, TimeSpan.FromSeconds(1), 1
-					, (exception, bytes) => _userInterfaceRoot.Notifier.Notify(() => {
-						try {
-							if (exception != null) {
-								throw new Exception("Ошибка при передаче данных: " + exception.Message, exception);
-							}
-							_logger.Log("Команда <" + cmd.Name + "> была отправлена");
-						}
-						catch (Exception ex) {
-							_logger.Log(ex.Message);
-						}
-					}));
-			}
-			catch (Exception ex) {
-				_logger.Log("Не удалось поставить команду <" + cmd.Name + "> в очередь: " + ex.Message);
-			}
-		}
+        public RelayCommand CmdRestart { get; }
 
 
-		public ICommand CmdSetBootloader => _cmdSetBootloader;
+        public RelayCommand CmdFlash { get; }
 
-		public RelayCommand CmdRestart => _cmdRestart;
 
-		public void ShowBytes(IList<byte> bytes) {
-			//todo: notify child wms about ShowBytes()
-			DebugParametersTrendVm.ShowBytes(bytes);
-			DebugParametersVm.ShowBytes(bytes);
-		}
-		
+        public TelemetryCommonViewModel CommonTelemetryVm { get; }
 
-		public RelayCommand CmdFlash => _cmdFlash;
+        public DebugParametersTrendViewModel DebugParametersTrendVm { get; }
 
-		
-		public TelemetryCommonViewModel CommonTelemetryVm { get; }
+        public DebugParametersViewModel DebugParametersVm { get; }
 
-		public DebugParametersTrendViewModel DebugParametersTrendVm { get; }
+        public void ShowBytes(IList<byte> bytes)
+        {
+            //todo: notify child wms about ShowBytes()
+            DebugParametersTrendVm.ShowBytes(bytes);
+            DebugParametersVm.ShowBytes(bytes);
+        }
 
-		public DebugParametersViewModel DebugParametersVm { get; }
-	}
+        private void SendingEnabledControlOnSendingEnabledChanged(bool issendingenabled)
+        {
+            _cmdSetBootloader.RaiseCanExecuteChanged();
+            CmdRestart.RaiseCanExecuteChanged();
+            CmdFlash.RaiseCanExecuteChanged();
+        }
+
+        private void SetBootloader()
+        {
+            try
+            {
+                _logger.Log("Переход в режим bootloader");
+
+                var cmd = new SetBootloaderCommand();
+
+                _logger.Log("Команда перехода в режим bootloader поставлена в очередь");
+                _commandSenderHost.Sender.SendCommandAsync(
+                    _targerAddressHost.TargetAddress
+                    , cmd
+                    , TimeSpan.FromSeconds(1.0), 1
+                    , (exception, bytes) => _userInterfaceRoot.Notifier.Notify(() =>
+                    {
+                        try
+                        {
+                            if (exception != null)
+                                throw new Exception("Ошибка при передаче данных: " + exception.Message, exception);
+                            _logger.Log("Команда перехода в режим bootloader была отправлена");
+                        }
+                        catch (Exception ex)
+                        {
+                            _logger.Log(ex.Message);
+                        }
+                    }));
+            }
+            catch (Exception ex)
+            {
+                _logger.Log("Не удалось поставить команду перехода в режим bootloader в очередь: " + ex.Message);
+            }
+        }
+
+
+        private void Flash()
+        {
+            try
+            {
+                _logger.Log("Переход в режим bootloader");
+
+                var cmd = new SetBootloaderCommand();
+
+                _logger.Log("Команда перехода в режим bootloader поставлена в очередь");
+                _commandSenderHost.Sender.SendCommandAsync(
+                    _targerAddressHost.TargetAddress
+                    , cmd
+                    , TimeSpan.FromSeconds(1.0), 1
+                    , (exception, bytes) => _userInterfaceRoot.Notifier.Notify(() =>
+                    {
+                        try
+                        {
+                            if (exception != null
+                            ) //throw new Exception("Ошибка при передаче данных: " + exception.Message, exception);
+                                _logger.Log("Произошла ошибка при передаче данных, но это нормально");
+                            _logger.Log(
+                                "Команда перехода в режим bootloader была отправлена, отключаемся от COM-порта");
+                            var psi = new ProcessStartInfo("flash.bat");
+                            var process = new Process {StartInfo = psi};
+                            process.Start();
+                        }
+                        catch (Exception ex)
+                        {
+                            _logger.Log(ex.Message);
+                        }
+                    }));
+                _linkControl.CloseComPort();
+            }
+            catch (Exception ex)
+            {
+                _logger.Log("Не удалось поставить команду перехода в режим bootloader в очередь: " + ex.Message);
+            }
+        }
+
+        private void Restart()
+        {
+            var cmd = new RestartCommand();
+            try
+            {
+                _logger.Log(cmd.Name);
+                _logger.Log("Команда <" + cmd.Name + "> поставлена в очередь");
+                _commandSenderHost.Sender.SendCommandAsync(
+                    _targerAddressHost.TargetAddress
+                    , cmd
+                    , TimeSpan.FromSeconds(1), 1
+                    , (exception, bytes) => _userInterfaceRoot.Notifier.Notify(() =>
+                    {
+                        try
+                        {
+                            if (exception != null)
+                                throw new Exception("Ошибка при передаче данных: " + exception.Message, exception);
+                            _logger.Log("Команда <" + cmd.Name + "> была отправлена");
+                        }
+                        catch (Exception ex)
+                        {
+                            _logger.Log(ex.Message);
+                        }
+                    }));
+            }
+            catch (Exception ex)
+            {
+                _logger.Log("Не удалось поставить команду <" + cmd.Name + "> в очередь: " + ex.Message);
+            }
+        }
+    }
 }

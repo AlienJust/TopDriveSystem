@@ -1,27 +1,32 @@
 ﻿using AlienJust.Support.Mvvm;
 
-namespace TopDriveSystem.ConfigApp.LookedLikeAbb.Parameters.ParameterStringReadonly {
-	class ParameterStringReadonlyViewModel : ViewModelBase {
-		public string Name { get; }
-		private string _currentValue;
+namespace TopDriveSystem.ConfigApp.LookedLikeAbb.Parameters.ParameterStringReadonly
+{
+    internal class ParameterStringReadonlyViewModel : ViewModelBase
+    {
+        public ParameterStringReadonlyViewModel(string name, string currentValue)
+        {
+            Name = name;
 
-		public ParameterStringReadonlyViewModel(string name, string currentValue) {
-			Name = name;
+            FormattedValue = currentValue;
+        }
 
-			_currentValue = currentValue;
-		}
+        public string Name { get; }
 
-		public string CurrentValue {
-			get { return _currentValue; }
-			set {
-				if (_currentValue != value) {
-					_currentValue = value;
-					RaisePropertyChanged(() => CurrentValue);
-					RaisePropertyChanged(() => FormattedValue);
-				}
-			}
-		}
+        public string CurrentValue
+        {
+            get => FormattedValue;
+            set
+            {
+                if (FormattedValue != value)
+                {
+                    FormattedValue = value;
+                    RaisePropertyChanged(() => CurrentValue);
+                    RaisePropertyChanged(() => FormattedValue);
+                }
+            }
+        }
 
-		public string FormattedValue => _currentValue;
-	}
+        public string FormattedValue { get; private set; }
+    }
 }

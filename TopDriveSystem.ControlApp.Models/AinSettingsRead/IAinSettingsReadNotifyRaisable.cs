@@ -1,7 +1,7 @@
 using System;
 using TopDriveSystem.Commands.AinSettings;
 
-namespace TopDriveSystem.ConfigApp.AppControl.AinSettingsRead
+namespace TopDriveSystem.ControlApp.Models.AinSettingsRead
 {
     public interface IAinSettingsReadNotifyRaisable : IAinSettingsReadNotify
     {

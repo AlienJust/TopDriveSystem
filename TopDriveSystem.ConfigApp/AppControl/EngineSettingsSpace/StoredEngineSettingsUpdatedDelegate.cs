@@ -2,5 +2,5 @@
 
 namespace TopDriveSystem.ConfigApp.AppControl.EngineSettingsSpace
 {
-	delegate void StoredEngineSettingsUpdatedDelegate(IEngineSettings settings);
+    internal delegate void StoredEngineSettingsUpdatedDelegate(IEngineSettings settings);
 }

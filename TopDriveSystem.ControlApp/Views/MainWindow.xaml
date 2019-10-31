@@ -1,33 +1,34 @@
-<Window xmlns="https://github.com/avaloniaui" 
-  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
-  xmlns:vm="clr-namespace:TopDriveSystem.ControlApp.ViewModels;assembly=TopDriveSystem.ControlApp" 
-  xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" d:DesignWidth="500" d:DesignHeight="350" 
-  xmlns:reactiveUi="http://reactiveui.net"
-  
-  xmlns:deviceConnection="clr-namespace:TopDriveSystem.ControlApp.Views.DeviceConnection" 
-  xmlns:ainsCountSelection="clr-namespace:TopDriveSystem.ControlApp.Views.AinsCountSelection" 
-  
-  x:Class="TopDriveSystem.ControlApp.Views.MainWindow" 
-  
-  Icon="/Assets/avalonia-logo.ico" Title="Система верхнего привода">
-  <Grid RowDefinitions="auto,*">
-    <StackPanel Orientation="Horizontal">
-      <ainsCountSelection:AinsCountSelectionView DataContext="{Binding AinsCountSelectionVm}"/>
-      <deviceConnection:DeviceConnectionView DataContext="{Binding DeviceConnectionVm}"/>
-    </StackPanel>
-    <Grid Grid.Row="1" ColumnDefinitions="auto,*">
-      <StackPanel Orientation="Vertical">
-        <Button Command="{Binding Router.NavigateBack}" Content="Назад"/>
-        <Button Command="{Binding Telemetry}" Content="Телеметрия"/>
-        <Button Command="{Binding Settings}" Content="Настройки"/>
-        <Button Command="{Binding Control}" Content="Управление"/>
-      </StackPanel>
-      <reactiveUi:RoutedViewHost Grid.Column="1" Router="{Binding Router}">
-        <reactiveUi:RoutedViewHost.DefaultContent>
-          <TextBlock Text="Система верхнего привода" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-        </reactiveUi:RoutedViewHost.DefaultContent>
-      </reactiveUi:RoutedViewHost>
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="clr-namespace:TopDriveSystem.ControlApp.ViewModels;assembly=TopDriveSystem.ControlApp"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" d:DesignWidth="500"
+        d:DesignHeight="350"
+        xmlns:reactiveUi="http://reactiveui.net"
+
+        xmlns:deviceConnection="clr-namespace:TopDriveSystem.ControlApp.Views.DeviceConnection"
+        xmlns:ainsCountSelection="clr-namespace:TopDriveSystem.ControlApp.Views.AinsCountSelection"
+
+        x:Class="TopDriveSystem.ControlApp.Views.MainWindow"
+
+        Icon="/Assets/avalonia-logo.ico" Title="Система верхнего привода">
+    <Grid RowDefinitions="auto,*">
+        <StackPanel Orientation="Horizontal">
+            <ainsCountSelection:AinsCountSelectionView DataContext="{Binding AinsCountSelectionVm}" />
+            <deviceConnection:DeviceConnectionView DataContext="{Binding DeviceConnectionVm}" />
+        </StackPanel>
+        <Grid Grid.Row="1" ColumnDefinitions="auto,*">
+            <StackPanel Orientation="Vertical">
+                <Button Command="{Binding Router.NavigateBack}" Content="Назад" />
+                <Button Command="{Binding Telemetry}" Content="Телеметрия" />
+                <Button Command="{Binding Settings}" Content="Настройки" />
+                <Button Command="{Binding Control}" Content="Управление" />
+            </StackPanel>
+            <reactiveUi:RoutedViewHost Grid.Column="1" Router="{Binding Router}">
+                <reactiveUi:RoutedViewHost.DefaultContent>
+                    <TextBlock Text="Система верхнего привода" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                </reactiveUi:RoutedViewHost.DefaultContent>
+            </reactiveUi:RoutedViewHost>
+        </Grid>
     </Grid>
-  </Grid>
 </Window>

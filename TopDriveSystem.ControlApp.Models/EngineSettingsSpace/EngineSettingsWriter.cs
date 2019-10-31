@@ -1,10 +1,10 @@
 using System;
 using System.Threading;
 using TopDriveSystem.Commands.EngineSettings;
-using TopDriveSystem.ConfigApp.AppControl.CommandSenderHost;
-using TopDriveSystem.ConfigApp.AppControl.TargetAddressHost;
+using TopDriveSystem.ControlApp.Models.CommandSenderHost;
+using TopDriveSystem.ControlApp.Models.TargetAddressHost;
 
-namespace TopDriveSystem.ConfigApp.AppControl.EngineSettingsSpace
+namespace TopDriveSystem.ControlApp.Models.EngineSettingsSpace
 {
     internal class EngineSettingsWriter : IEngineSettingsWriter
     {

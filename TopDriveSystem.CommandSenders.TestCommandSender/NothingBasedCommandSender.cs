@@ -12,8 +12,6 @@ namespace TopDriveSystem.CommandSenders.TestCommandSender
         private readonly IWorker<Action> _backWorker;
         private readonly IStoppableWorker _backWorkerStoppable;
 
-        public event EventHandler<CommandPartHearedEventArgs> CommandPartHeared;
-
         //private readonly IMultiLoggerWithStackTrace<int> _debugLogger;
         //private readonly IThreadNotifier _uiNotifier;
 
@@ -24,6 +22,8 @@ namespace TopDriveSystem.CommandSenders.TestCommandSender
             _backWorker = backWorker;
             _backWorkerStoppable = stoppableBackWorker;
         }
+
+        public event EventHandler<CommandPartHearedEventArgs> CommandPartHeared;
 
         public void SendCommandAsync(byte address, IRrModbusCommandWithReply command, TimeSpan timeout,
             int maxAttemptsCount, Action<Exception, byte[]> onComplete)
@@ -45,7 +45,8 @@ namespace TopDriveSystem.CommandSenders.TestCommandSender
 
                     RaiseCommandHeared(address, command.CommandCode, sendBytes);
 
-                    Thread.Sleep(TimeSpan.FromMilliseconds(timeout.TotalMilliseconds / 10.0)); // 1/10 of timeout waiting :)
+                    Thread.Sleep(
+                        TimeSpan.FromMilliseconds(timeout.TotalMilliseconds / 10.0)); // 1/10 of timeout waiting :)
                     Exception exception = null;
                     byte[] replyBytes;
                     try
@@ -63,7 +64,10 @@ namespace TopDriveSystem.CommandSenders.TestCommandSender
 
                             RaiseCommandHeared(address, command.CommandCode, resultBytes);
                         }
-                        else throw new Exception("Cannot cast command to IRrModbusCommandWithTestReply");
+                        else
+                        {
+                            throw new Exception("Cannot cast command to IRrModbusCommandWithTestReply");
+                        }
                     }
                     catch (Exception ex)
                     {
@@ -80,7 +84,7 @@ namespace TopDriveSystem.CommandSenders.TestCommandSender
             });
         }
 
-        void RaiseCommandHeared(byte address, byte commandCode, byte[] data)
+        private void RaiseCommandHeared(byte address, byte commandCode, byte[] data)
         {
             var eve = CommandPartHeared;
             eve?.Invoke(this, new CommandPartHearedEventArgs(address, commandCode, data));
@@ -102,17 +106,16 @@ namespace TopDriveSystem.CommandSenders.TestCommandSender
         }
 
         #region IDisposable Support
-        private bool disposedValue = false; // To detect redundant calls
+
+        private bool disposedValue; // To detect redundant calls
 
         protected virtual void Dispose(bool disposing)
         {
             if (!disposedValue)
             {
                 if (disposing)
-                {
                     // TODO: dispose managed state (managed objects).
                     EndWork();
-                }
 
                 // TODO: free unmanaged resources (unmanaged objects) and override a finalizer below.
                 // TODO: set large fields to null.
@@ -136,6 +139,7 @@ namespace TopDriveSystem.CommandSenders.TestCommandSender
             // TODO: uncomment the following line if the finalizer is overridden above.
             // GC.SuppressFinalize(this);
         }
+
         #endregion
     }
 }

@@ -1,11 +1,13 @@
 using TopDriveSystem.Commands.AinSettings;
 
-namespace TopDriveSystem.ConfigApp.AppControl.AinSettingsStorage {
+namespace TopDriveSystem.ConfigApp.AppControl.AinSettingsStorage
+{
 	/// <summary>
-	/// ��������� �������� ������������ ������ ����� ��� ������ �������� ���. 
-	/// ���� ��� �������� � ���������, ������ �������� ��������������� �� �����.
+	///     ��������� �������� ������������ ������ ����� ��� ������ �������� ���.
+	///     ���� ��� �������� � ���������, ������ �������� ��������������� �� �����.
 	/// </summary>
-	interface IAinSettingsStorage {
-		IAinSettings GetSettings(byte zeroBasedAinNumber);
-	}
+	internal interface IAinSettingsStorage
+    {
+        IAinSettings GetSettings(byte zeroBasedAinNumber);
+    }
 }

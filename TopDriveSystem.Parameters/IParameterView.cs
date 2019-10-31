@@ -1,9 +1,9 @@
-﻿namespace TopDriveSystem.ControlApp.ViewModels.ParameterPresentation
+﻿namespace TopDriveSystem.Parameters
 {
     public interface IParameterView
     {
-        string GetText(double value);
         string Name { get; }
+        string GetText(double value);
     }
 
     internal enum BytesOrder

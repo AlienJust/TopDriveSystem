@@ -4,11 +4,11 @@ namespace TopDriveSystem.Model.Listening
 {
     public sealed class CommandPartReceivedEventArgs : EventArgs
     {
-        public ICmdPartConfigAndBytes Data { get; private set; }
-
-        public CommandPartReceivedEventArgs(ICmdPartConfigAndBytes data) : base()
+        public CommandPartReceivedEventArgs(ICmdPartConfigAndBytes data)
         {
             Data = data;
         }
+
+        public ICmdPartConfigAndBytes Data { get; }
     }
 }

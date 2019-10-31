@@ -6,10 +6,10 @@
              x:Class="TopDriveSystem.ControlApp.Views.Parameter.ParameterView">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
-        <CheckBox Content="{Binding Path=Name, Mode=OneTime}" IsChecked="{Binding Getter.IsLogged}"/>
+        <CheckBox Content="{Binding Path=Name, Mode=OneTime}" IsChecked="{Binding Getter.IsLogged}" />
         <TextBlock Text="{Binding Path=Getter.Value, Mode=OneWay}" Grid.Column="1" />
     </Grid>
 </UserControl>

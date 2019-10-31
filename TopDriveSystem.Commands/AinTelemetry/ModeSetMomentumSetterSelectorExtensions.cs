@@ -13,7 +13,7 @@ namespace TopDriveSystem.Commands.AinTelemetry
                 2 => ModeSetMomentumSetterSelector.Summary,
                 3 => ModeSetMomentumSetterSelector.Zero,
                 _ => throw new Exception("Cannot cast integer value " + value +
-                                        " to ModeSetMomentumSetterSelector enum"),
+                                         " to ModeSetMomentumSetterSelector enum"),
             };
         }
     }

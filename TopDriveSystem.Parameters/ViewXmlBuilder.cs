@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Xml.Linq;
+using TopDriveSystem.Parameters.Views;
 
-namespace TopDriveSystem.ControlApp.ViewModels.ParameterPresentation
+namespace TopDriveSystem.Parameters
 {
     internal sealed class ViewXmlBuilder
     {
@@ -9,22 +10,13 @@ namespace TopDriveSystem.ControlApp.ViewModels.ParameterPresentation
         {
             var resultList = new List<IParameterView>();
             var boolViewElements = parameterElement.Elements("BooleanView");
-            foreach (var e in boolViewElements)
-            {
-                resultList.Add(GetBooleanView(e));
-            }
+            foreach (var e in boolViewElements) resultList.Add(GetBooleanView(e));
 
             var numberViewElements = parameterElement.Elements("NumberView");
-            foreach (var e in numberViewElements)
-            {
-                resultList.Add(GetNumberView(e));
-            }
+            foreach (var e in numberViewElements) resultList.Add(GetNumberView(e));
 
             var multiViewElements = parameterElement.Elements("MultiView");
-            foreach (var e in multiViewElements)
-            {
-                resultList.Add(GetMultiView(e));
-            }
+            foreach (var e in multiViewElements) resultList.Add(GetMultiView(e));
 
             return resultList;
         }
@@ -49,7 +41,8 @@ namespace TopDriveSystem.ControlApp.ViewModels.ParameterPresentation
         private static IParameterView GetMultiView(XElement viewElement)
         {
             var subElements = GetViews(viewElement);
-            return new MultiView(viewElement.Attribute("Expression").Value, subElements, viewElement.Attribute("Name").Value);
+            return new MultiView(viewElement.Attribute("Expression").Value, subElements,
+                viewElement.Attribute("Name").Value);
         }
     }
 }

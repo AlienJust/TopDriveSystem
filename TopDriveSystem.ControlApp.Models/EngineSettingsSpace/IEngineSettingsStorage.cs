@@ -1,6 +1,6 @@
 using TopDriveSystem.Commands.EngineSettings;
 
-namespace TopDriveSystem.ConfigApp.AppControl.EngineSettingsSpace
+namespace TopDriveSystem.ControlApp.Models.EngineSettingsSpace
 {
     /// <summary>
     ///     Хранилище настроек двигателя

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using TopDriveSystem.Commands.AinSettings;
 
-namespace TopDriveSystem.ConfigApp.AppControl.AinSettingsStorage
+namespace TopDriveSystem.ControlApp.Models.AinSettingsStorage
 {
     internal class AinSettingsStorageThreadSafe : IAinSettingsStorageSettable, IAinSettingsStorageUpdatedNotify
     {

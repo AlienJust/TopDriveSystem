@@ -1,4 +1,4 @@
-namespace TopDriveSystem.ConfigApp
+namespace TopDriveSystem.ControlApp.Models
 {
     internal interface IAinsLinkControl
     {

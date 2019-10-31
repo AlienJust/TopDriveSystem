@@ -6,20 +6,17 @@ using TopDriveSystem.Commands.BsEthernetLogs;
 
 namespace TopDriveSystem.ConfigApp.BsEthernetLogs
 {
-    class WindowViewModel : ViewModelBase
+    internal class WindowViewModel : ViewModelBase
     {
-        private readonly IUserInterfaceRoot _uiRoot;
-        private readonly IReadCycleModel _model;
-
         private readonly RelayCommand _closingWindowCommand;
-
-        private string _logText;
         private readonly string _logTextName;
-
-        public Action<string> AppendTextAction { get; set; }
+        private readonly IReadCycleModel _model;
+        private readonly IUserInterfaceRoot _uiRoot;
+        private int _errorsCount;
 
         private IBsEthernetLogLine _lastLogLine;
-        private int _errorsCount;
+
+        private string _logText;
 
         public WindowViewModel(IUserInterfaceRoot uiRoot, ReadCycleModel model)
         {
@@ -35,8 +32,34 @@ namespace TopDriveSystem.ConfigApp.BsEthernetLogs
 
             //_model = new ReadCycleModel(commandSenderHost, targetAddressHost, notifySendingEnabled);
             _model = model;
-            _model.AnotherLogLineWasReaded += ModelOnAnotherLogLineWasReaded; // TODO: unsubscribe on win close, also _destroy model
+            _model.AnotherLogLineWasReaded +=
+                ModelOnAnotherLogLineWasReaded; // TODO: unsubscribe on win close, also _destroy model
         }
+
+        public Action<string> AppendTextAction { get; set; }
+
+
+        public bool IsActive
+        {
+            get => _model.IsReadCycleEnabled;
+            set => _model.IsReadCycleEnabled = value;
+        }
+
+
+        public string LogText
+        {
+            get => _logText;
+            set
+            {
+                if (_logText != value)
+                {
+                    _logText = value;
+                    RaisePropertyChanged(_logTextName);
+                }
+            }
+        }
+
+        public ICommand ClosingWindowCommand => _closingWindowCommand;
 
 
         private void ModelOnAnotherLogLineWasReaded(IBsEthernetLogLine logLine)
@@ -46,17 +69,23 @@ namespace TopDriveSystem.ConfigApp.BsEthernetLogs
                 if (logLine == null)
                 {
                     if (_errorsCount <= 5) _errorsCount++;
-                    if (_errorsCount == 5) _uiRoot.Notifier.Notify(() => { LogText = "[ER]" + Environment.NewLine + LogText; });
+                    if (_errorsCount == 5)
+                        _uiRoot.Notifier.Notify(() => { LogText = "[ER]" + Environment.NewLine + LogText; });
                 }
                 else
                 {
                     _errorsCount = 0;
                     if (_lastLogLine == null || _lastLogLine.Number != logLine.Number)
                     {
-                        _uiRoot.Notifier.Notify(() => { LogText = "[OK] " + logLine.Number.ToString("d5") + " > " + logLine.Content + Environment.NewLine + LogText; });
+                        _uiRoot.Notifier.Notify(() =>
+                        {
+                            LogText = "[OK] " + logLine.Number.ToString("d5") + " > " + logLine.Content +
+                                      Environment.NewLine + LogText;
+                        });
                         _lastLogLine = logLine;
                     }
                 }
+
                 //RaisePropertyChanged(_logTextName);
             });
         }
@@ -69,28 +98,5 @@ namespace TopDriveSystem.ConfigApp.BsEthernetLogs
 
             _model.StopBackgroundThreadAndWaitForIt();
         }
-
-
-        public bool IsActive
-        {
-            get { return _model.IsReadCycleEnabled; }
-            set { _model.IsReadCycleEnabled = value; }
-        }
-
-
-        public string LogText
-        {
-            get { return _logText; }
-            set
-            {
-                if (_logText != value)
-                {
-                    _logText = value;
-                    RaisePropertyChanged(_logTextName);
-                }
-            }
-        }
-
-        public ICommand ClosingWindowCommand => _closingWindowCommand;
     }
 }

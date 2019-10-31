@@ -17,75 +17,107 @@ using TopDriveSystem.ConfigApp.EngineSettings;
 using TopDriveSystem.ConfigApp.RectifierTelemetry;
 using TopDriveSystem.ConfigApp.SystemControl;
 
-namespace TopDriveSystem.ConfigApp.NewLook.OldLook {
-	class OldLookViewModel {
-		private readonly IAinSettingsStorage _ainSettingsStorage;
-		private readonly IAinSettingsStorageUpdatedNotify _storageUpdatedNotify;
-		public BsEthernetSettingsViewModel BsEthernetSettingsVm { get; }
+namespace TopDriveSystem.ConfigApp.NewLook.OldLook
+{
+    internal class OldLookViewModel
+    {
+        private readonly IAinSettingsStorage _ainSettingsStorage;
+        private readonly IAinSettingsStorageUpdatedNotify _storageUpdatedNotify;
 
-		public BsEthernetNominalsViewModel BsEthernetNominalsVm { get; }
+        public OldLookViewModel(IUserInterfaceRoot userInterfaceRoot, IWindowSystem windowSystem,
+            ICommandSenderHost commanSenderHost, ITargetAddressHost targetAddressHost,
+            INotifySendingEnabled notifySendingEnabled, ILinkContol linkContol, ILogger logger,
+            IMultiLoggerWithStackTrace<int> debugLogger, ICycleThreadHolder cycleThreadHolder, IAinsCounter ainsCounter,
+            IParameterLogger parameterLogger, IAinSettingsStorage ainSettingsStorage,
+            IAinSettingsStorageUpdatedNotify storageUpdatedNotify)
+        {
+            _ainSettingsStorage = ainSettingsStorage;
+            _storageUpdatedNotify = storageUpdatedNotify;
+            var commonTelemetryVm = new TelemetryCommonViewModel();
 
-		public AinTelemetriesViewModel AinTelemetriesVm { get; }
+            BsEthernetSettingsVm = new BsEthernetSettingsViewModel(commanSenderHost, targetAddressHost,
+                userInterfaceRoot, logger, windowSystem, notifySendingEnabled);
+            BsEthernetNominalsVm = new BsEthernetNominalsViewModel(commanSenderHost, targetAddressHost,
+                userInterfaceRoot, logger, windowSystem, notifySendingEnabled);
 
-		public AinCommandViewModel Ain1CommandVm { get; }
+            SystemControlVm = new SystemControlViewModel(commanSenderHost, targetAddressHost, userInterfaceRoot, logger,
+                windowSystem, notifySendingEnabled, linkContol, commonTelemetryVm);
 
-		public AinCommandViewModel Ain2CommandVm { get; }
+            var ain1TelemetryVm =
+                new AinTelemetryViewModel(commonTelemetryVm, 0, commanSenderHost, logger, userInterfaceRoot);
+            var ain2TelemetryVm =
+                new AinTelemetryViewModel(commonTelemetryVm, 1, commanSenderHost, logger, userInterfaceRoot);
+            var ain3TelemetryVm =
+                new AinTelemetryViewModel(commonTelemetryVm, 2, commanSenderHost, logger, userInterfaceRoot);
 
-		public AinCommandViewModel Ain3CommandVm { get; }
+            AinTelemetriesVm = new AinTelemetriesViewModel(commanSenderHost, targetAddressHost, userInterfaceRoot,
+                logger, windowSystem, SystemControlVm, commonTelemetryVm, ain1TelemetryVm, ain2TelemetryVm,
+                ain3TelemetryVm); // TODO: sending enabled control?
 
-		public SystemControlViewModel SystemControlVm { get; }
+            cycleThreadHolder.RegisterAsCyclePart(ain1TelemetryVm);
+            cycleThreadHolder.RegisterAsCyclePart(ain2TelemetryVm);
+            cycleThreadHolder.RegisterAsCyclePart(ain3TelemetryVm);
+            cycleThreadHolder.RegisterAsCyclePart(AinTelemetriesVm);
 
-		public RectifierTelemetriesViewModel RectifierTelemetriesVm { get; }
+            var ain1CommandOnlyVm = new AinCommandAndMinimalCommonTelemetryViewModel(commanSenderHost,
+                targetAddressHost, userInterfaceRoot, logger, notifySendingEnabled, 0, _ainSettingsStorage,
+                _storageUpdatedNotify);
+            var ain2CommandOnlyVm = new AinCommandAndMinimalCommonTelemetryViewModel(commanSenderHost,
+                targetAddressHost, userInterfaceRoot, logger, notifySendingEnabled, 1, _ainSettingsStorage,
+                _storageUpdatedNotify);
+            var ain3CommandOnlyVm = new AinCommandAndMinimalCommonTelemetryViewModel(commanSenderHost,
+                targetAddressHost, userInterfaceRoot, logger, notifySendingEnabled, 2, _ainSettingsStorage,
+                _storageUpdatedNotify);
 
-		public CoolerTelemetriesViewModel CoolerTelemetriesVm { get; }
+            Ain1CommandVm =
+                new AinCommandViewModel(ain1CommandOnlyVm, commonTelemetryVm, ain1TelemetryVm, AinTelemetriesVm);
+            Ain2CommandVm =
+                new AinCommandViewModel(ain2CommandOnlyVm, commonTelemetryVm, ain2TelemetryVm, AinTelemetriesVm);
+            Ain3CommandVm =
+                new AinCommandViewModel(ain3CommandOnlyVm, commonTelemetryVm, ain3TelemetryVm, AinTelemetriesVm);
 
-		public AinSettingsViewModel Ain1SettingsVm { get; }
+            Ain1SettingsVm = new AinSettingsViewModel(commanSenderHost, targetAddressHost, userInterfaceRoot, logger,
+                windowSystem, notifySendingEnabled, 0);
+            Ain2SettingsVm = new AinSettingsViewModel(commanSenderHost, targetAddressHost, userInterfaceRoot, logger,
+                windowSystem, notifySendingEnabled, 1);
+            Ain3SettingsVm = new AinSettingsViewModel(commanSenderHost, targetAddressHost, userInterfaceRoot, logger,
+                windowSystem, notifySendingEnabled, 2);
 
-		public AinSettingsViewModel Ain2SettingsVm { get; }
+            RectifierTelemetriesVm = new RectifierTelemetriesViewModel(commanSenderHost, targetAddressHost,
+                userInterfaceRoot, logger, windowSystem); // TODO: sending enabled control?
+            cycleThreadHolder.RegisterAsCyclePart(RectifierTelemetriesVm);
 
-		public AinSettingsViewModel Ain3SettingsVm { get; }
+            CoolerTelemetriesVm = new CoolerTelemetriesViewModel(commanSenderHost, targetAddressHost, userInterfaceRoot,
+                logger, debugLogger, windowSystem); // TODO: sending enabled control?
 
-		public EngineSettingsViewModel EngineSettingsVm { get; }
+            EngineSettingsVm = new EngineSettingsViewModel(commanSenderHost, targetAddressHost, userInterfaceRoot,
+                logger, windowSystem, notifySendingEnabled);
+        }
 
-		public OldLookViewModel(IUserInterfaceRoot userInterfaceRoot, IWindowSystem windowSystem, ICommandSenderHost commanSenderHost, ITargetAddressHost targetAddressHost, INotifySendingEnabled notifySendingEnabled, ILinkContol linkContol, ILogger logger, IMultiLoggerWithStackTrace<int> debugLogger, ICycleThreadHolder cycleThreadHolder, IAinsCounter ainsCounter, IParameterLogger parameterLogger, IAinSettingsStorage ainSettingsStorage, IAinSettingsStorageUpdatedNotify storageUpdatedNotify) {
-			_ainSettingsStorage = ainSettingsStorage;
-			_storageUpdatedNotify = storageUpdatedNotify;
-			var commonTelemetryVm = new TelemetryCommonViewModel();
+        public BsEthernetSettingsViewModel BsEthernetSettingsVm { get; }
 
-			BsEthernetSettingsVm = new BsEthernetSettingsViewModel(commanSenderHost, targetAddressHost, userInterfaceRoot, logger, windowSystem, notifySendingEnabled);
-			BsEthernetNominalsVm = new BsEthernetNominalsViewModel(commanSenderHost, targetAddressHost, userInterfaceRoot, logger, windowSystem, notifySendingEnabled);
+        public BsEthernetNominalsViewModel BsEthernetNominalsVm { get; }
 
-			SystemControlVm = new SystemControlViewModel(commanSenderHost, targetAddressHost, userInterfaceRoot, logger, windowSystem, notifySendingEnabled, linkContol, commonTelemetryVm);
+        public AinTelemetriesViewModel AinTelemetriesVm { get; }
 
-			var ain1TelemetryVm = new AinTelemetryViewModel(commonTelemetryVm, 0, commanSenderHost, logger, userInterfaceRoot);
-			var ain2TelemetryVm = new AinTelemetryViewModel(commonTelemetryVm, 1, commanSenderHost, logger, userInterfaceRoot);
-			var ain3TelemetryVm = new AinTelemetryViewModel(commonTelemetryVm, 2, commanSenderHost, logger, userInterfaceRoot);
+        public AinCommandViewModel Ain1CommandVm { get; }
 
-			AinTelemetriesVm = new AinTelemetriesViewModel(commanSenderHost, targetAddressHost, userInterfaceRoot, logger, windowSystem, SystemControlVm, commonTelemetryVm, ain1TelemetryVm, ain2TelemetryVm, ain3TelemetryVm); // TODO: sending enabled control?
+        public AinCommandViewModel Ain2CommandVm { get; }
 
-			cycleThreadHolder.RegisterAsCyclePart(ain1TelemetryVm);
-			cycleThreadHolder.RegisterAsCyclePart(ain2TelemetryVm);
-			cycleThreadHolder.RegisterAsCyclePart(ain3TelemetryVm);
-			cycleThreadHolder.RegisterAsCyclePart(AinTelemetriesVm);
+        public AinCommandViewModel Ain3CommandVm { get; }
 
-			var ain1CommandOnlyVm = new AinCommandAndMinimalCommonTelemetryViewModel(commanSenderHost, targetAddressHost, userInterfaceRoot, logger, notifySendingEnabled, 0, _ainSettingsStorage, _storageUpdatedNotify);
-			var ain2CommandOnlyVm = new AinCommandAndMinimalCommonTelemetryViewModel(commanSenderHost, targetAddressHost, userInterfaceRoot, logger, notifySendingEnabled, 1, _ainSettingsStorage, _storageUpdatedNotify);
-			var ain3CommandOnlyVm = new AinCommandAndMinimalCommonTelemetryViewModel(commanSenderHost, targetAddressHost, userInterfaceRoot, logger, notifySendingEnabled, 2, _ainSettingsStorage, _storageUpdatedNotify);
+        public SystemControlViewModel SystemControlVm { get; }
 
-			Ain1CommandVm = new AinCommandViewModel(ain1CommandOnlyVm, commonTelemetryVm, ain1TelemetryVm, AinTelemetriesVm);
-			Ain2CommandVm = new AinCommandViewModel(ain2CommandOnlyVm, commonTelemetryVm, ain2TelemetryVm, AinTelemetriesVm);
-			Ain3CommandVm = new AinCommandViewModel(ain3CommandOnlyVm, commonTelemetryVm, ain3TelemetryVm, AinTelemetriesVm);
+        public RectifierTelemetriesViewModel RectifierTelemetriesVm { get; }
 
-			Ain1SettingsVm = new AinSettingsViewModel(commanSenderHost, targetAddressHost, userInterfaceRoot, logger, windowSystem, notifySendingEnabled, 0);
-			Ain2SettingsVm = new AinSettingsViewModel(commanSenderHost, targetAddressHost, userInterfaceRoot, logger, windowSystem, notifySendingEnabled, 1);
-			Ain3SettingsVm = new AinSettingsViewModel(commanSenderHost, targetAddressHost, userInterfaceRoot, logger, windowSystem, notifySendingEnabled, 2);
+        public CoolerTelemetriesViewModel CoolerTelemetriesVm { get; }
 
-			RectifierTelemetriesVm = new RectifierTelemetriesViewModel(commanSenderHost, targetAddressHost, userInterfaceRoot, logger, windowSystem); // TODO: sending enabled control?
-			cycleThreadHolder.RegisterAsCyclePart(RectifierTelemetriesVm);
+        public AinSettingsViewModel Ain1SettingsVm { get; }
 
-			CoolerTelemetriesVm = new CoolerTelemetriesViewModel(commanSenderHost, targetAddressHost, userInterfaceRoot, logger, debugLogger, windowSystem); // TODO: sending enabled control?
+        public AinSettingsViewModel Ain2SettingsVm { get; }
 
-			EngineSettingsVm = new EngineSettingsViewModel(commanSenderHost, targetAddressHost, userInterfaceRoot, logger, windowSystem, notifySendingEnabled);
-		}
-	}
+        public AinSettingsViewModel Ain3SettingsVm { get; }
+
+        public EngineSettingsViewModel EngineSettingsVm { get; }
+    }
 }

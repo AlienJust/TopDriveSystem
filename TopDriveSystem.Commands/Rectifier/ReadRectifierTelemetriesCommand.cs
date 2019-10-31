@@ -4,10 +4,10 @@ using TopDriveSystem.Commands.Contracts;
 
 namespace TopDriveSystem.Commands.Rectifier
 {
-	/// <summary>
-	///     Команда чтения телеметрии выпрямителей
-	/// </summary>
-	public class ReadRectifierTelemetriesCommand : IRrModbusCommandWithReply,
+    /// <summary>
+    ///     Команда чтения телеметрии выпрямителей
+    /// </summary>
+    public class ReadRectifierTelemetriesCommand : IRrModbusCommandWithReply,
         IRrModbusCommandResultGetter<IList<IRectifierTelemetry>>, IRrModbusCommandWithTestReply
     {
         private const int RectifiersCount = 6;

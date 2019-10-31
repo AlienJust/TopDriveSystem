@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace TopDriveSystem.ControlApp.ViewModels.ParameterPresentation
+namespace TopDriveSystem.Parameters
 {
     internal sealed class ParametersPresenterSimple : IParametersPresenter
     {

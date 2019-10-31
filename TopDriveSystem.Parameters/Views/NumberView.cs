@@ -1,12 +1,11 @@
 ﻿using NCalc;
 
-namespace TopDriveSystem.ControlApp.ViewModels.ParameterPresentation
+namespace TopDriveSystem.Parameters.Views
 {
     internal sealed class NumberView : IParameterView
     {
         private readonly string _expression;
         private readonly string _resultStringFormat;
-        public string Name { get; }
 
         public NumberView(string expression, string resultStringFormat, string name)
         {
@@ -15,12 +14,14 @@ namespace TopDriveSystem.ControlApp.ViewModels.ParameterPresentation
             Name = name;
         }
 
+        public string Name { get; }
+
         public string GetText(double value)
         {
             var expr = new Expression(_expression);
             expr.Parameters.Add("value", value);
 
-            double result = (double)expr.Evaluate();
+            var result = (double) expr.Evaluate();
             return result.ToString(_resultStringFormat);
         }
     }

@@ -1,4 +1,4 @@
-﻿namespace TopDriveSystem.ConfigApp.AppControl.AinSettingsRead
+﻿namespace TopDriveSystem.ControlApp.Models.AinSettingsRead
 {
     /// <summary>
     ///     Сообщает о том, что настройки были прочитаны

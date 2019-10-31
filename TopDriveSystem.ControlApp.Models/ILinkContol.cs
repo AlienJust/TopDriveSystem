@@ -1,4 +1,4 @@
-namespace TopDriveSystem.ConfigApp
+namespace TopDriveSystem.ControlApp.Models
 {
     public interface ILinkContol
     {

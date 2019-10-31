@@ -1,9 +1,8 @@
 ﻿using AlienJust.Support.Mvvm;
 
-namespace TopDriveSystem.ConfigApp.LookedLikeAbb.Oscilloscope {
-	class OscilloscopeWindowSciVm : ViewModelBase {
-		public OscilloscopeWindowSciVm() {
-			
-		}
-	}
+namespace TopDriveSystem.ConfigApp.LookedLikeAbb.Oscilloscope
+{
+    internal class OscilloscopeWindowSciVm : ViewModelBase
+    {
+    }
 }

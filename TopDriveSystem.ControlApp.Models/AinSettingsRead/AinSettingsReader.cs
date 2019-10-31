@@ -4,11 +4,11 @@ using AlienJust.Support.Concurrent;
 using AlienJust.Support.Concurrent.Contracts;
 using AlienJust.Support.Loggers.Contracts;
 using TopDriveSystem.Commands.AinSettings;
-using TopDriveSystem.ConfigApp.AppControl.AinSettingsStorage;
-using TopDriveSystem.ConfigApp.AppControl.CommandSenderHost;
-using TopDriveSystem.ConfigApp.AppControl.TargetAddressHost;
+using TopDriveSystem.ControlApp.Models.AinSettingsStorage;
+using TopDriveSystem.ControlApp.Models.CommandSenderHost;
+using TopDriveSystem.ControlApp.Models.TargetAddressHost;
 
-namespace TopDriveSystem.ConfigApp.AppControl.AinSettingsRead
+namespace TopDriveSystem.ControlApp.Models.AinSettingsRead
 {
     internal class AinSettingsReader : IAinSettingsReader, IAinSettingsReadNotifyRaisable
     {

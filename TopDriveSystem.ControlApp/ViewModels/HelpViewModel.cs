@@ -1,10 +1,10 @@
-﻿using ReactiveUI;
-using Splat;
-using System.Reactive;
+﻿using System.Reactive;
 using System.Reactive.Linq;
 using System.Runtime.Serialization;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using ReactiveUI;
+using Splat;
 
 namespace TopDriveSystem.ControlApp.ViewModels
 {
@@ -27,11 +27,6 @@ namespace TopDriveSystem.ControlApp.ViewModels
                 canSearch);
         }
 
-
-        public IScreen HostScreen { get; }
-
-        public string UrlPathSegment => "/search";
-
         public ICommand Search => _search;
 
         [DataMember]
@@ -40,7 +35,10 @@ namespace TopDriveSystem.ControlApp.ViewModels
             get => _searchQuery;
             set => this.RaiseAndSetIfChanged(ref _searchQuery, value);
         }
+
+
+        public IScreen HostScreen { get; }
+
+        public string UrlPathSegment => "/search";
     }
-
-
 }

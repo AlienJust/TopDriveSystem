@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace TopDriveSystem.ConfigApp.AppControl.ParamLogger
+namespace TopDriveSystem.ControlApp.Models.ParamLogger
 {
     public class ParamLoggerRegistrationPointThreadSafe : IParamLoggerRegistrationPoint, IParameterLogger
     {

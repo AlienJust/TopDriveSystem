@@ -1,3 +1,4 @@
-﻿namespace TopDriveSystem.ConfigApp.AppControl.NotifySendingEnabled {
-	delegate void SendingEnabledChangedDelegate(bool isSendingEnabled);
+﻿namespace TopDriveSystem.ConfigApp.AppControl.NotifySendingEnabled
+{
+    internal delegate void SendingEnabledChangedDelegate(bool isSendingEnabled);
 }

@@ -1,9 +1,12 @@
-namespace TopDriveSystem.ConfigApp.MnemonicCheme {
-	internal class MnemonicChemeViewModel {
-		public MnemonicChemeViewModel(string pathToImage) {
-			PathToImage = pathToImage;
-		}
+namespace TopDriveSystem.ConfigApp.MnemonicCheme
+{
+    internal class MnemonicChemeViewModel
+    {
+        public MnemonicChemeViewModel(string pathToImage)
+        {
+            PathToImage = pathToImage;
+        }
 
-		public string PathToImage { get; }
-	}
+        public string PathToImage { get; }
+    }
 }

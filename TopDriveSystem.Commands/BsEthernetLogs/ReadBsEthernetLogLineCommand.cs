@@ -5,12 +5,12 @@ using TopDriveSystem.Commands.Contracts;
 
 namespace TopDriveSystem.Commands.BsEthernetLogs
 {
-	/// <summary>
-	///     БС-Ethernet умеет вести логи,
-	///     записывает построчно,
-	///     каждая строка лога имеет номер.
-	/// </summary>
-	public class ReadBsEthernetLogLineCommand : IRrModbusCommandWithReply,
+    /// <summary>
+    ///     БС-Ethernet умеет вести логи,
+    ///     записывает построчно,
+    ///     каждая строка лога имеет номер.
+    /// </summary>
+    public class ReadBsEthernetLogLineCommand : IRrModbusCommandWithReply,
         IRrModbusCommandResultGetter<IBsEthernetLogLine>, IRrModbusCommandWithTestReply
     {
         public IBsEthernetLogLine GetResult(byte[] reply)

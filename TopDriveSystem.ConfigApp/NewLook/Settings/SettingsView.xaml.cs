@@ -1,12 +1,15 @@
 ﻿using System.Windows.Controls;
 
-namespace TopDriveSystem.ConfigApp.NewLook.Settings {
+namespace TopDriveSystem.ConfigApp.NewLook.Settings
+{
 	/// <summary>
-	/// Interaction logic for SettingsView.xaml
+	///     Interaction logic for SettingsView.xaml
 	/// </summary>
-	public partial class SettingsView : UserControl {
-		public SettingsView() {
-			InitializeComponent();
-		}
-	}
+	public partial class SettingsView : UserControl
+    {
+        public SettingsView()
+        {
+            InitializeComponent();
+        }
+    }
 }

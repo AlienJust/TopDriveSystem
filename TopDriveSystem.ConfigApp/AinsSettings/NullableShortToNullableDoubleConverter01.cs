@@ -1,36 +1,41 @@
 using System;
+using System.Globalization;
 using System.Windows.Data;
 
-namespace TopDriveSystem.ConfigApp.AinsSettings {
-	[ValueConversion(typeof(double), typeof(int))]
-	class NullableShortToNullableDoubleConverter01 : IValueConverter {
-		#region IValueConverter Members
+namespace TopDriveSystem.ConfigApp.AinsSettings
+{
+    [ValueConversion(typeof(double), typeof(int))]
+    internal class NullableShortToNullableDoubleConverter01 : IValueConverter
+    {
+        #region IValueConverter Members
 
-		public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture) {
-			var ns = (short?)value; // TODO: might throw exception?
-			double? result;
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            var ns = (short?) value; // TODO: might throw exception?
+            double? result;
 
-			if (ns.HasValue)
-				result = ns.Value*0.1;
-			else 
-				result = null;
-			
-			return result;
-		}
+            if (ns.HasValue)
+                result = ns.Value * 0.1;
+            else
+                result = null;
 
-		public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture) {
-			var nd = (double?) value;
+            return result;
+        }
 
-			short? result;
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            var nd = (double?) value;
 
-			if (nd.HasValue)
-				result = (short)(nd.Value * 10.0);
-			else
-				result = null;
+            short? result;
 
-			return result;
-		}
+            if (nd.HasValue)
+                result = (short) (nd.Value * 10.0);
+            else
+                result = null;
 
-		#endregion
-	}
+            return result;
+        }
+
+        #endregion
+    }
 }

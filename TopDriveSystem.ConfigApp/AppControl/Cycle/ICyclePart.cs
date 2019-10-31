@@ -1,6 +1,8 @@
-namespace TopDriveSystem.ConfigApp.AppControl.Cycle {
-	internal interface ICyclePart {
-		void InCycleAction();
-		bool Cancel { get; }
-	}
+namespace TopDriveSystem.ConfigApp.AppControl.Cycle
+{
+    internal interface ICyclePart
+    {
+        bool Cancel { get; }
+        void InCycleAction();
+    }
 }

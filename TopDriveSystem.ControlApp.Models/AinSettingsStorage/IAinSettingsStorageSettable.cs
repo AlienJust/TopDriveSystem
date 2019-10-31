@@ -1,6 +1,6 @@
 using TopDriveSystem.Commands.AinSettings;
 
-namespace TopDriveSystem.ConfigApp.AppControl.AinSettingsStorage
+namespace TopDriveSystem.ControlApp.Models.AinSettingsStorage
 {
     public interface IAinSettingsStorageSettable : IAinSettingsStorage
     {

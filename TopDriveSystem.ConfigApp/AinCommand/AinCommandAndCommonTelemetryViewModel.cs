@@ -13,14 +13,18 @@ namespace TopDriveSystem.ConfigApp.AinCommand
     internal class AinCommandAndCommonTelemetryViewModel : ViewModelBase, ICyclePart, IAinsLinkControl
     {
         private readonly ICommandSenderHost _commandSenderHost;
-        private readonly ITargetAddressHost _targerAddressHost;
-        private readonly IUserInterfaceRoot _uiRoot;
         private readonly INotifySendingEnabled _notifySendingEnabled;
 
         private readonly object _syncCancel;
+        private readonly ITargetAddressHost _targerAddressHost;
+        private readonly IUserInterfaceRoot _uiRoot;
         private bool _cancel;
         private int _errorCounts;
-        public AinCommandAndCommonTelemetryViewModel(AinCommandAndMinimalCommonTelemetryViewModel ainCommandAndMinimalCommonTelemetryViewModel, TelemetryCommonViewModel commonTelemetryVm, ICommandSenderHost commandSenderHost, ITargetAddressHost targerAddressHost, IUserInterfaceRoot uiRoot, INotifySendingEnabled notifySendingEnabled)
+
+        public AinCommandAndCommonTelemetryViewModel(
+            AinCommandAndMinimalCommonTelemetryViewModel ainCommandAndMinimalCommonTelemetryViewModel,
+            TelemetryCommonViewModel commonTelemetryVm, ICommandSenderHost commandSenderHost,
+            ITargetAddressHost targerAddressHost, IUserInterfaceRoot uiRoot, INotifySendingEnabled notifySendingEnabled)
         {
             _commandSenderHost = commandSenderHost;
             _targerAddressHost = targerAddressHost;
@@ -46,6 +50,13 @@ namespace TopDriveSystem.ConfigApp.AinCommand
         public TelemetryCommonViewModel CommonTelemetryVm { get; }
 
         public AinCommandAndMinimalCommonTelemetryViewModel AinCommandAndMinimalCommonTelemetryVm { get; }
+
+        public bool? Ain1LinkError { get; private set; }
+        public bool? Ain2LinkError { get; private set; }
+        public bool? Ain3LinkError { get; private set; }
+
+        public event AinsLinkInformationHasBeenUpdatedDelegate AinsLinkInformationHasBeenUpdated;
+
         public void InCycleAction()
         {
             var waiter = new ManualResetEvent(false);
@@ -56,18 +67,17 @@ namespace TopDriveSystem.ConfigApp.AinCommand
                 {
                     try
                     {
-                        if (exception != null)
-                        {
-                            throw new Exception("Произошла ошибка во время обмена", exception);
-                        }
+                        if (exception != null) throw new Exception("Произошла ошибка во время обмена", exception);
                         var commonTelemetry = cmd.GetResult(bytes);
                         _uiRoot.Notifier.Notify(() =>
                         {
                             AinCommandAndMinimalCommonTelemetryVm.UpdateCommonTelemetry(commonTelemetry);
                             CommonTelemetryVm.UpdateCommonEngineState(commonTelemetry.CommonEngineState);
                             CommonTelemetryVm.UpdateCommonFaultState(commonTelemetry.CommonFaultState);
-                            CommonTelemetryVm.UpdateAinsLinkState(commonTelemetry.Ain1LinkFault, commonTelemetry.Ain2LinkFault, commonTelemetry.Ain3LinkFault);
-                            CommonTelemetryVm.UpdateAinStatuses(commonTelemetry.Ain1Status, commonTelemetry.Ain2Status, commonTelemetry.Ain3Status);
+                            CommonTelemetryVm.UpdateAinsLinkState(commonTelemetry.Ain1LinkFault,
+                                commonTelemetry.Ain2LinkFault, commonTelemetry.Ain3LinkFault);
+                            CommonTelemetryVm.UpdateAinStatuses(commonTelemetry.Ain1Status, commonTelemetry.Ain2Status,
+                                commonTelemetry.Ain3Status);
                             Ain1LinkError = commonTelemetry.Ain1LinkFault;
                             Ain2LinkError = commonTelemetry.Ain2LinkFault;
                             Ain3LinkError = commonTelemetry.Ain3LinkFault;
@@ -123,12 +133,6 @@ namespace TopDriveSystem.ConfigApp.AinCommand
                 }
             }
         }
-
-        public bool? Ain1LinkError { get; private set; }
-        public bool? Ain2LinkError { get; private set; }
-        public bool? Ain3LinkError { get; private set; }
-
-        public event AinsLinkInformationHasBeenUpdatedDelegate AinsLinkInformationHasBeenUpdated;
 
         private void RaiseAinsLinkInformationHasBeenUpdated()
         {

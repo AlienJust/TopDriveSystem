@@ -1,39 +1,41 @@
+using System;
 using AlienJust.Support.Concurrent.Contracts;
 using Avalonia;
 using Avalonia.Markup.Xaml;
 using Avalonia.ReactiveUI;
 using Avalonia.Threading;
-using TopDriveSystem.ControlApp.ViewModels.ParameterPresentation;
 using DataAbstractionLevel.Low.PsnConfig;
-using DataAbstractionLevel.Low.PsnConfig.Contracts;
 using Microsoft.Extensions.DependencyInjection;
 using ReactiveUI;
 using Splat;
-using System;
 using TopDriveSystem.CommandSenders.Contracts;
-using TopDriveSystem.ConfigApp.AppControl.AinsCounter;
-using TopDriveSystem.ConfigApp.AppControl.CommandSenderHost;
-using TopDriveSystem.ConfigApp.AppControl.NotifySendingEnabled;
-using TopDriveSystem.ConfigApp.AppControl.ParamLogger;
-using TopDriveSystem.ConfigApp.AppControl.TargetAddressHost;
 using TopDriveSystem.ControlApp.Drivers;
+using TopDriveSystem.ControlApp.Models.AinsCounter;
+using TopDriveSystem.ControlApp.Models.CommandSenderHost;
 using TopDriveSystem.ControlApp.Models.DeviceConnection;
+using TopDriveSystem.ControlApp.Models.NotifySendingEnabled;
+using TopDriveSystem.ControlApp.Models.ParamLogger;
+using TopDriveSystem.ControlApp.Models.TargetAddressHost;
 using TopDriveSystem.ControlApp.ViewModels;
 using TopDriveSystem.ControlApp.ViewModels.AinsCountSelection;
 using TopDriveSystem.ControlApp.ViewModels.DeviceConnection;
 using TopDriveSystem.ControlApp.ViewModels.Parameter;
+using TopDriveSystem.ControlApp.ViewModels.Settings;
 using TopDriveSystem.ControlApp.ViewModels.Telemetry;
 using TopDriveSystem.ControlApp.Views;
-using TopDriveSystem.Model.Listening;
-using TopDriveSystem.ControlApp.Views.Telemetry;
-using TopDriveSystem.ControlApp.ViewModels.Settings;
 using TopDriveSystem.ControlApp.Views.Settings;
+using TopDriveSystem.ControlApp.Views.Telemetry;
+using TopDriveSystem.Model.Listening;
+using TopDriveSystem.Parameters;
 
 namespace TopDriveSystem.ControlApp
 {
     public class App : Application
     {
-        public override void Initialize() => AvaloniaXamlLoader.Load(this);
+        public override void Initialize()
+        {
+            AvaloniaXamlLoader.Load(this);
+        }
 
         public override void OnFrameworkInitializationCompleted()
         {
@@ -43,10 +45,10 @@ namespace TopDriveSystem.ControlApp
 
             // Reregistering things in Splat.
             Locator.CurrentMutable.RegisterConstant(sp.GetService<IParameterVMsHolder>());
-            
+
             // Registering ViewModels in Splat locator.
-            Locator.CurrentMutable.Register(()=>sp.GetService<IDeviceConnectionViewModel>());
-            Locator.CurrentMutable.Register(()=>sp.GetService<IAinsCountSelectionViewModel>());
+            Locator.CurrentMutable.Register(() => sp.GetService<IDeviceConnectionViewModel>());
+            Locator.CurrentMutable.Register(() => sp.GetService<IAinsCountSelectionViewModel>());
 
             var suspension = new AutoSuspendHelper(ApplicationLifetime);
             RxApp.SuspensionHost.CreateNewAppState = () => new MainWindowViewModel();
@@ -60,7 +62,7 @@ namespace TopDriveSystem.ControlApp
             Locator.CurrentMutable.Register<IViewFor<ISettingsViewModel>>(() => new SettingsView());
             //Locator.CurrentMutable.Register<IViewFor<HelpViewModel>>(() => new HelpView());
 
-            new MainWindow { DataContext = Locator.Current.GetService<IScreen>() }.Show();
+            new MainWindow {DataContext = Locator.Current.GetService<IScreen>()}.Show();
 
             //ViewModels.ParameterPresentation.ParametersPresenterXmlSerializer.Serialize("params.xml", new PsnProtocolConfigurationLoaderFromXml("psn.Буровая.АИН1.xml").LoadConfiguration(), false);
 
@@ -74,7 +76,7 @@ namespace TopDriveSystem.ControlApp
             var notifySendingEnabled = new NotifySendingEnabledThreadSafe(false);
             var paramLoggerAndRegPoint = new ParamLoggerRegistrationPointThreadSafe();
 
-            IServiceCollection serviceCollection = new ServiceCollection()
+            var serviceCollection = new ServiceCollection()
                 /*.AddLogging(loggingBuilder =>
                 {
                     loggingBuilder.SetMinimumLevel(LogLevel.Trace);
@@ -84,7 +86,6 @@ namespace TopDriveSystem.ControlApp
                         CaptureMessageProperties = true
                     });
                 })*/
-
                 .AddSingleton<IThreadNotifier, AvaloniaThreadNotifier>()
                 .AddSingleton<IParamLoggerRegistrationPoint>(sp => paramLoggerAndRegPoint)
                 .AddSingleton<IParameterLogger>(sp => paramLoggerAndRegPoint)
@@ -103,11 +104,11 @@ namespace TopDriveSystem.ControlApp
                 .AddSingleton<IParameterSetter, ParameterSetterNothing>()
 
                 // Adding PSN parameters classes.
-                .AddSingleton<IPsnProtocolConfiguration>(sp => new PsnProtocolConfigurationLoaderFromXml("psn.Буровая.АИН1.xml").LoadConfiguration())
+                .AddSingleton(sp =>
+                    new PsnProtocolConfigurationLoaderFromXml("psn.Буровая.АИН1.xml").LoadConfiguration())
                 .AddSingleton<IPsnParamsList, PsnParamsListSimple>()
                 .AddSingleton<IParamListener, CommandPartAndParamListenerSimple>()
-                .AddSingleton<IParametersPresenterXmlBuilder>(sp=>new ParametersPresenterXmlBuilder("params.xml"))
-                
+                .AddSingleton<IParametersPresenterXmlBuilder>(sp => new ParametersPresenterXmlBuilder("params.xml"))
                 .AddSingleton<IParameterVMsHolder, ParameterVMsHolder>()
 
                 // Adding models.
@@ -116,14 +117,14 @@ namespace TopDriveSystem.ControlApp
                 // Adding ViewModels.
                 .AddSingleton<IDeviceConnectionViewModel, DeviceConnectionViewModel>()
                 .AddSingleton<IAinsCountSelectionViewModel, AinsCountSelectionViewModel>();
-                //.AddSingleton<ITelemetry100ViewModel, Telemetry100ViewModel>();
+            //.AddSingleton<ITelemetry100ViewModel, Telemetry100ViewModel>();
 
             return serviceCollection.BuildServiceProvider();
         }
     }
 
-    
-    class AvaloniaThreadNotifier : IThreadNotifier
+
+    internal class AvaloniaThreadNotifier : IThreadNotifier
     {
         public void Notify(Action notifyAction)
         {

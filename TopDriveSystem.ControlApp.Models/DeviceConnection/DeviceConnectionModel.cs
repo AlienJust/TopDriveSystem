@@ -1,23 +1,23 @@
-﻿using AlienJust.Support.Concurrent;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO.Ports;
 using System.Threading;
+using AlienJust.Support.Concurrent;
 using TopDriveSystem.CommandSenders.SerialPortBased;
 using TopDriveSystem.CommandSenders.TestCommandSender;
-using TopDriveSystem.ConfigApp.AppControl.CommandSenderHost;
-using TopDriveSystem.ConfigApp.AppControl.NotifySendingEnabled;
-using TopDriveSystem.ConfigApp.AppControl.TargetAddressHost;
+using TopDriveSystem.ControlApp.Models.CommandSenderHost;
+using TopDriveSystem.ControlApp.Models.NotifySendingEnabled;
+using TopDriveSystem.ControlApp.Models.TargetAddressHost;
 
 namespace TopDriveSystem.ControlApp.Models.DeviceConnection
 {
     public sealed class DeviceConnectionModel : IDeviceConnectionModel
     {
         private const string TestPortName = "TECT";
-        private readonly ICommandSenderHostSettable _commandSenderHostSettable;
         private readonly ICommandSenderHost _commandSenderHost;
-        private readonly ITargetAddressHost _targetAddressHost;
+        private readonly ICommandSenderHostSettable _commandSenderHostSettable;
         private readonly INotifySendingEnabledRaisable _notifySendingEnabled;
+        private readonly ITargetAddressHost _targetAddressHost;
         private bool _isPortOpened;
 
         public DeviceConnectionModel(
@@ -31,6 +31,7 @@ namespace TopDriveSystem.ControlApp.Models.DeviceConnection
             _targetAddressHost = targetAddressHost;
             _notifySendingEnabled = notifySendingEnabled;
         }
+
         public IReadOnlyList<string> GetPortsAvailable()
         {
             var ports = new List<string>();
@@ -67,7 +68,7 @@ namespace TopDriveSystem.ControlApp.Models.DeviceConnection
 
                     _commandSenderHostSettable.SetCommandSender(sender);
                 }
-                
+
 
                 _isPortOpened = true;
                 //OpenPortCommand.RaiseCanExecuteChanged();

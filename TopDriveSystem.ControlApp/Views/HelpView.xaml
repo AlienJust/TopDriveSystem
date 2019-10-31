@@ -4,15 +4,15 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="500" d:DesignHeight="250"
              x:Class="TopDriveSystem.ControlApp.Views.HelpView">
-  <Grid>
-    <Grid.RowDefinitions>
-      <RowDefinition Height="48" />
-      <RowDefinition Height="48" />
-      <RowDefinition Height="48" />
-      <RowDefinition Height="*" />
-    </Grid.RowDefinitions>
-    <TextBlock Grid.Row="0" Text="Справка" Margin="5" />
-    <TextBox Grid.Row="1" Text="{Binding SearchQuery, Mode=TwoWay}" />
-    <Button Grid.Row="2" Content="Search" Command="{Binding Search}" />
-  </Grid>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="48" />
+            <RowDefinition Height="48" />
+            <RowDefinition Height="48" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" Text="Справка" Margin="5" />
+        <TextBox Grid.Row="1" Text="{Binding SearchQuery, Mode=TwoWay}" />
+        <Button Grid.Row="2" Content="Search" Command="{Binding Search}" />
+    </Grid>
 </UserControl>

@@ -4,7 +4,7 @@ namespace TopDriveSystem.CommandSenders.Contracts
 {
     public class CommandPartHearedEventArgs : EventArgs
     {
-        public CommandPartHearedEventArgs(byte address, byte commandCode, byte[] data) : base()
+        public CommandPartHearedEventArgs(byte address, byte commandCode, byte[] data)
         {
             Address = address;
             CommandCode = commandCode;

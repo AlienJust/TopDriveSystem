@@ -1,18 +1,15 @@
-﻿using NCalc;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using NCalc;
 
-namespace TopDriveSystem.ControlApp.ViewModels.ParameterPresentation
+namespace TopDriveSystem.Parameters
 {
     internal sealed class ParameterInjectionConfigNcalc : IParameterInjectionConfiguration
     {
-        private readonly string _ncalcConvertExpression;
         private readonly bool _isInverBytesOrderRequired;
+        private readonly string _ncalcConvertExpression;
 
-        public IList<ParameterPreselectedValue> PreselectedValueList { get; }
-
-        public int ZeroBasedParameterNumber { get; }
-
-        public ParameterInjectionConfigNcalc(int zeroBasedParameterNumber, string ncalcConvertExpression, bool isInverBytesOrderRequired, IList<ParameterPreselectedValue> preselectedValues)
+        public ParameterInjectionConfigNcalc(int zeroBasedParameterNumber, string ncalcConvertExpression,
+            bool isInverBytesOrderRequired, IList<ParameterPreselectedValue> preselectedValues)
         {
             ZeroBasedParameterNumber = zeroBasedParameterNumber;
             _ncalcConvertExpression = ncalcConvertExpression;
@@ -20,15 +17,19 @@ namespace TopDriveSystem.ControlApp.ViewModels.ParameterPresentation
             PreselectedValueList = preselectedValues;
         }
 
+        public IList<ParameterPreselectedValue> PreselectedValueList { get; }
+
+        public int ZeroBasedParameterNumber { get; }
+
         public ushort GetValue(double value)
         {
             var expr = new Expression(_ncalcConvertExpression);
             expr.Parameters.Add("value", value);
 
-            double result = (double)expr.Evaluate();
+            var result = (double) expr.Evaluate();
 
             // TODO: use _isInverBytesOrderRequired
-            return (ushort)result;
+            return (ushort) result;
         }
     }
 }

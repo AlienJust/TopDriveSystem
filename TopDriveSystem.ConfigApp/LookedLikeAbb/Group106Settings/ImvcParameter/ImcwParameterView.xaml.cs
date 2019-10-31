@@ -1,12 +1,15 @@
 ﻿using System.Windows.Controls;
 
-namespace TopDriveSystem.ConfigApp.LookedLikeAbb.Group106Settings.ImvcParameter {
+namespace TopDriveSystem.ConfigApp.LookedLikeAbb.Group106Settings.ImvcParameter
+{
 	/// <summary>
-	/// Interaction logic for MswParameterView.xaml
+	///     Interaction logic for MswParameterView.xaml
 	/// </summary>
-	public partial class ImcwParameterView : UserControl {
-		public ImcwParameterView() {
-			InitializeComponent();
-		}
-	}
+	public partial class ImcwParameterView : UserControl
+    {
+        public ImcwParameterView()
+        {
+            InitializeComponent();
+        }
+    }
 }

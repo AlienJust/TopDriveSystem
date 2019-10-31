@@ -1,21 +1,25 @@
-﻿using Newtonsoft.Json;
-using ReactiveUI;
-using System;
+﻿using System;
 using System.IO;
 using System.Reactive;
 using System.Reactive.Linq;
+using Newtonsoft.Json;
+using ReactiveUI;
 
 namespace TopDriveSystem.ControlApp.Drivers
 {
     public sealed class NewtonsoftJsonSuspensionDriver : ISuspensionDriver
     {
-        private readonly string _stateFilePath;
         private readonly JsonSerializerSettings _settings = new JsonSerializerSettings
         {
             TypeNameHandling = TypeNameHandling.All
         };
 
-        public NewtonsoftJsonSuspensionDriver(string stateFilePath) => _stateFilePath = stateFilePath;
+        private readonly string _stateFilePath;
+
+        public NewtonsoftJsonSuspensionDriver(string stateFilePath)
+        {
+            _stateFilePath = stateFilePath;
+        }
 
         public IObservable<Unit> InvalidateState()
         {

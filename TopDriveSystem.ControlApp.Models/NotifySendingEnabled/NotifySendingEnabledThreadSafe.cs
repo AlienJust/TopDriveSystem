@@ -1,4 +1,4 @@
-namespace TopDriveSystem.ConfigApp.AppControl.NotifySendingEnabled
+namespace TopDriveSystem.ControlApp.Models.NotifySendingEnabled
 {
     public sealed class NotifySendingEnabledThreadSafe : INotifySendingEnabledRaisable
     {

@@ -3,10 +3,10 @@ using TopDriveSystem.Commands.Contracts;
 
 namespace TopDriveSystem.Commands.Cooler
 {
-	/// <summary>
-	///     Команда чтения телеметрии выпрямителей
-	/// </summary>
-	public class ReadCoolerTelemetryCommand : IRrModbusCommandWithReply, IRrModbusCommandResultGetter<ICoolerTelemetry>,
+    /// <summary>
+    ///     Команда чтения телеметрии выпрямителей
+    /// </summary>
+    public class ReadCoolerTelemetryCommand : IRrModbusCommandWithReply, IRrModbusCommandResultGetter<ICoolerTelemetry>,
         IRrModbusCommandWithTestReply
     {
         public ICoolerTelemetry GetResult(byte[] reply)

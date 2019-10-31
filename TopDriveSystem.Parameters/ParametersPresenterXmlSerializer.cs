@@ -1,29 +1,31 @@
-﻿using DataAbstractionLevel.Low.PsnConfig.Contracts;
-using System.Xml.Linq;
+﻿using System.Xml.Linq;
+using DataAbstractionLevel.Low.PsnConfig.Contracts;
 
-namespace TopDriveSystem.ControlApp.ViewModels.ParameterPresentation
+namespace TopDriveSystem.Parameters
 {
     public sealed class ParametersPresenterXmlSerializer
     {
-        private static void AddChildXmlNodesWithParameters(XElement parametersRootElement, IPsnProtocolConfiguration config, bool includeCustomName)
+        private static void AddChildXmlNodesWithParameters(XElement parametersRootElement,
+            IPsnProtocolConfiguration config, bool includeCustomName)
         {
             foreach (var commandPart in config.CommandParts)
             {
-                int address = (int)commandPart.Address.DefinedValue;
-                int command = (int)commandPart.CommandCode.DefinedValue;
-                int signalNumber = 1;
+                var address = (int) commandPart.Address.DefinedValue;
+                var command = (int) commandPart.CommandCode.DefinedValue;
+                var signalNumber = 1;
                 foreach (var varParam in commandPart.VarParams)
                 {
                     if (varParam.Name.StartsWith("#")) continue;
 
                     var key = "param_" +
-                        address.ToString("d3") + "_" +
-                        command.ToString("d3") + "_" +
-                        (commandPart.PartType == PsnProtocolCommandPartType.Request ? "request_" : "reply_") + 
-                        signalNumber.ToString("d3");
+                              address.ToString("d3") + "_" +
+                              command.ToString("d3") + "_" +
+                              (commandPart.PartType == PsnProtocolCommandPartType.Request ? "request_" : "reply_") +
+                              signalNumber.ToString("d3");
 
 
-                    var node = new XElement("Parameter", new XAttribute("Key", key), new XAttribute("Identifier", varParam.Id.IdentyString));
+                    var node = new XElement("Parameter", new XAttribute("Key", key),
+                        new XAttribute("Identifier", varParam.Id.IdentyString));
                     if (includeCustomName) node.Add(new XAttribute("CustomName", varParam.Name));
 
                     node.Add(new XAttribute("Comment", commandPart.PartName + " - " + varParam.Name));

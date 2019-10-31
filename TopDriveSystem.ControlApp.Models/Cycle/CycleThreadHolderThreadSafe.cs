@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Threading;
 using AlienJust.Support.Concurrent;
 
-namespace TopDriveSystem.ConfigApp.AppControl.Cycle
+namespace TopDriveSystem.ControlApp.Models.Cycle
 {
     internal class CycleThreadHolderThreadSafe : ICycleThreadHolder
     {

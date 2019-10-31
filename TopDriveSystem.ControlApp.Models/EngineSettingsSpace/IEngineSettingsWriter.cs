@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TopDriveSystem.ConfigApp.AppControl.EngineSettingsSpace
+namespace TopDriveSystem.ControlApp.Models.EngineSettingsSpace
 {
     /// <summary>
     ///     Интерфейс для записи настроек двигателя

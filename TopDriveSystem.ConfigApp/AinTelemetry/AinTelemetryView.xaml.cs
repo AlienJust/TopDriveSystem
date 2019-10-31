@@ -3,13 +3,13 @@
 namespace TopDriveSystem.ConfigApp.AinTelemetry
 {
 	/// <summary>
-	/// Interaction logic for BsEthernetNominalsView.xaml
+	///     Interaction logic for BsEthernetNominalsView.xaml
 	/// </summary>
 	public partial class AinTelemetryView : UserControl
-	{
-		public AinTelemetryView()
-		{
-			InitializeComponent();
-		}
-	}
+    {
+        public AinTelemetryView()
+        {
+            InitializeComponent();
+        }
+    }
 }

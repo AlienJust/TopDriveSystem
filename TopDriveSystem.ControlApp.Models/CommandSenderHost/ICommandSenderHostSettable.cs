@@ -1,6 +1,6 @@
 using TopDriveSystem.CommandSenders.Contracts;
 
-namespace TopDriveSystem.ConfigApp.AppControl.CommandSenderHost
+namespace TopDriveSystem.ControlApp.Models.CommandSenderHost
 {
     public interface ICommandSenderHostSettable : ICommandSenderHost
     {

@@ -1,7 +1,7 @@
 using AlienJust.Support.Collections;
 using TopDriveSystem.Commands.AinSettings;
 
-namespace TopDriveSystem.ConfigApp.AppControl.AinSettingsWrite
+namespace TopDriveSystem.ControlApp.Models.AinSettingsWrite
 {
     public interface IAinSettingsPart
     {

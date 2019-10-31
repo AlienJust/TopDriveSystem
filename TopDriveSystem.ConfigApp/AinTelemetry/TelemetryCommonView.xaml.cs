@@ -3,13 +3,13 @@
 namespace TopDriveSystem.ConfigApp.AinTelemetry
 {
 	/// <summary>
-	/// Interaction logic for TelemetryCommonView.xaml
+	///     Interaction logic for TelemetryCommonView.xaml
 	/// </summary>
 	public partial class TelemetryCommonView : UserControl
-	{
-		public TelemetryCommonView()
-		{
-			InitializeComponent();
-		}
-	}
+    {
+        public TelemetryCommonView()
+        {
+            InitializeComponent();
+        }
+    }
 }

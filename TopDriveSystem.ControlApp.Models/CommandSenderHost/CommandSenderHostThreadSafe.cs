@@ -1,14 +1,12 @@
 using System;
 using TopDriveSystem.CommandSenders.Contracts;
 
-namespace TopDriveSystem.ConfigApp.AppControl.CommandSenderHost
+namespace TopDriveSystem.ControlApp.Models.CommandSenderHost
 {
     public sealed class CommandSenderHostThreadSafe : ICommandSenderHostSettable, IIOListener
     {
         private readonly object _sendersSync;
         private ICommandSender _sender;
-
-        public event EventHandler<CommandPartHearedEventArgs> CommandPartHeared;
 
         public CommandSenderHostThreadSafe()
         {
@@ -19,19 +17,10 @@ namespace TopDriveSystem.ConfigApp.AppControl.CommandSenderHost
         {
             lock (_sendersSync)
             {
-                if (_sender != null)
-                {
-                    _sender.CommandPartHeared -= SenderCommandPartHeared;
-                }
+                if (_sender != null) _sender.CommandPartHeared -= SenderCommandPartHeared;
                 _sender = sender;
                 _sender.CommandPartHeared += SenderCommandPartHeared;
             }
-        }
-
-        private void SenderCommandPartHeared(object sender, CommandPartHearedEventArgs e)
-        {
-            var heared = CommandPartHeared;
-            heared?.Invoke(this, e);
         }
 
         public ICommandSender Sender
@@ -43,6 +32,14 @@ namespace TopDriveSystem.ConfigApp.AppControl.CommandSenderHost
                     return _sender;
                 }
             }
+        }
+
+        public event EventHandler<CommandPartHearedEventArgs> CommandPartHeared;
+
+        private void SenderCommandPartHeared(object sender, CommandPartHearedEventArgs e)
+        {
+            var heared = CommandPartHeared;
+            heared?.Invoke(this, e);
         }
     }
 }

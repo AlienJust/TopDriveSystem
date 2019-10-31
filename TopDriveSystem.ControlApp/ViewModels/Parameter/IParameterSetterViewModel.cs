@@ -1,7 +1,7 @@
-﻿using TopDriveSystem.ControlApp.ViewModels.ParameterPresentation;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows.Input;
+using TopDriveSystem.Parameters;
 
 namespace TopDriveSystem.ControlApp.ViewModels.Parameter
 {

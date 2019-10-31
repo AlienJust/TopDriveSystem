@@ -1,4 +1,4 @@
-namespace TopDriveSystem.ConfigApp.AppControl.TargetAddressHost
+namespace TopDriveSystem.ControlApp.Models.TargetAddressHost
 {
     public interface ITargetAddressHostSettable : ITargetAddressHost
     {

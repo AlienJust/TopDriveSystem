@@ -1,6 +1,6 @@
 ﻿using AlienJust.Support.Concurrent.Contracts;
 
-namespace TopDriveSystem.ConfigApp
+namespace TopDriveSystem.ControlApp.Models
 {
     public interface IUserInterfaceRoot
     {

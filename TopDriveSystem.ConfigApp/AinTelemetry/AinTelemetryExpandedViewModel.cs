@@ -1,13 +1,15 @@
 ﻿namespace TopDriveSystem.ConfigApp.AinTelemetry
 {
-	class AinTelemetryExpandedViewModel {
-		public AinTelemetryExpandedViewModel(string ainName, AinTelemetryViewModel ainTelemetryVm) {
-			AinName = ainName;
-			AinTelemetryVm = ainTelemetryVm;
-		}
+    internal class AinTelemetryExpandedViewModel
+    {
+        public AinTelemetryExpandedViewModel(string ainName, AinTelemetryViewModel ainTelemetryVm)
+        {
+            AinName = ainName;
+            AinTelemetryVm = ainTelemetryVm;
+        }
 
-		public string AinName { get; set; }
+        public string AinName { get; set; }
 
-		public AinTelemetryViewModel AinTelemetryVm { get; set; }
-	}
+        public AinTelemetryViewModel AinTelemetryVm { get; set; }
+    }
 }

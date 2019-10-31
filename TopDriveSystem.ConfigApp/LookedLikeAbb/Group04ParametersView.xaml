@@ -1,18 +1,28 @@
-﻿<UserControl x:Class="TopDriveSystem.ConfigApp.LookedLikeAbb.Group04ParametersView" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:parameterStringReadonly="clr-namespace:TopDriveSystem.ConfigApp.LookedLikeAbb.Parameters.ParameterStringReadonly" mc:Ignorable="d" d:DesignHeight="300" d:DesignWidth="300">
-	<Grid>
-		<Grid.RowDefinitions>
-			<RowDefinition/>
-			<RowDefinition Height="Auto"/>
-		</Grid.RowDefinitions>
-		<ScrollViewer>
-			<StackPanel Orientation="Vertical">
-				<parameterStringReadonly:ParameterStringReadonlyView DataContext="{Binding Path=Parameter01Vm, Mode=OneTime}"/>
-				<parameterStringReadonly:ParameterStringReadonlyView DataContext="{Binding Path=Parameter02Vm, Mode=OneTime}"/>
-				<parameterStringReadonly:ParameterStringReadonlyView DataContext="{Binding Path=Parameter03Vm, Mode=OneTime}"/>
-			</StackPanel>
-		</ScrollViewer>
-		<Grid Grid.Row="1">
-			<Button Content="Читать" Command="{Binding Path=ReadCycleCmd, Mode=OneTime}" Style="{DynamicResource AccentedSquareButtonStyle}" Margin="2,2,2,2"/>
-		</Grid>
-	</Grid>
+﻿<UserControl x:Class="TopDriveSystem.ConfigApp.LookedLikeAbb.Group04ParametersView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:parameterStringReadonly="clr-namespace:TopDriveSystem.ConfigApp.LookedLikeAbb.Parameters.ParameterStringReadonly"
+             mc:Ignorable="d" d:DesignHeight="300" d:DesignWidth="300">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <ScrollViewer>
+            <StackPanel Orientation="Vertical">
+                <parameterStringReadonly:ParameterStringReadonlyView
+                    DataContext="{Binding Path=Parameter01Vm, Mode=OneTime}" />
+                <parameterStringReadonly:ParameterStringReadonlyView
+                    DataContext="{Binding Path=Parameter02Vm, Mode=OneTime}" />
+                <parameterStringReadonly:ParameterStringReadonlyView
+                    DataContext="{Binding Path=Parameter03Vm, Mode=OneTime}" />
+            </StackPanel>
+        </ScrollViewer>
+        <Grid Grid.Row="1">
+            <Button Content="Читать" Command="{Binding Path=ReadCycleCmd, Mode=OneTime}"
+                    Style="{DynamicResource AccentedSquareButtonStyle}" Margin="2,2,2,2" />
+        </Grid>
+    </Grid>
 </UserControl>

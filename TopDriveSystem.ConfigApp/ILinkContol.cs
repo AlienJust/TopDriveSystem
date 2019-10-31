@@ -1,5 +1,7 @@
-namespace TopDriveSystem.ConfigApp {
-	internal interface ILinkContol {
-		void CloseComPort();
-	}
+namespace TopDriveSystem.ConfigApp
+{
+    internal interface ILinkContol
+    {
+        void CloseComPort();
+    }
 }

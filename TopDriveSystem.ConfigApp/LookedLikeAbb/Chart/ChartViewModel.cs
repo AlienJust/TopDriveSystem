@@ -8,125 +8,152 @@ using Abt.Controls.SciChart;
 using Abt.Controls.SciChart.Model.DataSeries;
 using Abt.Controls.SciChart.Visuals.RenderableSeries;
 using AlienJust.Support.Mvvm;
-using TopDriveSystem.ConfigApp.AppControl.ParamLogger;
 using RPD.SciChartControl;
+using TopDriveSystem.ConfigApp.AppControl.ParamLogger;
 
-namespace TopDriveSystem.ConfigApp.LookedLikeAbb.Chart {
-	public class ChartViewModel : ViewModelBase, IParameterLogger {
-		private readonly IUserInterfaceRoot _uiRoot;
-		private readonly List<Color> _colors;
-		//private int _currentColorIndex;
-		private readonly List<Color> _usedColors;
-		private readonly Dictionary<string, PointsSeriesAndAdditionalData> _logs;
+namespace TopDriveSystem.ConfigApp.LookedLikeAbb.Chart
+{
+    public class ChartViewModel : ViewModelBase, IParameterLogger
+    {
+        private readonly List<Color> _colors;
+        private readonly Dictionary<string, PointsSeriesAndAdditionalData> _logs;
 
+        private readonly IUserInterfaceRoot _uiRoot;
 
-		private IUpdatable _updatable;
-
-		public ChartViewModel(IUserInterfaceRoot uiRoot, List<Color> colors) {
-			_uiRoot = uiRoot;
-			_colors = colors;
-			_usedColors = new List<Color>();
-			_logs = new Dictionary<string, PointsSeriesAndAdditionalData>();
+        //private int _currentColorIndex;
+        private readonly List<Color> _usedColors;
 
 
-			AnalogSeries = new ObservableCollection<IChartSeriesViewModel>();
-			DiscreteSeries = new ObservableCollection<IChartSeriesViewModel>();
+        private IUpdatable _updatable;
 
-			AnalogSeriesAdditionalData = new ObservableCollection<ISeriesAdditionalData>();
-			DiscreteSeriesAdditionalData = new ObservableCollection<ISeriesAdditionalData>();
-
-			AnalogSeries.CollectionChanged += AnalogSeriesOnCollectionChanged;
-			DiscreteSeries.CollectionChanged += DiscreteSeriesOnCollectionChanged;
-		}
-
-		private void DiscreteSeriesOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs notifyCollectionChangedEventArgs) {
-			var additionalDataToRemove = DiscreteSeriesAdditionalData.Where(adata => DiscreteSeries.All(data => data != adata.ChartSeries)).ToList();
-			foreach (var seriesAdditionalData in additionalDataToRemove) {
-				DiscreteSeriesAdditionalData.Remove(seriesAdditionalData);
-				RemoveSeries(seriesAdditionalData.ChartSeries);
-			}
-		}
-
-		private void AnalogSeriesOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs notifyCollectionChangedEventArgs) {
-			var additionalDataToRemove = AnalogSeriesAdditionalData.Where(adata => AnalogSeries.All(data => data != adata.ChartSeries)).ToList();
-			foreach (var seriesAdditionalData in additionalDataToRemove) {
-				AnalogSeriesAdditionalData.Remove(seriesAdditionalData);
-				RemoveSeries(seriesAdditionalData.ChartSeries);
-			}
-		}
-
-		public void LogAnalogueParameter(string parameterName, double? value) {
-			_uiRoot.Notifier.Notify(() => {
-				if (value.HasValue) {
-					if (!_logs.ContainsKey(parameterName)) {
-						var dataSeries = new XyDataSeries<DateTime, double> { SeriesName = parameterName };
-						var color = _colors.First(c => _usedColors.All(uc => uc != c));
-						_usedColors.Add(color);
-						var renderSeries = new FastLineRenderableSeries { DataSeries = dataSeries, SeriesColor = color };
-
-						var vm = new ChartSeriesViewModel(dataSeries, renderSeries);
-						var metadata = new SeriesAdditionalData(vm);
-
-						AnalogSeries.Add(vm);
-						AnalogSeriesAdditionalData.Add(metadata);
-						_logs.Add(parameterName, new PointsSeriesAndAdditionalData(vm, metadata, dataSeries, renderSeries));
-					}
-					_logs[parameterName].DataSeries.Append(DateTime.Now, value.Value);
-					_updatable?.Update();
-				}
-			});
-		}
+        public ChartViewModel(IUserInterfaceRoot uiRoot, List<Color> colors)
+        {
+            _uiRoot = uiRoot;
+            _colors = colors;
+            _usedColors = new List<Color>();
+            _logs = new Dictionary<string, PointsSeriesAndAdditionalData>();
 
 
-		public void LogDiscreteParameter(string parameterName, bool? value) {
-			_uiRoot.Notifier.Notify(() => {
-				if (value.HasValue) {
-					if (!_logs.ContainsKey(parameterName)) {
-						var dataSeries = new XyDataSeries<DateTime, double> { SeriesName = parameterName };
+            AnalogSeries = new ObservableCollection<IChartSeriesViewModel>();
+            DiscreteSeries = new ObservableCollection<IChartSeriesViewModel>();
 
-						var color = _colors.First(c => _usedColors.All(uc => uc != c));
-						_usedColors.Add(color);
-						var renderSeries = new FastLineRenderableSeries { DataSeries = dataSeries, SeriesColor = color };
+            AnalogSeriesAdditionalData = new ObservableCollection<ISeriesAdditionalData>();
+            DiscreteSeriesAdditionalData = new ObservableCollection<ISeriesAdditionalData>();
 
-						var vm = new ChartSeriesViewModel(dataSeries, renderSeries);
-						var metadata = new SeriesAdditionalData(vm);
+            AnalogSeries.CollectionChanged += AnalogSeriesOnCollectionChanged;
+            DiscreteSeries.CollectionChanged += DiscreteSeriesOnCollectionChanged;
+        }
 
-						DiscreteSeries.Add(vm);
-						DiscreteSeriesAdditionalData.Add(metadata);
+        public ObservableCollection<IChartSeriesViewModel> AnalogSeries { get; set; }
+        public ObservableCollection<IChartSeriesViewModel> DiscreteSeries { get; set; }
 
-						_logs.Add(parameterName, new PointsSeriesAndAdditionalData(vm, metadata, dataSeries, renderSeries));
-					}
-					_logs[parameterName].DataSeries.Append(DateTime.Now, value.Value ? 1.0 : 0.0);
-					_updatable?.Update();
-				}
-			});
-		}
+        public ObservableCollection<ISeriesAdditionalData> AnalogSeriesAdditionalData { get; set; }
+        public ObservableCollection<ISeriesAdditionalData> DiscreteSeriesAdditionalData { get; set; }
 
-		public void RemoveSeries(string parameterName) {
-			if (_logs.ContainsKey(parameterName)) {
-				RemoveSeries(_logs[parameterName].SeriesVm);
-			}
-		}
+        public void LogAnalogueParameter(string parameterName, double? value)
+        {
+            _uiRoot.Notifier.Notify(() =>
+            {
+                if (value.HasValue)
+                {
+                    if (!_logs.ContainsKey(parameterName))
+                    {
+                        var dataSeries = new XyDataSeries<DateTime, double> {SeriesName = parameterName};
+                        var color = _colors.First(c => _usedColors.All(uc => uc != c));
+                        _usedColors.Add(color);
+                        var renderSeries = new FastLineRenderableSeries {DataSeries = dataSeries, SeriesColor = color};
 
-		public void RemoveSeries(IChartSeriesViewModel seriesViewModel) {
-			var logsToRemove = _logs.Where(log => log.Value.SeriesVm == seriesViewModel).ToList();
-			foreach (var keyValuePair in logsToRemove) {
-				_usedColors.Remove(keyValuePair.Value.RenderSeries.SeriesColor);
-				AnalogSeries.Remove(keyValuePair.Value.SeriesVm);
-				DiscreteSeries.Remove(keyValuePair.Value.SeriesVm);
-				_logs.Remove(keyValuePair.Key);
-			}
-		}
+                        var vm = new ChartSeriesViewModel(dataSeries, renderSeries);
+                        var metadata = new SeriesAdditionalData(vm);
 
-		public ObservableCollection<IChartSeriesViewModel> AnalogSeries { get; set; }
-		public ObservableCollection<IChartSeriesViewModel> DiscreteSeries { get; set; }
+                        AnalogSeries.Add(vm);
+                        AnalogSeriesAdditionalData.Add(metadata);
+                        _logs.Add(parameterName,
+                            new PointsSeriesAndAdditionalData(vm, metadata, dataSeries, renderSeries));
+                    }
 
-		public ObservableCollection<ISeriesAdditionalData> AnalogSeriesAdditionalData { get; set; }
-		public ObservableCollection<ISeriesAdditionalData> DiscreteSeriesAdditionalData { get; set; }
+                    _logs[parameterName].DataSeries.Append(DateTime.Now, value.Value);
+                    _updatable?.Update();
+                }
+            });
+        }
 
 
-		public void SetUpdatable(IUpdatable updatable) {
-			_updatable = updatable;
-		}
-	}
+        public void LogDiscreteParameter(string parameterName, bool? value)
+        {
+            _uiRoot.Notifier.Notify(() =>
+            {
+                if (value.HasValue)
+                {
+                    if (!_logs.ContainsKey(parameterName))
+                    {
+                        var dataSeries = new XyDataSeries<DateTime, double> {SeriesName = parameterName};
+
+                        var color = _colors.First(c => _usedColors.All(uc => uc != c));
+                        _usedColors.Add(color);
+                        var renderSeries = new FastLineRenderableSeries {DataSeries = dataSeries, SeriesColor = color};
+
+                        var vm = new ChartSeriesViewModel(dataSeries, renderSeries);
+                        var metadata = new SeriesAdditionalData(vm);
+
+                        DiscreteSeries.Add(vm);
+                        DiscreteSeriesAdditionalData.Add(metadata);
+
+                        _logs.Add(parameterName,
+                            new PointsSeriesAndAdditionalData(vm, metadata, dataSeries, renderSeries));
+                    }
+
+                    _logs[parameterName].DataSeries.Append(DateTime.Now, value.Value ? 1.0 : 0.0);
+                    _updatable?.Update();
+                }
+            });
+        }
+
+        public void RemoveSeries(string parameterName)
+        {
+            if (_logs.ContainsKey(parameterName)) RemoveSeries(_logs[parameterName].SeriesVm);
+        }
+
+        private void DiscreteSeriesOnCollectionChanged(object sender,
+            NotifyCollectionChangedEventArgs notifyCollectionChangedEventArgs)
+        {
+            var additionalDataToRemove = DiscreteSeriesAdditionalData
+                .Where(adata => DiscreteSeries.All(data => data != adata.ChartSeries)).ToList();
+            foreach (var seriesAdditionalData in additionalDataToRemove)
+            {
+                DiscreteSeriesAdditionalData.Remove(seriesAdditionalData);
+                RemoveSeries(seriesAdditionalData.ChartSeries);
+            }
+        }
+
+        private void AnalogSeriesOnCollectionChanged(object sender,
+            NotifyCollectionChangedEventArgs notifyCollectionChangedEventArgs)
+        {
+            var additionalDataToRemove = AnalogSeriesAdditionalData
+                .Where(adata => AnalogSeries.All(data => data != adata.ChartSeries)).ToList();
+            foreach (var seriesAdditionalData in additionalDataToRemove)
+            {
+                AnalogSeriesAdditionalData.Remove(seriesAdditionalData);
+                RemoveSeries(seriesAdditionalData.ChartSeries);
+            }
+        }
+
+        public void RemoveSeries(IChartSeriesViewModel seriesViewModel)
+        {
+            var logsToRemove = _logs.Where(log => log.Value.SeriesVm == seriesViewModel).ToList();
+            foreach (var keyValuePair in logsToRemove)
+            {
+                _usedColors.Remove(keyValuePair.Value.RenderSeries.SeriesColor);
+                AnalogSeries.Remove(keyValuePair.Value.SeriesVm);
+                DiscreteSeries.Remove(keyValuePair.Value.SeriesVm);
+                _logs.Remove(keyValuePair.Key);
+            }
+        }
+
+
+        public void SetUpdatable(IUpdatable updatable)
+        {
+            _updatable = updatable;
+        }
+    }
 }

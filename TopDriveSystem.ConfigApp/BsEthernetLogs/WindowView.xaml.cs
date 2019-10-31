@@ -1,13 +1,15 @@
 ﻿using MahApps.Metro.Controls;
 
-namespace TopDriveSystem.ConfigApp.BsEthernetLogs {
+namespace TopDriveSystem.ConfigApp.BsEthernetLogs
+{
 	/// <summary>
-	/// Логика взаимодействия для WindowView.xaml
+	///     Логика взаимодействия для WindowView.xaml
 	/// </summary>
-	public partial class WindowView : MetroWindow {
-		public WindowView()
-		{
-			InitializeComponent();
-		}
-	}
+	public partial class WindowView : MetroWindow
+    {
+        public WindowView()
+        {
+            InitializeComponent();
+        }
+    }
 }

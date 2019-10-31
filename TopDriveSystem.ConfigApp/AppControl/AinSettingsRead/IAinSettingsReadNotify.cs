@@ -1,9 +1,11 @@
-﻿namespace TopDriveSystem.ConfigApp.AppControl.AinSettingsRead {
+﻿namespace TopDriveSystem.ConfigApp.AppControl.AinSettingsRead
+{
 	/// <summary>
-	/// Сообщает о том, что настройки были прочитаны
+	///     Сообщает о том, что настройки были прочитаны
 	/// </summary>
-	interface IAinSettingsReadNotify {
-		event AinSettingsReadStartedDelegate AinSettingsReadStarted;
-		event AinSettingsReadCompleteDelegate AinSettingsReadComplete;
-	}
+	internal interface IAinSettingsReadNotify
+    {
+        event AinSettingsReadStartedDelegate AinSettingsReadStarted;
+        event AinSettingsReadCompleteDelegate AinSettingsReadComplete;
+    }
 }

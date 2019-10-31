@@ -2,10 +2,10 @@
 
 namespace TopDriveSystem.Commands.AinSettings
 {
-	/// <summary>
-	///     Конвертер данных для между Ромой и UI (Q8)
-	/// </summary>
-	internal static class BytesPairToDoubleQ8Converter
+    /// <summary>
+    ///     Конвертер данных для между Ромой и UI (Q8)
+    /// </summary>
+    internal static class BytesPairToDoubleQ8Converter
     {
         public static BytesPair? ConvertNullableDoubleToBytesPairQ8(double? value)
         {

@@ -4,14 +4,19 @@ using Avalonia.ReactiveUI;
 
 namespace TopDriveSystem.ControlApp
 {
-    class Program
+    internal class Program
     {
-        public static void Main(string[] args) => BuildAvaloniaApp().StartWithClassicDesktopLifetime(args);
+        public static void Main(string[] args)
+        {
+            BuildAvaloniaApp().StartWithClassicDesktopLifetime(args);
+        }
 
         public static AppBuilder BuildAvaloniaApp()
-            => AppBuilder.Configure<App>()
+        {
+            return AppBuilder.Configure<App>()
                 .UseReactiveUI()
                 .UsePlatformDetect()
                 .LogToDebug();
+        }
     }
 }

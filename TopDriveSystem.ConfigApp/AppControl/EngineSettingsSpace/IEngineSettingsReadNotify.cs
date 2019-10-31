@@ -1,9 +1,9 @@
 ﻿namespace TopDriveSystem.ConfigApp.AppControl.EngineSettingsSpace
 {
     /// <summary>
-    /// Сообщает о том, что настройки были прочитаны
+    ///     Сообщает о том, что настройки были прочитаны
     /// </summary>
-    interface IEngineSettingsReadNotify
+    internal interface IEngineSettingsReadNotify
     {
         event EngineSettingsReadStartedDelegate EngineSettingsReadStarted;
         event EngineSettingsReadCompleteDelegate EngineSettingsReadComplete;

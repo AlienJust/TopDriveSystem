@@ -3,14 +3,15 @@ using TopDriveSystem.Commands.BsEthernetSettings;
 
 namespace TopDriveSystem.ConfigApp.BsEthernetSettings
 {
-	class FtRoleViewModel : ViewModelBase {
-		private readonly FriquencyTransformerRole _role;
-		public FtRoleViewModel(FriquencyTransformerRole role) {
-			_role = role;
-		}
+    internal class FtRoleViewModel : ViewModelBase
+    {
+        public FtRoleViewModel(FriquencyTransformerRole role)
+        {
+            Role = role;
+        }
 
-		public string Text { get { return _role.ToText(); } }
+        public string Text => Role.ToText();
 
-		public FriquencyTransformerRole Role { get { return _role; } }
-	}
+        public FriquencyTransformerRole Role { get; }
+    }
 }

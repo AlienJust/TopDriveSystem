@@ -1,8 +1,9 @@
 using System;
-//using AlienJust.Support.Reflection;
 using TopDriveSystem.Commands.AinSettings;
 
-namespace TopDriveSystem.ConfigApp.AppControl.AinSettingsWrite
+//using AlienJust.Support.Reflection;
+
+namespace TopDriveSystem.ControlApp.Models.AinSettingsWrite
 {
     public static class IainSettingsExtensions
     {

@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using AlienJust.Support.Loggers.Contracts;
 
-namespace TopDriveSystem.ConfigApp.AppControl.LoggerHost
+namespace TopDriveSystem.ControlApp.Models.LoggerHost
 {
     internal class LoggerRegistrationPointThreadSafe : ILoggerRegistrationPoint, ILogger
     {

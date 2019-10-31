@@ -1,4 +1,4 @@
 ﻿namespace TopDriveSystem.ConfigApp.AppControl.EngineSettingsSpace
 {
-    delegate void EngineSettingsReadStartedDelegate();
+    internal delegate void EngineSettingsReadStartedDelegate();
 }

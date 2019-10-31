@@ -14,4 +14,3 @@ namespace TopDriveSystem.ControlApp.Views
         }
     }
 }
-

@@ -1,13 +1,13 @@
 ﻿namespace TopDriveSystem.ConfigApp.BsEthernetLogs
 {
-	internal interface IReadCycleModel
-	{
-		event IcAnotherLogLineWasReadedOrNot AnotherLogLineWasReaded;
-		bool IsReadCycleEnabled { get; set; }
+    internal interface IReadCycleModel
+    {
+        bool IsReadCycleEnabled { get; set; }
+        event IcAnotherLogLineWasReadedOrNot AnotherLogLineWasReaded;
 
-		/// <summary>
-		/// Если циклический опрос совсем больше не нужен
-		/// </summary>
-		void StopBackgroundThreadAndWaitForIt();
-	}
+        /// <summary>
+        ///     Если циклический опрос совсем больше не нужен
+        /// </summary>
+        void StopBackgroundThreadAndWaitForIt();
+    }
 }

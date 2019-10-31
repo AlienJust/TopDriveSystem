@@ -1,24 +1,25 @@
-﻿using ReactiveUI;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Reactive;
 using System.Reactive.Linq;
 using System.Runtime.Serialization;
 using System.Windows.Input;
+using ReactiveUI;
 using TopDriveSystem.ControlApp.Models.DeviceConnection;
 
 namespace TopDriveSystem.ControlApp.ViewModels.DeviceConnection
 {
     public class DeviceConnectionViewModel : ReactiveObject, IDeviceConnectionViewModel
     {
-        private readonly IDeviceConnectionModel _deviceConnectionModel;
         private readonly ReactiveCommand<Unit, Unit> _connect;
+        private readonly IDeviceConnectionModel _deviceConnectionModel;
         private readonly ReactiveCommand<Unit, Unit> _disconnect;
         private readonly ReactiveCommand<Unit, Unit> _refreshSerialPortsList;
-        private IReadOnlyList<string> _serialPortsList;
+        private bool _isConnected;
 
         private string _selectedSerialPortName;
-        private bool _isConnected = false;
+        private IReadOnlyList<string> _serialPortsList;
+
         public DeviceConnectionViewModel(IDeviceConnectionModel deviceConnectionModel)
         {
             _deviceConnectionModel = deviceConnectionModel;
@@ -36,10 +37,10 @@ namespace TopDriveSystem.ControlApp.ViewModels.DeviceConnection
 
 
             _connect = ReactiveCommand.Create(() =>
-                {
-                    _deviceConnectionModel.OpenPort(SelectedSerialPortName);
-                    IsConnected = true;
-                }, canConnect);
+            {
+                _deviceConnectionModel.OpenPort(SelectedSerialPortName);
+                IsConnected = true;
+            }, canConnect);
 
             _disconnect = ReactiveCommand.Create(() =>
             {
@@ -49,11 +50,17 @@ namespace TopDriveSystem.ControlApp.ViewModels.DeviceConnection
 
 
             _refreshSerialPortsList = ReactiveCommand.Create(() =>
-                {
-                    SerialPortsList = _deviceConnectionModel.GetPortsAvailable();
-                });
+            {
+                SerialPortsList = _deviceConnectionModel.GetPortsAvailable();
+            });
         }
 
+
+        public bool IsConnected
+        {
+            get => _isConnected;
+            set => this.RaiseAndSetIfChanged(ref _isConnected, value);
+        }
 
 
         public ICommand Connect => _connect;
@@ -72,13 +79,6 @@ namespace TopDriveSystem.ControlApp.ViewModels.DeviceConnection
         {
             get => _selectedSerialPortName;
             set => this.RaiseAndSetIfChanged(ref _selectedSerialPortName, value);
-        }
-
-
-        public bool IsConnected
-        {
-            get => _isConnected;
-            set => this.RaiseAndSetIfChanged(ref _isConnected, value);
         }
 
 

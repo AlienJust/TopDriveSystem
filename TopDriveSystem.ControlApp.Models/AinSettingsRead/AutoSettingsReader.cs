@@ -1,10 +1,10 @@
 ﻿using AlienJust.Support.Loggers.Contracts;
-using TopDriveSystem.ConfigApp.AppControl.AinsCounter;
-using TopDriveSystem.ConfigApp.AppControl.AinSettingsStorage;
-using TopDriveSystem.ConfigApp.AppControl.EngineSettingsSpace;
-using TopDriveSystem.ConfigApp.AppControl.NotifySendingEnabled;
+using TopDriveSystem.ControlApp.Models.AinsCounter;
+using TopDriveSystem.ControlApp.Models.AinSettingsStorage;
+using TopDriveSystem.ControlApp.Models.EngineSettingsSpace;
+using TopDriveSystem.ControlApp.Models.NotifySendingEnabled;
 
-namespace TopDriveSystem.ConfigApp.AppControl.AinSettingsRead
+namespace TopDriveSystem.ControlApp.Models.AinSettingsRead
 {
     internal class AutoSettingsReader
     {

@@ -1,4 +1,4 @@
-﻿namespace TopDriveSystem.ConfigApp.AppControl.EngineSettingsSpace
+﻿namespace TopDriveSystem.ControlApp.Models.EngineSettingsSpace
 {
     /// <summary>
     ///     Сообщает о том, что настройки были прочитаны

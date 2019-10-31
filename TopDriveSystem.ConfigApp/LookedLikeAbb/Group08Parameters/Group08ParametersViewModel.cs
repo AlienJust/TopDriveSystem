@@ -5,7 +5,6 @@ using AlienJust.Support.Mvvm;
 using TopDriveSystem.Commands.RtuModbus.Telemetry08;
 using TopDriveSystem.ConfigApp.AppControl.CommandSenderHost;
 using TopDriveSystem.ConfigApp.AppControl.Cycle;
-using TopDriveSystem.ConfigApp.AppControl.LoggerHost;
 using TopDriveSystem.ConfigApp.AppControl.ParamLogger;
 using TopDriveSystem.ConfigApp.AppControl.TargetAddressHost;
 using TopDriveSystem.ConfigApp.LookedLikeAbb.Group08Parameters.AswParameter;
@@ -14,27 +13,19 @@ using TopDriveSystem.ConfigApp.LookedLikeAbb.Parameters.ParameterDoubleReadonly;
 
 namespace TopDriveSystem.ConfigApp.LookedLikeAbb.Group08Parameters
 {
-    class Group08ParametersViewModel : ViewModelBase, ICyclePart
+    internal class Group08ParametersViewModel : ViewModelBase, ICyclePart
     {
         private readonly ICommandSenderHost _commandSenderHost;
-        private readonly ITargetAddressHost _targerAddressHost;
-        private readonly IUserInterfaceRoot _uiRoot;
         private readonly ILogger _logger;
-        public MswParameterViewModel Parameter01Vm { get; }
-        public AswParameterViewModel Parameter02Vm { get; }
-        public ParameterDoubleReadonlyViewModel Parameter03Vm { get; }
-        public ParameterDoubleReadonlyViewModel Parameter04Vm { get; }
-        public ParameterDoubleReadonlyViewModel Parameter05Vm { get; }
-        public ParameterDoubleReadonlyViewModel Parameter06Vm { get; }
-
-        public RelayCommand ReadCycleCmd { get; }
-        public RelayCommand StopReadCycleCmd { get; }
 
         private readonly object _syncCancel;
+        private readonly ITargetAddressHost _targerAddressHost;
+        private readonly IUserInterfaceRoot _uiRoot;
         private bool _cancel;
         private bool _readingInProgress;
 
-        public Group08ParametersViewModel(ICommandSenderHost commandSenderHost, ITargetAddressHost targerAddressHost, IUserInterfaceRoot uiRoot, ILogger logger, IParameterLogger parameterLogger)
+        public Group08ParametersViewModel(ICommandSenderHost commandSenderHost, ITargetAddressHost targerAddressHost,
+            IUserInterfaceRoot uiRoot, ILogger logger, IParameterLogger parameterLogger)
         {
             _commandSenderHost = commandSenderHost;
             _targerAddressHost = targerAddressHost;
@@ -43,10 +34,15 @@ namespace TopDriveSystem.ConfigApp.LookedLikeAbb.Group08Parameters
 
             Parameter01Vm = new MswParameterViewModel(parameterLogger);
             Parameter02Vm = new AswParameterViewModel(parameterLogger);
-            Parameter03Vm = new ParameterDoubleReadonlyViewModel("08.03 Этап работы с частотным приводом.", "f0", null, parameterLogger);
-            Parameter04Vm = new ParameterDoubleReadonlyViewModel("08.04 MSW Ведомого привода.", "f0", null, parameterLogger);
-            Parameter05Vm = new ParameterDoubleReadonlyViewModel("08.05 ASW Ведомого привода.", "f0", null, parameterLogger);
-            Parameter06Vm = new ParameterDoubleReadonlyViewModel("08.06 (Ведомый привод) Этап работы с частотным приводом.", "f0", null, parameterLogger);
+            Parameter03Vm = new ParameterDoubleReadonlyViewModel("08.03 Этап работы с частотным приводом.", "f0", null,
+                parameterLogger);
+            Parameter04Vm =
+                new ParameterDoubleReadonlyViewModel("08.04 MSW Ведомого привода.", "f0", null, parameterLogger);
+            Parameter05Vm =
+                new ParameterDoubleReadonlyViewModel("08.05 ASW Ведомого привода.", "f0", null, parameterLogger);
+            Parameter06Vm =
+                new ParameterDoubleReadonlyViewModel("08.06 (Ведомый привод) Этап работы с частотным приводом.", "f0",
+                    null, parameterLogger);
 
 
             ReadCycleCmd = new RelayCommand(ReadCycleFunc, () => !_readingInProgress); // TODO: check port opened
@@ -57,26 +53,15 @@ namespace TopDriveSystem.ConfigApp.LookedLikeAbb.Group08Parameters
             _readingInProgress = false;
         }
 
+        public MswParameterViewModel Parameter01Vm { get; }
+        public AswParameterViewModel Parameter02Vm { get; }
+        public ParameterDoubleReadonlyViewModel Parameter03Vm { get; }
+        public ParameterDoubleReadonlyViewModel Parameter04Vm { get; }
+        public ParameterDoubleReadonlyViewModel Parameter05Vm { get; }
+        public ParameterDoubleReadonlyViewModel Parameter06Vm { get; }
 
-        private void StopReadingFunc()
-        {
-            Cancel = true;
-            _readingInProgress = false;
-
-            _logger.Log("Взведен внутренний флаг прерывания циклического опроса");
-            ReadCycleCmd.RaiseCanExecuteChanged();
-            StopReadCycleCmd.RaiseCanExecuteChanged();
-        }
-
-        private void ReadCycleFunc()
-        {
-            _logger.Log("Запуск циклического опроса телеметрии");
-            Cancel = false;
-
-            _readingInProgress = true;
-            ReadCycleCmd.RaiseCanExecuteChanged();
-            StopReadCycleCmd.RaiseCanExecuteChanged();
-        }
+        public RelayCommand ReadCycleCmd { get; }
+        public RelayCommand StopReadCycleCmd { get; }
 
         public void InCycleAction()
         {
@@ -89,10 +74,7 @@ namespace TopDriveSystem.ConfigApp.LookedLikeAbb.Group08Parameters
                     ITelemetry08 telemetry = null;
                     try
                     {
-                        if (exception != null)
-                        {
-                            throw new Exception("Произошла ошибка во время обмена", exception);
-                        }
+                        if (exception != null) throw new Exception("Произошла ошибка во время обмена", exception);
                         var result = cmd.GetResult(bytes);
                         telemetry = result;
                     }
@@ -120,18 +102,6 @@ namespace TopDriveSystem.ConfigApp.LookedLikeAbb.Group08Parameters
             waiter.Reset();
         }
 
-        private void UpdateTelemetry(ITelemetry08 telemetry)
-        {
-            Parameter01Vm.UpdateTelemetry(telemetry?.Msw);
-            Parameter02Vm.UpdateTelemetry(telemetry?.Asw);
-
-            Parameter03Vm.CurrentValue = telemetry?.EngineState;
-            Parameter04Vm.CurrentValue = telemetry?.FollowMsw;
-            Parameter05Vm.CurrentValue = telemetry?.FollowAsw;
-
-            Parameter06Vm.CurrentValue = telemetry?.FollowEngineState;
-        }
-
         public bool Cancel
         {
             get
@@ -148,6 +118,39 @@ namespace TopDriveSystem.ConfigApp.LookedLikeAbb.Group08Parameters
                     _cancel = value;
                 }
             }
+        }
+
+
+        private void StopReadingFunc()
+        {
+            Cancel = true;
+            _readingInProgress = false;
+
+            _logger.Log("Взведен внутренний флаг прерывания циклического опроса");
+            ReadCycleCmd.RaiseCanExecuteChanged();
+            StopReadCycleCmd.RaiseCanExecuteChanged();
+        }
+
+        private void ReadCycleFunc()
+        {
+            _logger.Log("Запуск циклического опроса телеметрии");
+            Cancel = false;
+
+            _readingInProgress = true;
+            ReadCycleCmd.RaiseCanExecuteChanged();
+            StopReadCycleCmd.RaiseCanExecuteChanged();
+        }
+
+        private void UpdateTelemetry(ITelemetry08 telemetry)
+        {
+            Parameter01Vm.UpdateTelemetry(telemetry?.Msw);
+            Parameter02Vm.UpdateTelemetry(telemetry?.Asw);
+
+            Parameter03Vm.CurrentValue = telemetry?.EngineState;
+            Parameter04Vm.CurrentValue = telemetry?.FollowMsw;
+            Parameter05Vm.CurrentValue = telemetry?.FollowAsw;
+
+            Parameter06Vm.CurrentValue = telemetry?.FollowEngineState;
         }
     }
 }

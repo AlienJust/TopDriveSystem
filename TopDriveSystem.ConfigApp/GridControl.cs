@@ -2,58 +2,66 @@
 using System.Windows.Controls;
 using System.Windows.Media;
 
-namespace TopDriveSystem.ConfigApp {
-	public class GridControl : Grid
-	{
-		#region Properties
-		public bool ShowCustomGridLines
-		{
-			get { return (bool)GetValue(ShowCustomGridLinesProperty); }
-			set { SetValue(ShowCustomGridLinesProperty, value); }
-		}
+namespace TopDriveSystem.ConfigApp
+{
+    public class GridControl : Grid
+    {
+        static GridControl()
+        {
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(GridControl),
+                new FrameworkPropertyMetadata(typeof(GridControl)));
+        }
 
-		public static readonly DependencyProperty ShowCustomGridLinesProperty =
-			DependencyProperty.Register("ShowCustomGridLines", typeof(bool), typeof(GridControl), new UIPropertyMetadata(false));
+        protected override void OnRender(DrawingContext dc)
+        {
+            if (ShowCustomGridLines)
+            {
+                foreach (var rowDefinition in RowDefinitions)
+                    dc.DrawLine(new Pen(GridLineBrush, GridLineThickness), new Point(0, rowDefinition.Offset),
+                        new Point(ActualWidth, rowDefinition.Offset));
 
-		public Brush GridLineBrush
-		{
-			get { return (Brush)GetValue(GridLineBrushProperty); }
-			set { SetValue(GridLineBrushProperty, value); }
-		}
+                foreach (var columnDefinition in ColumnDefinitions)
+                    dc.DrawLine(new Pen(GridLineBrush, GridLineThickness), new Point(columnDefinition.Offset, 0),
+                        new Point(columnDefinition.Offset, ActualHeight));
+                dc.DrawRectangle(Brushes.Transparent, new Pen(GridLineBrush, GridLineThickness),
+                    new Rect(0, 0, ActualWidth, ActualHeight));
+            }
 
-		public static readonly DependencyProperty GridLineBrushProperty =
-			DependencyProperty.Register("GridLineBrush", typeof(Brush), typeof(GridControl), new UIPropertyMetadata(Brushes.Black));
+            base.OnRender(dc);
+        }
 
-		public double GridLineThickness
-		{
-			get { return (double)GetValue(GridLineThicknessProperty); }
-			set { SetValue(GridLineThicknessProperty, value); }
-		}
+        #region Properties
 
-		public static readonly DependencyProperty GridLineThicknessProperty =
-			DependencyProperty.Register("GridLineThickness", typeof(double), typeof(GridControl), new UIPropertyMetadata(1.0));
-		#endregion
+        public bool ShowCustomGridLines
+        {
+            get => (bool) GetValue(ShowCustomGridLinesProperty);
+            set => SetValue(ShowCustomGridLinesProperty, value);
+        }
 
-		protected override void OnRender(DrawingContext dc)
-		{
-			if (ShowCustomGridLines)
-			{
-				foreach (var rowDefinition in RowDefinitions)
-				{
-					dc.DrawLine(new Pen(GridLineBrush, GridLineThickness), new Point(0, rowDefinition.Offset), new Point(ActualWidth, rowDefinition.Offset));
-				}
+        public static readonly DependencyProperty ShowCustomGridLinesProperty =
+            DependencyProperty.Register("ShowCustomGridLines", typeof(bool), typeof(GridControl),
+                new UIPropertyMetadata(false));
 
-				foreach (var columnDefinition in ColumnDefinitions)
-				{
-					dc.DrawLine(new Pen(GridLineBrush, GridLineThickness), new Point(columnDefinition.Offset, 0), new Point(columnDefinition.Offset, ActualHeight));
-				}
-				dc.DrawRectangle(Brushes.Transparent, new Pen(GridLineBrush, GridLineThickness), new Rect(0, 0, ActualWidth, ActualHeight));
-			}
-			base.OnRender(dc);
-		}
-		static GridControl()
-		{
-			DefaultStyleKeyProperty.OverrideMetadata(typeof(GridControl), new FrameworkPropertyMetadata(typeof(GridControl)));
-		}
-	}
+        public Brush GridLineBrush
+        {
+            get => (Brush) GetValue(GridLineBrushProperty);
+            set => SetValue(GridLineBrushProperty, value);
+        }
+
+        public static readonly DependencyProperty GridLineBrushProperty =
+            DependencyProperty.Register("GridLineBrush", typeof(Brush), typeof(GridControl),
+                new UIPropertyMetadata(Brushes.Black));
+
+        public double GridLineThickness
+        {
+            get => (double) GetValue(GridLineThicknessProperty);
+            set => SetValue(GridLineThicknessProperty, value);
+        }
+
+        public static readonly DependencyProperty GridLineThicknessProperty =
+            DependencyProperty.Register("GridLineThickness", typeof(double), typeof(GridControl),
+                new UIPropertyMetadata(1.0));
+
+        #endregion
+    }
 }

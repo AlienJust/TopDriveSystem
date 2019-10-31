@@ -1,5 +1,7 @@
-namespace TopDriveSystem.ConfigApp.AppControl.TargetAddressHost {
-	internal interface ITargetAddressHost {
-		byte TargetAddress { get; }
-	}
+namespace TopDriveSystem.ConfigApp.AppControl.TargetAddressHost
+{
+    internal interface ITargetAddressHost
+    {
+        byte TargetAddress { get; }
+    }
 }

@@ -8,12 +8,12 @@ namespace TopDriveSystem.Commands.EngineTests
     public class EngineTestReadResultCommand : IRrModbusCommandWithReply,
         IRrModbusCommandResultGetter<IEngineTestResult>, IRrModbusCommandWithTestReply
     {
-	    /// <summary>
-	    ///     Получает результат выполнения команды
-	    /// </summary>
-	    /// <param name="reply">Байты ответа</param>
-	    /// <returns>Успешность запуска тестирования</returns>
-	    public IEngineTestResult GetResult(byte[] reply)
+        /// <summary>
+        ///     Получает результат выполнения команды
+        /// </summary>
+        /// <param name="reply">Байты ответа</param>
+        /// <returns>Успешность запуска тестирования</returns>
+        public IEngineTestResult GetResult(byte[] reply)
         {
             if (reply.Length != ReplyLength)
                 throw new Exception("Reply error, reply length must be " + ReplyLength);

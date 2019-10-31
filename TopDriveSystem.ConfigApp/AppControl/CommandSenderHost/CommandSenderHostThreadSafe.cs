@@ -2,7 +2,7 @@ using TopDriveSystem.CommandSenders.Contracts;
 
 namespace TopDriveSystem.ConfigApp.AppControl.CommandSenderHost
 {
-    class CommandSenderHostThreadSafe : ICommandSenderHostSettable
+    internal class CommandSenderHostThreadSafe : ICommandSenderHostSettable
     {
         private readonly object _sendersSync;
         private ICommandSender _sender;
@@ -24,7 +24,10 @@ namespace TopDriveSystem.ConfigApp.AppControl.CommandSenderHost
         {
             get
             {
-                lock (_sendersSync) return _sender;
+                lock (_sendersSync)
+                {
+                    return _sender;
+                }
             }
         }
     }

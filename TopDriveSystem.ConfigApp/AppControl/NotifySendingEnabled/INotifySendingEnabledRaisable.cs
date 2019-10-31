@@ -1,5 +1,7 @@
-namespace TopDriveSystem.ConfigApp.AppControl.NotifySendingEnabled {
-	internal interface INotifySendingEnabledRaisable : INotifySendingEnabled {
-		void SetIsSendingEnabledAndRaiseChange(bool isSendingEnabled);
-	}
+namespace TopDriveSystem.ConfigApp.AppControl.NotifySendingEnabled
+{
+    internal interface INotifySendingEnabledRaisable : INotifySendingEnabled
+    {
+        void SetIsSendingEnabledAndRaiseChange(bool isSendingEnabled);
+    }
 }

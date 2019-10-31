@@ -1,4 +1,4 @@
-﻿namespace TopDriveSystem.ControlApp.ViewModels.ParameterPresentation
+﻿namespace TopDriveSystem.Parameters.Views
 {
     internal sealed class DefaultView : IParameterView
     {

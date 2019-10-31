@@ -3,7 +3,7 @@ using System.Globalization;
 using System.Linq;
 using System.Xml.Linq;
 
-namespace TopDriveSystem.ControlApp.ViewModels.ParameterPresentation
+namespace TopDriveSystem.Parameters
 {
     internal sealed class InjectionXmlBuilder
     {
@@ -16,7 +16,7 @@ namespace TopDriveSystem.ControlApp.ViewModels.ParameterPresentation
                 try
                 {
                     predefinedValues = predefinedValuesTag.Select(xmlTagTv =>
-                    new ParameterPreselectedValue(
+                        new ParameterPreselectedValue(
                             xmlTagTv.Attribute("Text").Value,
                             double.Parse(xmlTagTv.Attribute("Value").Value, CultureInfo.InvariantCulture))).ToList();
                 }
@@ -31,7 +31,6 @@ namespace TopDriveSystem.ControlApp.ViewModels.ParameterPresentation
                     bool.Parse(xmlTag.Attribute("InvertBytesOrder").Value),
                     predefinedValues);
             }).FirstOrDefault();
-
         }
     }
 }

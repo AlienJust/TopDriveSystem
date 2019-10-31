@@ -1,4 +1,4 @@
-﻿namespace TopDriveSystem.ConfigApp.AppControl.AinSettingsRead
+﻿namespace TopDriveSystem.ControlApp.Models.AinSettingsRead
 {
     public delegate void AinSettingsReadStartedDelegate(byte zeroBasedAinNumber);
 }

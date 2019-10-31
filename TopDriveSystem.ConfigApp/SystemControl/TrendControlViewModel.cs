@@ -3,49 +3,50 @@ using AlienJust.Support.Mvvm;
 
 namespace TopDriveSystem.ConfigApp.SystemControl
 {
-	class TrendControlViewModel : ViewModelBase {
-		private readonly string _name;
-		private readonly INamedTrendsControl _trendsControl;
-		private ICommand _clearTrendDataCommand;
-		public TrendControlViewModel(string name, INamedTrendsControl trendsControl) {
-			_name = name;
-			_trendsControl = trendsControl;
-			_clearTrendDataCommand = new RelayCommand(ClearTrendData);
-		}
+    internal class TrendControlViewModel : ViewModelBase
+    {
+        private readonly INamedTrendsControl _trendsControl;
 
-		private void ClearTrendData() {
-			_trendsControl.ClearTrendData(_name);
-		}
+        public TrendControlViewModel(string name, INamedTrendsControl trendsControl)
+        {
+            Name = name;
+            _trendsControl = trendsControl;
+            ClearTrendCommand = new RelayCommand(ClearTrendData);
+        }
 
-		public bool IsTrendVisible {
-			get { return _trendsControl.GetTrendVisibility(_name); }
-			set {
-				if (value != IsTrendVisible) {
-					_trendsControl.SetTrendVisibility(_name, value);
-					RaisePropertyChanged(()=>IsTrendVisible);
-				}
-			}
-		}
+        public bool IsTrendVisible
+        {
+            get => _trendsControl.GetTrendVisibility(Name);
+            set
+            {
+                if (value != IsTrendVisible)
+                {
+                    _trendsControl.SetTrendVisibility(Name, value);
+                    RaisePropertyChanged(() => IsTrendVisible);
+                }
+            }
+        }
 
-		public bool IsSigned
-		{
-			get { return _trendsControl.GetSignedFlag(_name); }
-			set
-			{
-				if (value != IsSigned)
-				{
-					_trendsControl.SetSignedFlag(_name, value);
-					RaisePropertyChanged(() => IsSigned);
-				}
-			}
-		}
+        public bool IsSigned
+        {
+            get => _trendsControl.GetSignedFlag(Name);
+            set
+            {
+                if (value != IsSigned)
+                {
+                    _trendsControl.SetSignedFlag(Name, value);
+                    RaisePropertyChanged(() => IsSigned);
+                }
+            }
+        }
 
-		public ICommand ClearTrendCommand
-		{
-			get { return _clearTrendDataCommand; }
-			set { _clearTrendDataCommand = value; }
-		}
+        public ICommand ClearTrendCommand { get; set; }
 
-		public string Name { get { return _name; } }
-	}
+        public string Name { get; }
+
+        private void ClearTrendData()
+        {
+            _trendsControl.ClearTrendData(Name);
+        }
+    }
 }

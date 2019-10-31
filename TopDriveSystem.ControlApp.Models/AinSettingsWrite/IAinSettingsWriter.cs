@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TopDriveSystem.ConfigApp.AppControl.AinSettingsWrite
+namespace TopDriveSystem.ControlApp.Models.AinSettingsWrite
 {
     /// <summary>
     ///     Реализация должна учитывать число АИНов в системе и производить запись соответсвтенно

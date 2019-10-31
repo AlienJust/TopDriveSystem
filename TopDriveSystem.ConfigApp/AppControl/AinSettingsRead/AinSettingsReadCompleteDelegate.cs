@@ -1,6 +1,8 @@
 ﻿using System;
 using TopDriveSystem.Commands.AinSettings;
 
-namespace TopDriveSystem.ConfigApp.AppControl.AinSettingsRead {
-	delegate void AinSettingsReadCompleteDelegate(byte zeroBasedAinNumber, Exception readInnerException, IAinSettings settings);
+namespace TopDriveSystem.ConfigApp.AppControl.AinSettingsRead
+{
+    internal delegate void AinSettingsReadCompleteDelegate(byte zeroBasedAinNumber, Exception readInnerException,
+        IAinSettings settings);
 }

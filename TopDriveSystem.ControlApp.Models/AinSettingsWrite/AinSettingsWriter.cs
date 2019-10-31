@@ -1,12 +1,12 @@
 using System;
 using System.Threading;
 using TopDriveSystem.Commands.AinSettings;
-using TopDriveSystem.ConfigApp.AppControl.AinsCounter;
-using TopDriveSystem.ConfigApp.AppControl.AinSettingsRead;
-using TopDriveSystem.ConfigApp.AppControl.CommandSenderHost;
-using TopDriveSystem.ConfigApp.AppControl.TargetAddressHost;
+using TopDriveSystem.ControlApp.Models.AinsCounter;
+using TopDriveSystem.ControlApp.Models.AinSettingsRead;
+using TopDriveSystem.ControlApp.Models.CommandSenderHost;
+using TopDriveSystem.ControlApp.Models.TargetAddressHost;
 
-namespace TopDriveSystem.ConfigApp.AppControl.AinSettingsWrite
+namespace TopDriveSystem.ControlApp.Models.AinSettingsWrite
 {
     internal class AinSettingsWriter : IAinSettingsWriter
     {

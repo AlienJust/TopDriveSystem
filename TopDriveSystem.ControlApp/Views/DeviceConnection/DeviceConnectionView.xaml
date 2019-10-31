@@ -2,35 +2,35 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             
+
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="45"
-             
+
              x:Class="TopDriveSystem.ControlApp.Views.DeviceConnection.DeviceConnectionView">
-  <StackPanel Grid.Row="0" Orientation="Horizontal">
-    <StackPanel
-        Orientation="Horizontal">
-      <TextBlock
-          Margin="2,2,2,2"
-          Text="Порт:"
-          VerticalAlignment="Center" />
-      <ComboBox
-          Margin="2,2,2,2"
-          Items="{Binding SerialPortsList}"
-          SelectedItem="{Binding SelectedSerialPortName}" />
-      <Button
-          Margin="2,2,2,2"
-          Command="{Binding RefreshSerialPortsList, Mode=OneTime}">
-        Обновить
-      </Button>
+    <StackPanel Grid.Row="0" Orientation="Horizontal">
+        <StackPanel
+            Orientation="Horizontal">
+            <TextBlock
+                Margin="2,2,2,2"
+                Text="Порт:"
+                VerticalAlignment="Center" />
+            <ComboBox
+                Margin="2,2,2,2"
+                Items="{Binding SerialPortsList}"
+                SelectedItem="{Binding SelectedSerialPortName}" />
+            <Button
+                Margin="2,2,2,2"
+                Command="{Binding RefreshSerialPortsList, Mode=OneTime}">
+                Обновить
+            </Button>
+        </StackPanel>
+        <Button
+            Margin="2,2,2,2"
+            Command="{Binding Path=Connect, Mode=OneTime}"
+            Content="Подключиться" />
+        <Button
+            Margin="2,2,2,2"
+            Command="{Binding Path=Disconnect, Mode=OneTime}"
+            Content="Отключиться"
+            BorderThickness="0" />
     </StackPanel>
-    <Button
-        Margin="2,2,2,2"
-        Command="{Binding Path=Connect, Mode=OneTime}"
-        Content="Подключиться"/>
-    <Button
-        Margin="2,2,2,2"
-        Command="{Binding Path=Disconnect, Mode=OneTime}"
-        Content="Отключиться"
-        BorderThickness="0"/>
-  </StackPanel>
 </UserControl>

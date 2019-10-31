@@ -1,4 +1,4 @@
-﻿namespace TopDriveSystem.ControlApp.ViewModels.ParameterPresentation
+﻿namespace TopDriveSystem.Parameters
 {
     public interface IParameterDescription
     {

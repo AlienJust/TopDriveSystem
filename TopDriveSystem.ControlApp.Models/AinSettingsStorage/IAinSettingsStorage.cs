@@ -1,6 +1,6 @@
 using TopDriveSystem.Commands.AinSettings;
 
-namespace TopDriveSystem.ConfigApp.AppControl.AinSettingsStorage
+namespace TopDriveSystem.ControlApp.Models.AinSettingsStorage
 {
     /// <summary>
     ///     Хранилище настроек используется прежде всего для записи настроек АИН.

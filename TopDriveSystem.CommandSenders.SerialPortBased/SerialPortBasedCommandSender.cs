@@ -16,9 +16,8 @@ namespace TopDriveSystem.CommandSenders.SerialPortBased
         private readonly ISerialPortExtender _portExtender;
         private readonly SerialPort _serialPort;
 
-        public event EventHandler<CommandPartHearedEventArgs> CommandPartHeared;
-
-        public SerialPortBasedCommandSender(IWorker<Action> backWorker, IStoppableWorker stoppableBackWorker, string selectedComName)
+        public SerialPortBasedCommandSender(IWorker<Action> backWorker, IStoppableWorker stoppableBackWorker,
+            string selectedComName)
         {
             _serialPort = new SerialPort(selectedComName, 115200);
             _serialPort.Open();
@@ -27,6 +26,8 @@ namespace TopDriveSystem.CommandSenders.SerialPortBased
             _backWorker = backWorker;
             _backWorkerStoppable = stoppableBackWorker;
         }
+
+        public event EventHandler<CommandPartHearedEventArgs> CommandPartHeared;
 
         public void SendCommandAsync(byte address, IRrModbusCommandWithReply command, TimeSpan timeout,
             int maxAttemptsCount, Action<Exception, byte[]> onComplete)
@@ -57,7 +58,9 @@ namespace TopDriveSystem.CommandSenders.SerialPortBased
                         try
                         {
                             _portExtender.WriteBytes(sendBytes, 0, sendBytes.Length);
-                            replyBytes = _portExtender.ReadBytes(command.ReplyLength + 4, timeout, true); // + 4 bytes are: addr, cmd, crc, crc
+                            replyBytes =
+                                _portExtender.ReadBytes(command.ReplyLength + 4, timeout,
+                                    true); // + 4 bytes are: addr, cmd, crc, crc
                             lastException = null;
                             break;
                         }
@@ -107,7 +110,7 @@ namespace TopDriveSystem.CommandSenders.SerialPortBased
             });
         }
 
-        void RaiseCommandHeared(byte address, byte commandCode, byte[] data)
+        private void RaiseCommandHeared(byte address, byte commandCode, byte[] data)
         {
             var eve = CommandPartHeared;
             eve?.Invoke(this, new CommandPartHearedEventArgs(address, commandCode, data));
@@ -135,17 +138,16 @@ namespace TopDriveSystem.CommandSenders.SerialPortBased
         }
 
         #region IDisposable Support
-        private bool disposedValue = false; // To detect redundant calls
+
+        private bool disposedValue; // To detect redundant calls
 
         protected virtual void Dispose(bool disposing)
         {
             if (!disposedValue)
             {
                 if (disposing)
-                {
                     // TODO: dispose managed state (managed objects).
                     EndWork();
-                }
 
                 // TODO: free unmanaged resources (unmanaged objects) and override a finalizer below.
                 // TODO: set large fields to null.
@@ -169,6 +171,7 @@ namespace TopDriveSystem.CommandSenders.SerialPortBased
             // TODO: uncomment the following line if the finalizer is overridden above.
             // GC.SuppressFinalize(this);
         }
+
         #endregion
     }
 }

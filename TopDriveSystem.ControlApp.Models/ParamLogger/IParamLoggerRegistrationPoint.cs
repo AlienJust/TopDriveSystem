@@ -1,4 +1,4 @@
-namespace TopDriveSystem.ConfigApp.AppControl.ParamLogger
+namespace TopDriveSystem.ControlApp.Models.ParamLogger
 {
     public interface IParamLoggerRegistrationPoint
     {

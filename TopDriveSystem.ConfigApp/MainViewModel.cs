@@ -37,77 +37,59 @@ using TopDriveSystem.ConfigApp.NewLook.OldLook;
 using TopDriveSystem.ConfigApp.NewLook.Settings;
 using TopDriveSystem.ConfigApp.NewLook.Telemetry;
 using Colors = AlienJust.Support.Wpf.Converters.Colors;
-using IAinSettingsReadNotifyRaisable = TopDriveSystem.ConfigApp.AppControl.AinSettingsRead.IAinSettingsReadNotifyRaisable;
+using IAinSettingsReadNotifyRaisable =
+    TopDriveSystem.ConfigApp.AppControl.AinSettingsRead.IAinSettingsReadNotifyRaisable;
 
 namespace TopDriveSystem.ConfigApp
 {
     internal class MainViewModel : ViewModelBase, ILinkContol
     {
         private const string TestComPortName = "ТЕСТ";
-
-        private List<string> _comPortsAvailable;
-        private string _selectedComName;
-
-        private readonly ICommandSenderHostSettable _commandSenderHostSettable;
-        private readonly ICommandSenderHost _commandSenderHost;
-        private readonly ITargetAddressHost _targetAddressHost;
-
-        private readonly ProgramLogViewModel _programLogVm;
-
-
-        private readonly RelayCommand _openPortCommand;
-        private readonly RelayCommand _closePortCommand;
-
-        private bool _isPortOpened;
-
-        private readonly ILogger _logger;
-        private readonly IMultiLoggerWithStackTrace<int> _debugLogger;
-        private readonly ILoggerRegistrationPoint _loggerRegistrationPoint;
-        private readonly INotifySendingEnabledRaisable _notifySendingEnabled;
-
-
-
-        private readonly AutoSettingsReader _autoSettingsReader;
-        private Colors _ain1StateColor;
-        private Colors _ain2StateColor;
-        private Colors _ain3StateColor;
-        private bool _ain1IsUsed;
-        private bool _ain2IsUsed;
-        private bool _ain3IsUsed;
-
-        public ChartViewModel ChartControlVm { get; set; }
-        public IParameterLogger ExternalParamLogger { get; set; }
-
-        private readonly IParameterLogger _paramLogger;
         private readonly IAinsCounterRaisable _ainsCounterRaisable;
-        private readonly ICycleThreadHolder _cycleThreadHolder;
         private readonly IAinSettingsReader _ainSettingsReader;
         private readonly IAinSettingsReadNotify _ainSettingsReadNotify;
         private readonly IAinSettingsWriter _ainSettingsWriter;
 
+
+        private readonly AutoSettingsReader _autoSettingsReader;
+        public readonly List<Color> _colors;
+        private readonly ICommandSenderHost _commandSenderHost;
+
+        private readonly ICommandSenderHostSettable _commandSenderHostSettable;
+        private readonly ICycleThreadHolder _cycleThreadHolder;
+        private readonly IMultiLoggerWithStackTrace<int> _debugLogger;
+
         private readonly IEngineSettingsReader _engineSettingsReader;
-        private readonly IEngineSettingsWriter _engineSettingsWriter;
         private readonly IEngineSettingsReadNotify _engineSettingsReadNotify;
         private readonly IEngineSettingsReadNotifyRaisable _engineSettingsReadNotifyRaisable;
         private readonly IEngineSettingsStorage _engineSettingsStorage;
         private readonly IEngineSettingsStorageSettable _engineSettingsStorageSettable;
         private readonly IEngineSettingsStorageUpdatedNotify _engineSettingsStorageUpdatedNotify;
+        private readonly IEngineSettingsWriter _engineSettingsWriter;
+
+        private readonly ILogger _logger;
+        private readonly ILoggerRegistrationPoint _loggerRegistrationPoint;
+        private readonly INotifySendingEnabledRaisable _notifySendingEnabled;
+
+
+        private readonly IParameterLogger _paramLogger;
+
+        private readonly ITargetAddressHost _targetAddressHost;
+
+        private readonly IUserInterfaceRoot _uiRoot;
+        private bool _ain1IsUsed;
+        private Colors _ain1StateColor;
+        private bool _ain2IsUsed;
+        private Colors _ain2StateColor;
+        private bool _ain3IsUsed;
+        private Colors _ain3StateColor;
 
         private AutoTimeSetter _autoTimeSetter;
 
-        public AinCommandAndCommonTelemetryViewModel AinCommandAndCommonTelemetryVm { get; }
+        private List<string> _comPortsAvailable;
 
-        private readonly IUserInterfaceRoot _uiRoot;
-        public readonly List<Color> _colors;
-
-
-
-        public MnemonicChemeViewModel MnemonicChemeVm { get; }
-        public OldLookViewModel OldLookVm { get; }
-        public ArchivesViewModel ArchiveVm { get; }
-        public SettingsViewModel SettingsVm { get; }
-        public TelemetryViewModel TelemtryVm { get; }
-        public EngineAutoSetupViewModel EngineAutoSetupVm { get; }
+        private bool _isPortOpened;
+        private string _selectedComName;
 
         public MainViewModel(IUserInterfaceRoot uiRoot, IWindowSystem windowSystem, List<Color> colors,
             ICommandSenderHostSettable commandSenderHostSettable, ITargetAddressHost targetAddressHost,
@@ -115,9 +97,11 @@ namespace TopDriveSystem.ConfigApp
             INotifySendingEnabledRaisable notifySendingEnabled, IParameterLogger paramLogger,
             IAinsCounterRaisable ainsCounterRaisable,
             ICycleThreadHolder cycleThreadHolder,
-            IAinSettingsReader ainSettingsReader, IAinSettingsReadNotify ainSettingsReadNotify, IAinSettingsReadNotifyRaisable ainSettingsReadNotifyRaisable, IAinSettingsWriter ainSettingsWriter, IAinSettingsStorage ainSettingsStorage, IAinSettingsStorageSettable ainSettingsStorageSettable, IAinSettingsStorageUpdatedNotify storageUpdatedNotify,
+            IAinSettingsReader ainSettingsReader, IAinSettingsReadNotify ainSettingsReadNotify,
+            IAinSettingsReadNotifyRaisable ainSettingsReadNotifyRaisable, IAinSettingsWriter ainSettingsWriter,
+            IAinSettingsStorage ainSettingsStorage, IAinSettingsStorageSettable ainSettingsStorageSettable,
+            IAinSettingsStorageUpdatedNotify storageUpdatedNotify,
             ReadCycleModel bsEthernetReadCycleModel,
-
             IEngineSettingsReader engineSettingsReader,
             IEngineSettingsWriter engineSettingsWriter,
             IEngineSettingsReadNotify engineSettingsReadNotify,
@@ -142,14 +126,14 @@ namespace TopDriveSystem.ConfigApp
             // разрешение к отправке (COM-порт открыт/закрыт)
             _notifySendingEnabled = notifySendingEnabled;
 
-            _programLogVm = new ProgramLogViewModel(_uiRoot, _debugLogger, new DateTimeFormatter(" > "));
-            _logger = new RelayLogger(_programLogVm);
+            ProgramLogVm = new ProgramLogViewModel(_uiRoot, _debugLogger, new DateTimeFormatter(" > "));
+            _logger = new RelayLogger(ProgramLogVm);
             _loggerRegistrationPoint.RegisterLoggegr(_logger);
 
             GetPortsAvailable();
 
-            _openPortCommand = new RelayCommand(OpenPort, () => !_isPortOpened);
-            _closePortCommand = new RelayCommand(ClosePort, () => _isPortOpened);
+            OpenPortCommand = new RelayCommand(OpenPort, () => !_isPortOpened);
+            ClosePortCommand = new RelayCommand(ClosePort, () => _isPortOpened);
             GetPortsAvailableCommand = new RelayCommand(GetPortsAvailable);
 
             _paramLogger = paramLogger;
@@ -162,7 +146,7 @@ namespace TopDriveSystem.ConfigApp
             _ainSettingsWriter = ainSettingsWriter;
 
             // Блоки АИН в системе:
-            AinsCountInSystem = new List<int> { 1, 2, 3 };
+            AinsCountInSystem = new List<int> {1, 2, 3};
             SelectedAinsCount = AinsCountInSystem.First();
 
             var ainSettingsReadedWriter = new AinSettingsReaderWriter(_ainSettingsReader, _ainSettingsWriter);
@@ -177,31 +161,39 @@ namespace TopDriveSystem.ConfigApp
 
 
             AinCommandAndCommonTelemetryVm = new AinCommandAndCommonTelemetryViewModel(
-                new AinCommandAndMinimalCommonTelemetryViewModel(_commandSenderHost, _targetAddressHost, _uiRoot, _logger, _notifySendingEnabled, 0, ainSettingsStorage, storageUpdatedNotify),
+                new AinCommandAndMinimalCommonTelemetryViewModel(_commandSenderHost, _targetAddressHost, _uiRoot,
+                    _logger, _notifySendingEnabled, 0, ainSettingsStorage, storageUpdatedNotify),
                 new TelemetryCommonViewModel(), _commandSenderHost, _targetAddressHost, _uiRoot, _notifySendingEnabled);
 
             _cycleThreadHolder.RegisterAsCyclePart(AinCommandAndCommonTelemetryVm);
 
-            TelemtryVm = new TelemetryViewModel(_uiRoot, _commandSenderHost, _targetAddressHost, _logger, _cycleThreadHolder, _ainsCounterRaisable, _paramLogger, _notifySendingEnabled);
+            TelemtryVm = new TelemetryViewModel(_uiRoot, _commandSenderHost, _targetAddressHost, _logger,
+                _cycleThreadHolder, _ainsCounterRaisable, _paramLogger, _notifySendingEnabled);
 
             SettingsVm = new SettingsViewModel(_uiRoot, _logger,
-                ainSettingsReadedWriter, _ainSettingsReadNotify, ainSettingsReadNotifyRaisable, ainSettingsStorage, ainSettingsStorageSettable, storageUpdatedNotify, _ainsCounterRaisable,
+                ainSettingsReadedWriter, _ainSettingsReadNotify, ainSettingsReadNotifyRaisable, ainSettingsStorage,
+                ainSettingsStorageSettable, storageUpdatedNotify, _ainsCounterRaisable,
                 _commandSenderHost, _targetAddressHost, _notifySendingEnabled,
                 _engineSettingsReader,
-            _engineSettingsWriter,
-            _engineSettingsReadNotify,
-            _engineSettingsReadNotifyRaisable,
-            _engineSettingsStorage,
-            _engineSettingsStorageSettable,
-            _engineSettingsStorageUpdatedNotify,
-            _debugLogger); // TODO: can be moved to app.xaml.cs if needed
+                _engineSettingsWriter,
+                _engineSettingsReadNotify,
+                _engineSettingsReadNotifyRaisable,
+                _engineSettingsStorage,
+                _engineSettingsStorageSettable,
+                _engineSettingsStorageUpdatedNotify,
+                _debugLogger); // TODO: can be moved to app.xaml.cs if needed
 
             ArchiveVm = new ArchivesViewModel(
-                new ArchiveViewModel(_commandSenderHost, _targetAddressHost, _uiRoot, _logger, _notifySendingEnabled, 0),
-                new ArchiveViewModel(_commandSenderHost, _targetAddressHost, _uiRoot, _logger, _notifySendingEnabled, 1));
+                new ArchiveViewModel(_commandSenderHost, _targetAddressHost, _uiRoot, _logger, _notifySendingEnabled,
+                    0),
+                new ArchiveViewModel(_commandSenderHost, _targetAddressHost, _uiRoot, _logger, _notifySendingEnabled,
+                    1));
 
-            MnemonicChemeVm = new MnemonicChemeViewModel(Path.Combine(Environment.CurrentDirectory, "mnemoniccheme.png"));
-            OldLookVm = new OldLookViewModel(_uiRoot, windowSystem, _commandSenderHost, _targetAddressHost, _notifySendingEnabled, this, _logger, _debugLogger, _cycleThreadHolder, _ainsCounterRaisable, _paramLogger, ainSettingsStorage, storageUpdatedNotify);
+            MnemonicChemeVm =
+                new MnemonicChemeViewModel(Path.Combine(Environment.CurrentDirectory, "mnemoniccheme.png"));
+            OldLookVm = new OldLookViewModel(_uiRoot, windowSystem, _commandSenderHost, _targetAddressHost,
+                _notifySendingEnabled, this, _logger, _debugLogger, _cycleThreadHolder, _ainsCounterRaisable,
+                _paramLogger, ainSettingsStorage, storageUpdatedNotify);
 
             _ain1StateColor = Colors.Gray;
             _ain2StateColor = Colors.Gray;
@@ -253,81 +245,24 @@ namespace TopDriveSystem.ConfigApp
             EngineAutoSetupVm = new EngineAutoSetupViewModel(
                 new TableViewModel("Начальные значения:", _logger),
                 new TableViewModel("После тестирования:", _logger),
-                _notifySendingEnabled, _ainSettingsReader, _ainSettingsReadNotify, _ainSettingsWriter, _uiRoot, _logger, _commandSenderHost, _targetAddressHost, bsEthernetReadCycleModel);
+                _notifySendingEnabled, _ainSettingsReader, _ainSettingsReadNotify, _ainSettingsWriter, _uiRoot, _logger,
+                _commandSenderHost, _targetAddressHost, bsEthernetReadCycleModel);
 
             _logger.Log("Программа загружена");
         }
 
-        private void ClosePort()
-        {
-            try
-            {
-                _notifySendingEnabled.SetIsSendingEnabledAndRaiseChange(false);
-                var currentSender = _commandSenderHost.Sender;
-                _logger.Log("Закрытие ранее открытого порта " + currentSender + "...");
+        public ChartViewModel ChartControlVm { get; set; }
+        public IParameterLogger ExternalParamLogger { get; set; }
 
-                // Вызов SilentSender.EndWork не производится!
-                currentSender.Dispose();
-                _commandSenderHostSettable.SetCommandSender(null);
-
-                _isPortOpened = false;
-                _openPortCommand.RaiseCanExecuteChanged();
-                _closePortCommand.RaiseCanExecuteChanged();
-                _logger.Log("Ранее открытый порт " + currentSender + " закрыт");
-
-            }
-            catch (Exception ex)
-            {
-                _logger.Log("Не удалось закрыть открытый ранее порт. " + ex.Message);
-            }
-        }
-
-        private void OpenPort()
-        {
-            // must be called only from UI
-            try
-            {
-                if (_isPortOpened) ClosePort();
-                _logger.Log("Открытие порта " + _selectedComName + "...");
-
-                if (_selectedComName == TestComPortName)
-                {
-                    var backWorker = new SingleThreadedRelayQueueWorkerProceedAllItemsBeforeStopNoLog<Action>("NbBackWorker", a => a(), ThreadPriority.BelowNormal, true, null);
-                    var sender = new NothingBasedCommandSender(backWorker, backWorker/*, _debugLogger, _uiRoot.Notifier*/);
-                    _commandSenderHostSettable.SetCommandSender(sender);
-
-                }
-                else
-                {
+        public AinCommandAndCommonTelemetryViewModel AinCommandAndCommonTelemetryVm { get; }
 
 
-                    var backWorker = new SingleThreadedRelayQueueWorkerProceedAllItemsBeforeStopNoLog<Action>("SerialPortBackWorker", a => a(), ThreadPriority.BelowNormal, true, null);
-                    var sender = new SerialPortBasedCommandSender(backWorker, backWorker, SelectedComName/*, _debugLogger*/);
-                    _commandSenderHostSettable.SetCommandSender(sender);
-                }
-
-
-                _isPortOpened = true;
-                _openPortCommand.RaiseCanExecuteChanged();
-                _closePortCommand.RaiseCanExecuteChanged();
-                _logger.Log("Порт " + _selectedComName + " открыт");
-
-                _notifySendingEnabled.SetIsSendingEnabledAndRaiseChange(true);
-            }
-            catch (Exception ex)
-            {
-                _logger.Log("Не удалось открыть порт " + _selectedComName + ". " + ex.Message);
-            }
-        }
-
-        private void GetPortsAvailable()
-        {
-            var ports = new List<string>();
-            ports.AddRange(SerialPort.GetPortNames());
-            ports.Add(TestComPortName); // TODO: extract constant);
-            ComPortsAvailable = ports;
-            if (ComPortsAvailable.Count > 0) SelectedComName = ComPortsAvailable[0];
-        }
+        public MnemonicChemeViewModel MnemonicChemeVm { get; }
+        public OldLookViewModel OldLookVm { get; }
+        public ArchivesViewModel ArchiveVm { get; }
+        public SettingsViewModel SettingsVm { get; }
+        public TelemetryViewModel TelemtryVm { get; }
+        public EngineAutoSetupViewModel EngineAutoSetupVm { get; }
 
         public List<string> ComPortsAvailable
         {
@@ -355,18 +290,13 @@ namespace TopDriveSystem.ConfigApp
             }
         }
 
-        public RelayCommand OpenPortCommand => _openPortCommand;
+        public RelayCommand OpenPortCommand { get; }
 
-        public RelayCommand ClosePortCommand => _closePortCommand;
+        public RelayCommand ClosePortCommand { get; }
 
         public RelayCommand GetPortsAvailableCommand { get; }
 
-        public ProgramLogViewModel ProgramLogVm => _programLogVm;
-
-        public void CloseComPort()
-        {
-            ClosePort();
-        }
+        public ProgramLogViewModel ProgramLogVm { get; }
 
 
         public List<int> AinsCountInSystem { get; }
@@ -376,7 +306,10 @@ namespace TopDriveSystem.ConfigApp
             get => _ainsCounterRaisable.SelectedAinsCount;
             set
             {
-                if (value != 1 && value != 2 && value != 3) throw new ArgumentOutOfRangeException("Поддерживаемое число блоков АИН в системе может быть только 1, 2 или 3, получено ошибочное число: " + value);
+                if (value != 1 && value != 2 && value != 3)
+                    throw new ArgumentOutOfRangeException(
+                        "Поддерживаемое число блоков АИН в системе может быть только 1, 2 или 3, получено ошибочное число: " +
+                        value);
                 _ainsCounterRaisable.SetAinsCountAndRaiseChange(value);
                 RaisePropertyChanged(() => SelectedAinsCount);
             }
@@ -458,6 +391,84 @@ namespace TopDriveSystem.ConfigApp
                     RaisePropertyChanged(() => Ain3IsUsed);
                 }
             }
+        }
+
+        public void CloseComPort()
+        {
+            ClosePort();
+        }
+
+        private void ClosePort()
+        {
+            try
+            {
+                _notifySendingEnabled.SetIsSendingEnabledAndRaiseChange(false);
+                var currentSender = _commandSenderHost.Sender;
+                _logger.Log("Закрытие ранее открытого порта " + currentSender + "...");
+
+                // Вызов SilentSender.EndWork не производится!
+                currentSender.Dispose();
+                _commandSenderHostSettable.SetCommandSender(null);
+
+                _isPortOpened = false;
+                OpenPortCommand.RaiseCanExecuteChanged();
+                ClosePortCommand.RaiseCanExecuteChanged();
+                _logger.Log("Ранее открытый порт " + currentSender + " закрыт");
+            }
+            catch (Exception ex)
+            {
+                _logger.Log("Не удалось закрыть открытый ранее порт. " + ex.Message);
+            }
+        }
+
+        private void OpenPort()
+        {
+            // must be called only from UI
+            try
+            {
+                if (_isPortOpened) ClosePort();
+                _logger.Log("Открытие порта " + _selectedComName + "...");
+
+                if (_selectedComName == TestComPortName)
+                {
+                    var backWorker =
+                        new SingleThreadedRelayQueueWorkerProceedAllItemsBeforeStopNoLog<Action>("NbBackWorker",
+                            a => a(), ThreadPriority.BelowNormal, true, null);
+                    var sender =
+                        new NothingBasedCommandSender(backWorker, backWorker /*, _debugLogger, _uiRoot.Notifier*/);
+                    _commandSenderHostSettable.SetCommandSender(sender);
+                }
+                else
+                {
+                    var backWorker =
+                        new SingleThreadedRelayQueueWorkerProceedAllItemsBeforeStopNoLog<Action>("SerialPortBackWorker",
+                            a => a(), ThreadPriority.BelowNormal, true, null);
+                    var sender =
+                        new SerialPortBasedCommandSender(backWorker, backWorker, SelectedComName /*, _debugLogger*/);
+                    _commandSenderHostSettable.SetCommandSender(sender);
+                }
+
+
+                _isPortOpened = true;
+                OpenPortCommand.RaiseCanExecuteChanged();
+                ClosePortCommand.RaiseCanExecuteChanged();
+                _logger.Log("Порт " + _selectedComName + " открыт");
+
+                _notifySendingEnabled.SetIsSendingEnabledAndRaiseChange(true);
+            }
+            catch (Exception ex)
+            {
+                _logger.Log("Не удалось открыть порт " + _selectedComName + ". " + ex.Message);
+            }
+        }
+
+        private void GetPortsAvailable()
+        {
+            var ports = new List<string>();
+            ports.AddRange(SerialPort.GetPortNames());
+            ports.Add(TestComPortName); // TODO: extract constant);
+            ComPortsAvailable = ports;
+            if (ComPortsAvailable.Count > 0) SelectedComName = ComPortsAvailable[0];
         }
     }
 }

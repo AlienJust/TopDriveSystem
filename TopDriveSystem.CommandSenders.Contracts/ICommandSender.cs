@@ -2,5 +2,7 @@
 
 namespace TopDriveSystem.CommandSenders.Contracts
 {
-    public interface ICommandSender : IRrModbusCommandSender, IDisposable, IIOListener { }
+    public interface ICommandSender : IRrModbusCommandSender, IDisposable, IIOListener
+    {
+    }
 }

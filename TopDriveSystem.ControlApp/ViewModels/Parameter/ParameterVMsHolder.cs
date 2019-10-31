@@ -1,17 +1,17 @@
-﻿using AlienJust.Support.Concurrent.Contracts;
-using TopDriveSystem.ControlApp.ViewModels.ParameterPresentation;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using AlienJust.Support.Concurrent.Contracts;
 using TopDriveSystem.CommandSenders.Contracts;
-using TopDriveSystem.ConfigApp.AppControl.ParamLogger;
+using TopDriveSystem.ControlApp.Models.ParamLogger;
 using TopDriveSystem.Model.Listening;
+using TopDriveSystem.Parameters;
 
 namespace TopDriveSystem.ControlApp.ViewModels.Parameter
 {
     internal sealed class ParameterVMsHolder : IParameterVMsHolder
     {
-        public IReadOnlyDictionary<string, IParameterViewModel> Parameters { get; }
-
-        public ParameterVMsHolder(IParametersPresenterXmlBuilder ppBuilder, IPsnParamsList psnParamsList, IParamListener paramListener, IThreadNotifier uiNotifier, IParameterLogger parameterLogger, IParameterSetter parameterSetter)
+        public ParameterVMsHolder(IParametersPresenterXmlBuilder ppBuilder, IPsnParamsList psnParamsList,
+            IParamListener paramListener, IThreadNotifier uiNotifier, IParameterLogger parameterLogger,
+            IParameterSetter parameterSetter)
         {
             var paramsPresenter = ppBuilder.BuildParametersPresentationFromXml();
             var parameters = new Dictionary<string, IParameterViewModel>();
@@ -23,13 +23,18 @@ namespace TopDriveSystem.ControlApp.ViewModels.Parameter
 
                 parameters.Add(
                     key, new ParameterViewModelSimple(description.CustomName, configuration.Item2.Name,
-                    new ParameterGetterViewModelSimple(
-                        description.Identifier, paramListener, uiNotifier, description.View,
-                        parameterLogger, configuration.Item2.IsBitSignal,
-                        configuration.Item1.PartName + ": " + configuration.Item2.Name),
-                    description.Injection == null ? null : new ParameterSetterViewModelSimple(parameterSetter, uiNotifier, description.Injection)));
+                        new ParameterGetterViewModelSimple(
+                            description.Identifier, paramListener, uiNotifier, description.View,
+                            parameterLogger, configuration.Item2.IsBitSignal,
+                            configuration.Item1.PartName + ": " + configuration.Item2.Name),
+                        description.Injection == null
+                            ? null
+                            : new ParameterSetterViewModelSimple(parameterSetter, uiNotifier, description.Injection)));
             }
+
             Parameters = parameters;
         }
+
+        public IReadOnlyDictionary<string, IParameterViewModel> Parameters { get; }
     }
 }

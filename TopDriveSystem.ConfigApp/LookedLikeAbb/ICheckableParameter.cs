@@ -1,5 +1,7 @@
-﻿namespace TopDriveSystem.ConfigApp.LookedLikeAbb {
-	internal interface ICheckableParameter {
-		bool IsChecked { get; set; }
-	}
+﻿namespace TopDriveSystem.ConfigApp.LookedLikeAbb
+{
+    internal interface ICheckableParameter
+    {
+        bool IsChecked { get; set; }
+    }
 }

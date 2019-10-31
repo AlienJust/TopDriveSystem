@@ -1,4 +1,4 @@
-﻿namespace TopDriveSystem.ConfigApp.AppControl.EngineSettingsSpace
+﻿namespace TopDriveSystem.ControlApp.Models.EngineSettingsSpace
 {
     public class EngineSettingsPartWritable : IEngineSettingsPart
     {

@@ -1,4 +1,4 @@
-namespace TopDriveSystem.ConfigApp.AppControl.Cycle
+namespace TopDriveSystem.ControlApp.Models.Cycle
 {
     public interface ICyclePart
     {

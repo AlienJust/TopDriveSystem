@@ -1,9 +1,12 @@
 ﻿using System.Windows.Controls;
 
-namespace TopDriveSystem.ConfigApp.LookedLikeAbb {
-	public partial class Group27SettingsView : UserControl {
-		public Group27SettingsView() {
-			InitializeComponent();
-		}
-	}
+namespace TopDriveSystem.ConfigApp.LookedLikeAbb
+{
+    public partial class Group27SettingsView : UserControl
+    {
+        public Group27SettingsView()
+        {
+            InitializeComponent();
+        }
+    }
 }

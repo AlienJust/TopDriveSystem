@@ -1,4 +1,4 @@
-﻿namespace TopDriveSystem.ConfigApp.AppControl.AinSettingsStorage
+﻿namespace TopDriveSystem.ControlApp.Models.AinSettingsStorage
 {
     /// <summary>
     ///     Сообщает о том, что настройки были обновлены

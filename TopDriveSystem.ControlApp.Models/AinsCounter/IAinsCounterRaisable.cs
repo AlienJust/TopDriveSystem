@@ -1,4 +1,4 @@
-namespace TopDriveSystem.ConfigApp.AppControl.AinsCounter
+namespace TopDriveSystem.ControlApp.Models.AinsCounter
 {
     public interface IAinsCounterRaisable : IAinsCounter
     {

@@ -5,19 +5,71 @@ using AlienJust.Support.Mvvm;
 using TopDriveSystem.Commands.RtuModbus.Telemetry02;
 using TopDriveSystem.ConfigApp.AppControl.CommandSenderHost;
 using TopDriveSystem.ConfigApp.AppControl.Cycle;
-using TopDriveSystem.ConfigApp.AppControl.LoggerHost;
 using TopDriveSystem.ConfigApp.AppControl.ParamLogger;
 using TopDriveSystem.ConfigApp.AppControl.TargetAddressHost;
 using TopDriveSystem.ConfigApp.LookedLikeAbb.Parameters.ParameterDoubleReadonly;
 
 namespace TopDriveSystem.ConfigApp.LookedLikeAbb
 {
-    class Group02ParametersViewModel : ViewModelBase, ICyclePart
+    internal class Group02ParametersViewModel : ViewModelBase, ICyclePart
     {
         private readonly ICommandSenderHost _commandSenderHost;
+        private readonly ILogger _logger;
+
+        private readonly object _syncCancel;
         private readonly ITargetAddressHost _targerAddressHost;
         private readonly IUserInterfaceRoot _uiRoot;
-        private readonly ILogger _logger;
+        private bool _cancel;
+        private int _errorCounts;
+        private bool _readingInProgress;
+
+        public Group02ParametersViewModel(ICommandSenderHost commandSenderHost, ITargetAddressHost targerAddressHost,
+            IUserInterfaceRoot uiRoot, ILogger logger, IParameterLogger parameterLogger)
+        {
+            _commandSenderHost = commandSenderHost;
+            _targerAddressHost = targerAddressHost;
+            _uiRoot = uiRoot;
+            _logger = logger;
+
+            Parameter01Vm = new ParameterDoubleReadonlyViewModel(
+                "02.01. Скорость вращения двигателя на выходе задатчика интенсивности [об/мин]", "f0", null,
+                parameterLogger);
+            Parameter02Vm = new ParameterDoubleReadonlyViewModel(
+                "02.02. Скорость вращения двигателя на выходе фильтра канала задания скорости [об/мин]", "f0", null,
+                parameterLogger);
+            Parameter03Vm =
+                new ParameterDoubleReadonlyViewModel("02.03. Заданный поток [%]", "f0", null, parameterLogger);
+
+            Parameter04Vm =
+                new ParameterDoubleReadonlyViewModel("02.04. Измеренный поток [%]", "f0", null, parameterLogger);
+
+            Parameter05Vm = new ParameterDoubleReadonlyViewModel("02.05. Отфильтрованный измеренный поток [%]", "f0",
+                null, parameterLogger);
+            Parameter06Vm =
+                new ParameterDoubleReadonlyViewModel("02.06. Задание моментного тока [А]", "f0", null, parameterLogger);
+
+            Parameter07Vm = new ParameterDoubleReadonlyViewModel("02.07. Задание тока намагничивания [А]", "f0", null,
+                parameterLogger);
+            Parameter08Vm = new ParameterDoubleReadonlyViewModel("02.08. Пропорциональная часть регулятора тока D [А]",
+                "f0", null, parameterLogger);
+            Parameter09Vm = new ParameterDoubleReadonlyViewModel("02.09. Пропорциональная часть регулятора тока Q [А]",
+                "f0", null, parameterLogger);
+
+            Parameter10Vm =
+                new ParameterDoubleReadonlyViewModel("02.10. Пропорциональная часть регулятора скорости [об/мин]", "f0",
+                    null, parameterLogger);
+            Parameter11Vm = new ParameterDoubleReadonlyViewModel("02.11. Пропорциональная часть регулятора потока [%]",
+                "f0", null, parameterLogger);
+
+            ReadCycleCmd = new RelayCommand(ReadCycleFunc, () => !_readingInProgress); // TODO: check port opened
+            StopReadCycleCmd = new RelayCommand(StopReadingFunc, () => _readingInProgress);
+
+            _syncCancel = new object();
+            _cancel = true;
+            _readingInProgress = false;
+            _errorCounts = 0;
+        }
+
         public ParameterDoubleReadonlyViewModel Parameter01Vm { get; }
         public ParameterDoubleReadonlyViewModel Parameter02Vm { get; }
         public ParameterDoubleReadonlyViewModel Parameter03Vm { get; }
@@ -33,64 +85,6 @@ namespace TopDriveSystem.ConfigApp.LookedLikeAbb
         public RelayCommand ReadCycleCmd { get; }
         public RelayCommand StopReadCycleCmd { get; }
 
-        private readonly object _syncCancel;
-        private bool _cancel;
-        private bool _readingInProgress;
-        private int _errorCounts;
-
-        public Group02ParametersViewModel(ICommandSenderHost commandSenderHost, ITargetAddressHost targerAddressHost, IUserInterfaceRoot uiRoot, ILogger logger, IParameterLogger parameterLogger)
-        {
-            _commandSenderHost = commandSenderHost;
-            _targerAddressHost = targerAddressHost;
-            _uiRoot = uiRoot;
-            _logger = logger;
-
-            Parameter01Vm = new ParameterDoubleReadonlyViewModel("02.01. Скорость вращения двигателя на выходе задатчика интенсивности [об/мин]", "f0", null, parameterLogger);
-            Parameter02Vm = new ParameterDoubleReadonlyViewModel("02.02. Скорость вращения двигателя на выходе фильтра канала задания скорости [об/мин]", "f0", null, parameterLogger);
-            Parameter03Vm = new ParameterDoubleReadonlyViewModel("02.03. Заданный поток [%]", "f0", null, parameterLogger);
-
-            Parameter04Vm = new ParameterDoubleReadonlyViewModel("02.04. Измеренный поток [%]", "f0", null, parameterLogger);
-
-            Parameter05Vm = new ParameterDoubleReadonlyViewModel("02.05. Отфильтрованный измеренный поток [%]", "f0", null, parameterLogger);
-            Parameter06Vm = new ParameterDoubleReadonlyViewModel("02.06. Задание моментного тока [А]", "f0", null, parameterLogger);
-
-            Parameter07Vm = new ParameterDoubleReadonlyViewModel("02.07. Задание тока намагничивания [А]", "f0", null, parameterLogger);
-            Parameter08Vm = new ParameterDoubleReadonlyViewModel("02.08. Пропорциональная часть регулятора тока D [А]", "f0", null, parameterLogger);
-            Parameter09Vm = new ParameterDoubleReadonlyViewModel("02.09. Пропорциональная часть регулятора тока Q [А]", "f0", null, parameterLogger);
-
-            Parameter10Vm = new ParameterDoubleReadonlyViewModel("02.10. Пропорциональная часть регулятора скорости [об/мин]", "f0", null, parameterLogger);
-            Parameter11Vm = new ParameterDoubleReadonlyViewModel("02.11. Пропорциональная часть регулятора потока [%]", "f0", null, parameterLogger);
-
-            ReadCycleCmd = new RelayCommand(ReadCycleFunc, () => !_readingInProgress); // TODO: check port opened
-            StopReadCycleCmd = new RelayCommand(StopReadingFunc, () => _readingInProgress);
-
-            _syncCancel = new object();
-            _cancel = true;
-            _readingInProgress = false;
-            _errorCounts = 0;
-        }
-
-
-        private void StopReadingFunc()
-        {
-            Cancel = true;
-            _readingInProgress = false;
-
-            _logger.Log("Взведен внутренний флаг прерывания циклического опроса");
-            ReadCycleCmd.RaiseCanExecuteChanged();
-            StopReadCycleCmd.RaiseCanExecuteChanged();
-        }
-
-        private void ReadCycleFunc()
-        {
-            _logger.Log("Запуск циклического опроса телеметрии");
-            Cancel = false;
-
-            _readingInProgress = true;
-            ReadCycleCmd.RaiseCanExecuteChanged();
-            StopReadCycleCmd.RaiseCanExecuteChanged();
-        }
-
         public void InCycleAction()
         {
             var waiter = new ManualResetEvent(false);
@@ -102,10 +96,7 @@ namespace TopDriveSystem.ConfigApp.LookedLikeAbb
                     ITelemetry02 telemetry = null;
                     try
                     {
-                        if (exception != null)
-                        {
-                            throw new Exception("Произошла ошибка во время обмена", exception);
-                        }
+                        if (exception != null) throw new Exception("Произошла ошибка во время обмена", exception);
                         var result = cmd.GetResult(bytes);
                         _errorCounts = 0;
                         telemetry = result;
@@ -131,6 +122,45 @@ namespace TopDriveSystem.ConfigApp.LookedLikeAbb
             waiter.Reset();
         }
 
+        public bool Cancel
+        {
+            get
+            {
+                lock (_syncCancel)
+                {
+                    return _cancel;
+                }
+            }
+            set
+            {
+                lock (_syncCancel)
+                {
+                    _cancel = value;
+                }
+            }
+        }
+
+
+        private void StopReadingFunc()
+        {
+            Cancel = true;
+            _readingInProgress = false;
+
+            _logger.Log("Взведен внутренний флаг прерывания циклического опроса");
+            ReadCycleCmd.RaiseCanExecuteChanged();
+            StopReadCycleCmd.RaiseCanExecuteChanged();
+        }
+
+        private void ReadCycleFunc()
+        {
+            _logger.Log("Запуск циклического опроса телеметрии");
+            Cancel = false;
+
+            _readingInProgress = true;
+            ReadCycleCmd.RaiseCanExecuteChanged();
+            StopReadCycleCmd.RaiseCanExecuteChanged();
+        }
+
         private void UpdateTelemetry(ITelemetry02 telemetry)
         {
             const int maxErrors = 3;
@@ -150,24 +180,6 @@ namespace TopDriveSystem.ConfigApp.LookedLikeAbb
             Parameter09Vm.CurrentValue = telemetry?.Eq;
             Parameter10Vm.CurrentValue = telemetry?.Ef;
             Parameter11Vm.CurrentValue = telemetry?.Efi;
-        }
-
-        public bool Cancel
-        {
-            get
-            {
-                lock (_syncCancel)
-                {
-                    return _cancel;
-                }
-            }
-            set
-            {
-                lock (_syncCancel)
-                {
-                    _cancel = value;
-                }
-            }
         }
     }
 }
