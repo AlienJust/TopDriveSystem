@@ -19,9 +19,9 @@ namespace TopDriveSystem.Commands.BsEthernetSettings
         {
             return value switch
             {
-                FriquencyTransformerRole.Single => 1,
-                FriquencyTransformerRole.Master => 2,
-                FriquencyTransformerRole.Slave => 3,
+                FriquencyTransformerRole.Single => (byte)1,
+                FriquencyTransformerRole.Master => (byte)2,
+                FriquencyTransformerRole.Slave => (byte)3,
                 _ => throw new Exception("Невозможно представить данную роль ПЧ как байт"),
             };
         }

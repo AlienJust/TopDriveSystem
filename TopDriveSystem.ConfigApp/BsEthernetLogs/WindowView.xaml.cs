@@ -5,9 +5,9 @@ namespace TopDriveSystem.ConfigApp.BsEthernetLogs
 	/// <summary>
 	///     Логика взаимодействия для WindowView.xaml
 	/// </summary>
-	public partial class WindowView : MetroWindow
+	public partial class BsEthernetLogsWindow : MetroWindow
     {
-        public WindowView()
+        public BsEthernetLogsWindow()
         {
             InitializeComponent();
         }

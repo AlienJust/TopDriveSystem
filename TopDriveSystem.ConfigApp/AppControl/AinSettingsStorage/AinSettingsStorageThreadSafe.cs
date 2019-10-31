@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using TopDriveSystem.Commands.AinSettings;
+using TopDriveSystem.ConfigApp.AppControl.AinsCounter;
 
 namespace TopDriveSystem.ConfigApp.AppControl.AinSettingsStorage
 {
@@ -8,10 +9,17 @@ namespace TopDriveSystem.ConfigApp.AppControl.AinSettingsStorage
         private readonly object _ainSettingsSync;
         private readonly List<IAinSettings> _ainsSettings;
 
-        public AinSettingsStorageThreadSafe()
+        public AinSettingsStorageThreadSafe(IAinsCounter ainsCounter)
         {
+            // Обнуление хранилища настроек при изменении числа АИНов.
             _ainSettingsSync = new object();
             _ainsSettings = new List<IAinSettings> {null, null, null};
+            ainsCounter.AinsCountInSystemHasBeenChanged += AinsCounter_AinsCountInSystemHasBeenChanged; // TODO: Unsubscribe in Dispose();
+        }
+
+        private void AinsCounter_AinsCountInSystemHasBeenChanged(int ainsCount)
+        {
+            for (var i = (byte)ainsCount; i < 3; ++i) SetSettings(i, null);
         }
 
         public IAinSettings GetSettings(byte zeroBasedAinNumber)

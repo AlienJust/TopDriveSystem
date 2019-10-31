@@ -2,7 +2,6 @@
     x:Class="TopDriveSystem.ConfigApp.MainWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:configApp="clr-namespace:TopDriveSystem.ConfigApp"
     xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
     xmlns:converters1="clr-namespace:AlienJust.Support.Wpf.Converters;assembly=AlienJust.Support.Wpf"
     xmlns:archive="clr-namespace:TopDriveSystem.ConfigApp.NewLook.Archive"
@@ -25,7 +24,6 @@
     WindowTransitionsEnabled="False"
     NonActiveWindowTitleBrush="{DynamicResource AccentColorBrush3}"
     ShowActivated="True"
-    Closing="MetroWindow_Closing"
     Closed="MetroWindow_Closed">
     <Window.Resources>
         <ResourceDictionary>

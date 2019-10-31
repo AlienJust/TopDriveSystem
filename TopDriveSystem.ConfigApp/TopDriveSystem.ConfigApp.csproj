@@ -181,7 +181,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ApplicationDefinition Include="AppControl\App.xaml">
+    <ApplicationDefinition Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
@@ -813,7 +813,7 @@
     </Compile>
     <Compile Include="AinTelemetry\AinTelemetriesViewModel.cs" />
     <Compile Include="AinTelemetry\AinTelemetryViewModel.cs" />
-    <Compile Include="AppControl\App.xaml.cs">
+    <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>

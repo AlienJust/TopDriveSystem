@@ -19,9 +19,8 @@
                 SelectedItem="{Binding SelectedSerialPortName}" />
             <Button
                 Margin="2,2,2,2"
-                Command="{Binding RefreshSerialPortsList, Mode=OneTime}">
-                Обновить
-            </Button>
+                Command="{Binding RefreshSerialPortsList, Mode=OneTime}"
+                Content="Обновить" />
         </StackPanel>
         <Button
             Margin="2,2,2,2"

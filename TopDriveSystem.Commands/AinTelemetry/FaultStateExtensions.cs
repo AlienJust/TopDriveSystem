@@ -8,28 +8,28 @@ namespace TopDriveSystem.Commands.AinTelemetry
         {
             return state switch
             {
-                FaultState.NoError => 0,
-                FaultState.RuleImcwConflict => 1,
-                FaultState.RuleAinConflict => 2,
-                FaultState.NoAinLink => 3,
-                FaultState.NotMagnetized => 4,
-                FaultState.SpeedLimit => 5,
-                FaultState.StatusError => 6,
-                FaultState.UdcLow => 7,
+                FaultState.NoError => (ushort)0,
+                FaultState.RuleImcwConflict => (ushort)1,
+                FaultState.RuleAinConflict => (ushort)2,
+                FaultState.NoAinLink => (ushort)3,
+                FaultState.NotMagnetized => (ushort)4,
+                FaultState.SpeedLimit => (ushort)5,
+                FaultState.StatusError => (ushort)6,
+                FaultState.UdcLow => (ushort)7,
 
-                FaultState.AinLinkError => 8,
-                FaultState.EthernetLinkError => 9,
-                FaultState.CanLinkError => 10,
+                FaultState.AinLinkError => (ushort)8,
+                FaultState.EthernetLinkError => (ushort)9,
+                FaultState.CanLinkError => (ushort)10,
 
-                FaultState.ChangedAinMode => 11,
-                FaultState.SlaveNotReady => 12,
+                FaultState.ChangedAinMode => (ushort)11,
+                FaultState.SlaveNotReady => (ushort)12,
 
-                FaultState.RelayBlocking => 13,
-                FaultState.RelayAlarmMo => 14,
+                FaultState.RelayBlocking => (ushort)13,
+                FaultState.RelayAlarmMo => (ushort)14,
 
-                FaultState.OverheatProtection => 15,
-                FaultState.SystemStart => 16,
-                FaultState.ChangedControlSource => 17,
+                FaultState.OverheatProtection => (ushort)15,
+                FaultState.SystemStart => (ushort)16,
+                FaultState.ChangedControlSource => (ushort)17,
                 _ => throw new Exception("Cannot convert such state to ushort"),
             };
         }

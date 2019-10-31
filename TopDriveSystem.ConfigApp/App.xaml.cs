@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Threading;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Threading;
@@ -11,6 +10,7 @@ using AlienJust.Support.Text.Contracts;
 using AlienJust.Support.Wpf;
 using TopDriveSystem.ConfigApp.AinCommand;
 using TopDriveSystem.ConfigApp.AinTelemetry;
+using TopDriveSystem.ConfigApp.AppControl;
 using TopDriveSystem.ConfigApp.AppControl.AinsCounter;
 using TopDriveSystem.ConfigApp.AppControl.AinSettingsRead;
 using TopDriveSystem.ConfigApp.AppControl.AinSettingsStorage;
@@ -23,12 +23,9 @@ using TopDriveSystem.ConfigApp.AppControl.NotifySendingEnabled;
 using TopDriveSystem.ConfigApp.AppControl.ParamLogger;
 using TopDriveSystem.ConfigApp.AppControl.TargetAddressHost;
 using TopDriveSystem.ConfigApp.BsEthernetLogs;
-using TopDriveSystem.ConfigApp.LookedLikeAbb.Chart;
-using TopDriveSystem.ConfigApp.LookedLikeAbb.Oscilloscope;
-using IAinSettingsReadNotifyRaisable =
-    TopDriveSystem.ConfigApp.AppControl.AinSettingsRead.IAinSettingsReadNotifyRaisable;
+using IAinSettingsReadNotifyRaisable = TopDriveSystem.ConfigApp.AppControl.AinSettingsRead.IAinSettingsReadNotifyRaisable;
 
-namespace TopDriveSystem.ConfigApp.AppControl
+namespace TopDriveSystem.ConfigApp
 {
     public partial class App : Application
     {
@@ -43,13 +40,13 @@ namespace TopDriveSystem.ConfigApp.AppControl
         private IAinSettingsStorageSettable _ainSettingsStorageSettable;
         private IAinSettingsStorageUpdatedNotify _ainSettingsStorageUpdatedNotify;
         private IAinSettingsWriter _ainSettingsWriter;
+        
         private AutoSettingsReader _autoSettingsReader;
-
+        
         private AutoTimeSetter _autoTimeSetter;
 
         private ReadCycleModel _bsEthernetLogsReadCycleModel;
         private ICommandSenderHost _cmdSenderHost;
-
         private ICommandSenderHostSettable _cmdSenderHostSettable;
 
         private ILogger _commonLogger;
@@ -70,9 +67,6 @@ namespace TopDriveSystem.ConfigApp.AppControl
 
         private ILoggerRegistrationPoint _loggerRegPoint;
 
-        //private MainViewModel _mainViewModel;
-        //private MainWindow _mainWindow;
-        private ManualResetEvent _mainWindowCreationCompleteWaiter;
         private INotifySendingEnabled _notifySendingEnabled;
 
         private INotifySendingEnabledRaisable _notifySendingEnabledRaisable;
@@ -116,9 +110,6 @@ namespace TopDriveSystem.ConfigApp.AppControl
             _debugLogger = new RelayMultiLoggerWithStackTraceSimple(
                 new RelayLoggerWithStackTrace(
                     new RelayActionLogger(s => { }),
-                    //new RelayLogger(
-                    //new ColoredConsoleLogger(ConsoleColor.DarkRed, ConsoleColor.Black),
-                    //new ChainedFormatter(new List<ITextFormatter> { new ThreadFormatter(" > ", true, false, false), new DateTimeFormatter(" > ") })),
                     new StackTraceFormatterWithNullSuport(" > ", "[NO STACK INFO]")),
                 new RelayLoggerWithStackTrace(
                     new RelayLogger(
@@ -146,7 +137,6 @@ namespace TopDriveSystem.ConfigApp.AppControl
                             new ThreadFormatter(" > ", true, false, false),
                             new DateTimeFormatter(" > ")
                         })),
-                    //new StackTraceFormatterWithNullSuport(" > ", "[NO STACK INFO]")),
                     new StackTraceFormatterNothing()),
                 new RelayLoggerWithStackTrace(
                     new RelayLogger(
@@ -156,7 +146,6 @@ namespace TopDriveSystem.ConfigApp.AppControl
                             new ThreadFormatter(" > ", true, false, false),
                             new DateTimeFormatter(" > ")
                         })),
-                    //new StackTraceFormatterWithNullSuport(" > ", "[NO STACK INFO]")),
                     new StackTraceFormatterNothing()),
                 new RelayLoggerWithStackTrace(
                     new RelayLogger(
@@ -198,7 +187,7 @@ namespace TopDriveSystem.ConfigApp.AppControl
 
             _cycleThreadHolder = new CycleThreadHolderThreadSafe();
 
-            var ainSettingsStorage = new AinSettingsStorageThreadSafe();
+            var ainSettingsStorage = new AinSettingsStorageThreadSafe(_ainsCounter);
             _ainSettingsStorage = ainSettingsStorage;
             _ainSettingsStorageSettable = ainSettingsStorage;
             _ainSettingsStorageUpdatedNotify = ainSettingsStorage;
@@ -229,9 +218,14 @@ namespace TopDriveSystem.ConfigApp.AppControl
             _engineSettingsWriter = new EngineSettingsWriter(_cmdSenderHost, _targetAddressHost, _engineSettingsReader);
 
 
-            _autoSettingsReader = new AutoSettingsReader(_notifySendingEnabled, _ainsCounterRaisable,
-                _ainSettingsReader, _ainSettingsStorageSettable, _commonLogger,
-                _engineSettingsReader, _engineSettingsStorageSettable);
+            _autoSettingsReader = new AutoSettingsReader(
+                _notifySendingEnabled, 
+                _ainsCounterRaisable,
+                _ainSettingsReader, 
+                _ainSettingsStorageSettable, 
+                _commonLogger,
+                _engineSettingsReader, 
+                _engineSettingsStorageSettable);
 
             // обнуление хранилища настроек при отключении
             _notifySendingEnabled.SendingEnabledChanged += enabled =>
@@ -240,113 +234,39 @@ namespace TopDriveSystem.ConfigApp.AppControl
                     for (byte i = 0; i < _ainsCounter.SelectedAinsCount; ++i)
                         _ainSettingsStorageSettable.SetSettings(i, null);
             };
-            // обнуление хранилища настроек при изменении числа АИНов
-            _ainsCounter.AinsCountInSystemHasBeenChanged += count =>
-            {
-                for (var i = (byte) count; i < 3; ++i) _ainSettingsStorageSettable.SetSettings(i, null);
-            };
-
+            
             _bsEthernetLogsReadCycleModel = new ReadCycleModel(_cmdSenderHost, targetAddressHost, notifySendingEnabled);
 
-            var closeChildWindowsActions = new List<Action>();
+            var uiRoot = new SimpleUiRoot(new WpfUiNotifierAsync(Dispatcher.CurrentDispatcher));
 
-            var cmdWindowWaiter = new ManualResetEvent(false);
-            var cmdWindowThread = new Thread(() =>
-            {
-                var waitableNotifier = new WpfUiNotifier(Dispatcher.CurrentDispatcher);
-                var uiRoot = new SimpleUiRoot(new WpfUiNotifierAsync(Dispatcher.CurrentDispatcher));
+            var ainCommandAndCommonTelemetryVm = new AinCommandAndCommonTelemetryViewModel(
+                new AinCommandAndMinimalCommonTelemetryViewModel(
+                    _cmdSenderHost, 
+                    _targetAddressHost, 
+                    uiRoot,
+                    _commonLogger, 
+                    _notifySendingEnabled, 
+                    0, 
+                    _ainSettingsStorage, 
+                    _ainSettingsStorageUpdatedNotify),
+                new TelemetryCommonViewModel(),
+                _cmdSenderHost, 
+                _targetAddressHost, 
+                uiRoot, 
+                _notifySendingEnabled);
+            
 
-                var ainCommandAndCommonTelemetryVm = new AinCommandAndCommonTelemetryViewModel(
-                    new AinCommandAndMinimalCommonTelemetryViewModel(_cmdSenderHost, _targetAddressHost, uiRoot,
-                        _commonLogger, _notifySendingEnabled, 0, _ainSettingsStorage, _ainSettingsStorageUpdatedNotify),
-                    new TelemetryCommonViewModel(),
-                    _cmdSenderHost, _targetAddressHost, uiRoot, _notifySendingEnabled);
-                _cycleThreadHolder.RegisterAsCyclePart(ainCommandAndCommonTelemetryVm);
-
-                var cmdWindow = new CommandWindow
-                    {DataContext = new CommandWindowViewModel(ainCommandAndCommonTelemetryVm)};
-                cmdWindow.Show();
-
-                closeChildWindowsActions.Add(() => waitableNotifier.Notify(() => cmdWindow.Close()));
-                cmdWindowWaiter.Set();
-                Dispatcher.Run();
-            });
-            cmdWindowThread.SetApartmentState(ApartmentState.STA);
-            cmdWindowThread.IsBackground = true;
-            cmdWindowThread.Priority = ThreadPriority.AboveNormal;
-            cmdWindowThread.Start();
-            cmdWindowWaiter.WaitOne();
+            // TODO: Register something but not VM?
+            _cycleThreadHolder.RegisterAsCyclePart(ainCommandAndCommonTelemetryVm);
 
 
-            var chartWindowWaiter = new ManualResetEvent(false);
-            var chartWindowThread = new Thread(() =>
-            {
-                var waitableNotifier = new WpfUiNotifier(Dispatcher.CurrentDispatcher);
-                var uiRoot = new SimpleUiRoot(new WpfUiNotifierAsync(Dispatcher.CurrentDispatcher));
-                var chartVm = new ChartViewModel(uiRoot, colorsForGraphics);
-                _paramLoggerRegPoint.RegisterLoggegr(chartVm);
+            new CommandWindow { DataContext = new CommandWindowViewModel(ainCommandAndCommonTelemetryVm) }.Show();
 
-                var chartWindow = new WindowChart {DataContext = new WindowChartViewModel(chartVm)};
-                chartWindow.Show();
-
-                closeChildWindowsActions.Add(() => waitableNotifier.Notify(() => chartWindow.Close()));
-                chartWindowWaiter.Set();
-                Dispatcher.Run();
-            });
-
-            chartWindowThread.SetApartmentState(ApartmentState.STA);
-            chartWindowThread.IsBackground = true;
-            chartWindowThread.Priority = ThreadPriority.AboveNormal;
-            chartWindowThread.Start();
-            chartWindowWaiter.WaitOne();
+            new BsEthernetLogsWindow { DataContext = new WindowViewModel(uiRoot, _bsEthernetLogsReadCycleModel) }.Show();
 
 
-            var oscilloscopeWindowWaiter = new ManualResetEvent(false);
-            var oscilloscopeWindowThread = new Thread(() =>
-            {
-                var waitableNotifier = new WpfUiNotifier(Dispatcher.CurrentDispatcher);
-                var uiRoot = new SimpleUiRoot(new WpfUiNotifierAsync(Dispatcher.CurrentDispatcher));
-                var oscilloscopeWindow = new OscilloscopeWindow(colorsForGraphics)
-                    {DataContext = new OscilloscopeWindowSciVm()};
-                _paramLoggerRegPoint.RegisterLoggegr(oscilloscopeWindow);
-                oscilloscopeWindow.Show();
 
-                closeChildWindowsActions.Add(() => waitableNotifier.Notify(() => oscilloscopeWindow.Close()));
-                oscilloscopeWindowWaiter.Set();
-                Dispatcher.Run();
-            });
-            oscilloscopeWindowThread.SetApartmentState(ApartmentState.STA);
-            oscilloscopeWindowThread.IsBackground = true;
-            oscilloscopeWindowThread.Priority = ThreadPriority.BelowNormal;
-            oscilloscopeWindowThread.Start();
-            oscilloscopeWindowWaiter.WaitOne();
-
-
-            var bsEthernetLogWindowWaiter = new ManualResetEvent(false);
-            var bsEthernetLogWindowThread = new Thread(() =>
-            {
-                var waitableNotifier = new WpfUiNotifier(Dispatcher.CurrentDispatcher);
-                var uiRoot = new SimpleUiRoot(new WpfUiNotifierAsync(Dispatcher.CurrentDispatcher));
-                var logWindow = new WindowView
-                    {DataContext = new WindowViewModel(uiRoot, _bsEthernetLogsReadCycleModel)};
-                logWindow.Show();
-
-                closeChildWindowsActions.Add(() => waitableNotifier.Notify(() => logWindow.Close()));
-                bsEthernetLogWindowWaiter.Set();
-                Dispatcher.Run();
-            });
-            bsEthernetLogWindowThread.SetApartmentState(ApartmentState.STA);
-            bsEthernetLogWindowThread.IsBackground = true;
-            bsEthernetLogWindowThread.Priority = ThreadPriority.BelowNormal;
-            bsEthernetLogWindowThread.Start();
-            bsEthernetLogWindowWaiter.WaitOne();
-
-            var appThreadNotifier = new WpfUiNotifierAsync(Dispatcher.CurrentDispatcher);
-
-            _mainWindowCreationCompleteWaiter = new ManualResetEvent(false);
-            var mainWindowThread = new Thread(() =>
-            {
-                var mainViewModel = new MainViewModel(
+            var mainViewModel = new MainViewModel(
                     new SimpleUiRoot(new WpfUiNotifierAsync(Dispatcher.CurrentDispatcher)),
                     new WpfWindowSystem(),
                     colorsForGraphics,
@@ -371,24 +291,7 @@ namespace TopDriveSystem.ConfigApp.AppControl
                     _engineSettingsStorageSettable,
                     _engineSettingsStorageUpdatedNotify);
 
-                var mainWindow = new MainWindow(appThreadNotifier, () =>
-                        {
-                            foreach (var closingAction in closeChildWindowsActions) closingAction.Invoke();
-                            closeChildWindowsActions.Clear();
-                        }
-                    )
-                    {DataContext = mainViewModel};
-                mainWindow.Show();
-
-                _mainWindowCreationCompleteWaiter.Set();
-                Dispatcher.Run();
-            });
-            mainWindowThread.SetApartmentState(ApartmentState.STA);
-            mainWindowThread.Priority = ThreadPriority.AboveNormal;
-            mainWindowThread.IsBackground = true;
-            mainWindowThread.Start();
-
-            _mainWindowCreationCompleteWaiter.WaitOne(); // TODO: remove or not?
+            new MainWindow{ DataContext = mainViewModel }.Show();
         }
     }
 }
