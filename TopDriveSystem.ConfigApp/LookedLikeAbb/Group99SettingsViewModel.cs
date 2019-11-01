@@ -5,15 +5,15 @@ using AlienJust.Support.Loggers.Contracts;
 using AlienJust.Support.Mvvm;
 using TopDriveSystem.Commands.AinSettings;
 using TopDriveSystem.Commands.EngineSettings;
-using TopDriveSystem.ConfigApp.AppControl.AinsCounter;
-using TopDriveSystem.ConfigApp.AppControl.AinSettingsRead;
-using TopDriveSystem.ConfigApp.AppControl.AinSettingsStorage;
-using TopDriveSystem.ConfigApp.AppControl.AinSettingsWrite;
-using TopDriveSystem.ConfigApp.AppControl.EngineSettingsSpace;
 using TopDriveSystem.ConfigApp.LookedLikeAbb.AinSettingsRw;
 using TopDriveSystem.ConfigApp.LookedLikeAbb.Group106Settings.ImvcParameter;
 using TopDriveSystem.ConfigApp.LookedLikeAbb.Parameters.ParameterComboEditable;
 using TopDriveSystem.ConfigApp.LookedLikeAbb.Parameters.ParameterDoubleEditCheck;
+using TopDriveSystem.ControlApp.Models.AinsCounter;
+using TopDriveSystem.ControlApp.Models.AinSettingsRead;
+using TopDriveSystem.ControlApp.Models.AinSettingsStorage;
+using TopDriveSystem.ControlApp.Models.AinSettingsWrite;
+using TopDriveSystem.ControlApp.Models.EngineSettingsSpace;
 
 namespace TopDriveSystem.ConfigApp.LookedLikeAbb
 {

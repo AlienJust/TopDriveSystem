@@ -1,7 +1,7 @@
 ﻿using System;
 using TopDriveSystem.Commands.AinSettings;
-using TopDriveSystem.ConfigApp.AppControl.AinSettingsRead;
-using TopDriveSystem.ConfigApp.AppControl.AinSettingsWrite;
+using TopDriveSystem.ControlApp.Models.AinSettingsRead;
+using TopDriveSystem.ControlApp.Models.AinSettingsWrite;
 
 namespace TopDriveSystem.ConfigApp.LookedLikeAbb.AinSettingsRw
 {

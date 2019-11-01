@@ -10,7 +10,7 @@ using TopDriveSystem.ControlApp.Models.TargetAddressHost;
 
 namespace TopDriveSystem.ControlApp.Models.AinSettingsRead
 {
-    internal class AinSettingsReader : IAinSettingsReader, IAinSettingsReadNotifyRaisable
+    public class AinSettingsReader : IAinSettingsReader, IAinSettingsReadNotifyRaisable
     {
         private readonly IAinSettingsStorageSettable _ainSettingsStorageSettable;
         private readonly ICommandSenderHost _commandSenderHost;

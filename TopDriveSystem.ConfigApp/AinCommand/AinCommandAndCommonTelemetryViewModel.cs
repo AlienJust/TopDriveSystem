@@ -3,10 +3,10 @@ using System.Threading;
 using AlienJust.Support.Mvvm;
 using TopDriveSystem.Commands.RtuModbus.CommonTelemetry;
 using TopDriveSystem.ConfigApp.AinTelemetry;
-using TopDriveSystem.ConfigApp.AppControl.CommandSenderHost;
-using TopDriveSystem.ConfigApp.AppControl.Cycle;
-using TopDriveSystem.ConfigApp.AppControl.NotifySendingEnabled;
-using TopDriveSystem.ConfigApp.AppControl.TargetAddressHost;
+using TopDriveSystem.ControlApp.Models.CommandSenderHost;
+using TopDriveSystem.ControlApp.Models.Cycle;
+using TopDriveSystem.ControlApp.Models.NotifySendingEnabled;
+using TopDriveSystem.ControlApp.Models.TargetAddressHost;
 
 namespace TopDriveSystem.ConfigApp.AinCommand
 {

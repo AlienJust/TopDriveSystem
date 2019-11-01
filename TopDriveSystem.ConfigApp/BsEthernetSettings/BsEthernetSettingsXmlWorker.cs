@@ -52,7 +52,7 @@ namespace TopDriveSystem.ConfigApp.BsEthernetSettings
 
         public IBsEthernetSettings ImportSettings()
         {
-            // TODO: move strings to constants (shared beetween import and export static class)
+            // TODO: move strings to constants (shared between import and export static class)
             try
             {
                 var doc = XDocument.Load(_filename);
@@ -82,7 +82,7 @@ namespace TopDriveSystem.ConfigApp.BsEthernetSettings
             }
             catch (Exception ex)
             {
-                throw new Exception("�� ������� ������������� ���������", ex);
+                throw new Exception("Произошла ошибка при импорте настроек БС-Ethernet", ex);
             }
         }
     }

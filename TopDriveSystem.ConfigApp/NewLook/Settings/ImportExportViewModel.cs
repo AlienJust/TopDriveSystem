@@ -10,10 +10,9 @@ using AlienJust.Support.Mvvm;
 using AlienJust.Support.Wpf;
 using TopDriveSystem.Commands.AinSettings;
 using TopDriveSystem.Commands.EngineSettings;
-using TopDriveSystem.ConfigApp.AppControl.AinSettingsStorage;
-using TopDriveSystem.ConfigApp.AppControl.EngineSettingsSpace;
-using IAinSettingsReadNotifyRaisable =
-    TopDriveSystem.ConfigApp.AppControl.AinSettingsRead.IAinSettingsReadNotifyRaisable;
+using TopDriveSystem.ControlApp.Models.AinSettingsRead;
+using TopDriveSystem.ControlApp.Models.AinSettingsStorage;
+using TopDriveSystem.ControlApp.Models.EngineSettingsSpace;
 
 namespace TopDriveSystem.ConfigApp.NewLook.Settings
 {

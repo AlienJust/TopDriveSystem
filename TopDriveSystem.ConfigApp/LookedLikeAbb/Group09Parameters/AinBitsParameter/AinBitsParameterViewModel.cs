@@ -1,7 +1,7 @@
 ﻿using AlienJust.Support.Mvvm;
-using TopDriveSystem.ConfigApp.AppControl.ParamLogger;
 using TopDriveSystem.ConfigApp.LookedLikeAbb.Parameters.ParameterBooleanReadonly;
 using TopDriveSystem.ConfigApp.LookedLikeAbb.Parameters.ParameterStringReadonly;
+using TopDriveSystem.ControlApp.Models.ParamLogger;
 
 namespace TopDriveSystem.ConfigApp.LookedLikeAbb.Group09Parameters.AinBitsParameter
 {

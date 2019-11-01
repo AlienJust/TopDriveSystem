@@ -8,7 +8,7 @@ using TopDriveSystem.ControlApp.Models.TargetAddressHost;
 
 namespace TopDriveSystem.ControlApp.Models.AinSettingsWrite
 {
-    internal class AinSettingsWriter : IAinSettingsWriter
+    public class AinSettingsWriter : IAinSettingsWriter
     {
         private readonly IAinsCounter _ainsCounter;
 

@@ -6,9 +6,9 @@ using System.Windows.Input;
 using AlienJust.Support.Loggers.Contracts;
 using AlienJust.Support.Mvvm;
 using TopDriveSystem.Commands.FaultArchive;
-using TopDriveSystem.ConfigApp.AppControl.CommandSenderHost;
-using TopDriveSystem.ConfigApp.AppControl.NotifySendingEnabled;
-using TopDriveSystem.ConfigApp.AppControl.TargetAddressHost;
+using TopDriveSystem.ControlApp.Models.CommandSenderHost;
+using TopDriveSystem.ControlApp.Models.NotifySendingEnabled;
+using TopDriveSystem.ControlApp.Models.TargetAddressHost;
 
 namespace TopDriveSystem.ConfigApp.NewLook.Archive
 {

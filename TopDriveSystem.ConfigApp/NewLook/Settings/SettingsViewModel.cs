@@ -1,17 +1,15 @@
 ﻿using AlienJust.Support.Loggers.Contracts;
-using TopDriveSystem.ConfigApp.AppControl.AinsCounter;
-using TopDriveSystem.ConfigApp.AppControl.AinSettingsRead;
-using TopDriveSystem.ConfigApp.AppControl.AinSettingsStorage;
-using TopDriveSystem.ConfigApp.AppControl.CommandSenderHost;
-using TopDriveSystem.ConfigApp.AppControl.EngineSettingsSpace;
-using TopDriveSystem.ConfigApp.AppControl.NotifySendingEnabled;
-using TopDriveSystem.ConfigApp.AppControl.TargetAddressHost;
 using TopDriveSystem.ConfigApp.LookedLikeAbb;
 using TopDriveSystem.ConfigApp.LookedLikeAbb.AinSettingsRw;
 using TopDriveSystem.ConfigApp.LookedLikeAbb.Group106Settings;
 using TopDriveSystem.ConfigApp.LookedLikeAbb.Group106Settings.ImvcParameter;
-using IAinSettingsReadNotifyRaisable =
-    TopDriveSystem.ConfigApp.AppControl.AinSettingsRead.IAinSettingsReadNotifyRaisable;
+using TopDriveSystem.ControlApp.Models.AinsCounter;
+using TopDriveSystem.ControlApp.Models.AinSettingsRead;
+using TopDriveSystem.ControlApp.Models.AinSettingsStorage;
+using TopDriveSystem.ControlApp.Models.CommandSenderHost;
+using TopDriveSystem.ControlApp.Models.EngineSettingsSpace;
+using TopDriveSystem.ControlApp.Models.NotifySendingEnabled;
+using TopDriveSystem.ControlApp.Models.TargetAddressHost;
 
 namespace TopDriveSystem.ConfigApp.NewLook.Settings
 {

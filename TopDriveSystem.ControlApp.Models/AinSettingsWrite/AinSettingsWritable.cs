@@ -3,7 +3,7 @@ using TopDriveSystem.Commands.AinSettings;
 
 namespace TopDriveSystem.ControlApp.Models.AinSettingsWrite
 {
-    internal class AinSettingsWritable : IAinSettings
+    public sealed class AinSettingsWritable : IAinSettings
     {
         public AinSettingsWritable(IAinSettings settings)
         {

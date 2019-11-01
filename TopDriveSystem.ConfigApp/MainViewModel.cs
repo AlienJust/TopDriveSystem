@@ -15,17 +15,6 @@ using TopDriveSystem.CommandSenders.SerialPortBased;
 using TopDriveSystem.CommandSenders.TestCommandSender;
 using TopDriveSystem.ConfigApp.AinCommand;
 using TopDriveSystem.ConfigApp.AinTelemetry;
-using TopDriveSystem.ConfigApp.AppControl.AinsCounter;
-using TopDriveSystem.ConfigApp.AppControl.AinSettingsRead;
-using TopDriveSystem.ConfigApp.AppControl.AinSettingsStorage;
-using TopDriveSystem.ConfigApp.AppControl.AinSettingsWrite;
-using TopDriveSystem.ConfigApp.AppControl.CommandSenderHost;
-using TopDriveSystem.ConfigApp.AppControl.Cycle;
-using TopDriveSystem.ConfigApp.AppControl.EngineSettingsSpace;
-using TopDriveSystem.ConfigApp.AppControl.LoggerHost;
-using TopDriveSystem.ConfigApp.AppControl.NotifySendingEnabled;
-using TopDriveSystem.ConfigApp.AppControl.ParamLogger;
-using TopDriveSystem.ConfigApp.AppControl.TargetAddressHost;
 using TopDriveSystem.ConfigApp.BsEthernetLogs;
 using TopDriveSystem.ConfigApp.EngineAutoSetup;
 using TopDriveSystem.ConfigApp.Logs;
@@ -35,9 +24,18 @@ using TopDriveSystem.ConfigApp.NewLook.Archive;
 using TopDriveSystem.ConfigApp.NewLook.OldLook;
 using TopDriveSystem.ConfigApp.NewLook.Settings;
 using TopDriveSystem.ConfigApp.NewLook.Telemetry;
+using TopDriveSystem.ControlApp.Models.AinsCounter;
+using TopDriveSystem.ControlApp.Models.AinSettingsRead;
+using TopDriveSystem.ControlApp.Models.AinSettingsStorage;
+using TopDriveSystem.ControlApp.Models.AinSettingsWrite;
+using TopDriveSystem.ControlApp.Models.CommandSenderHost;
+using TopDriveSystem.ControlApp.Models.Cycle;
+using TopDriveSystem.ControlApp.Models.EngineSettingsSpace;
+using TopDriveSystem.ControlApp.Models.LoggerHost;
+using TopDriveSystem.ControlApp.Models.NotifySendingEnabled;
+using TopDriveSystem.ControlApp.Models.ParamLogger;
+using TopDriveSystem.ControlApp.Models.TargetAddressHost;
 using Colors = AlienJust.Support.Wpf.Converters.Colors;
-using IAinSettingsReadNotifyRaisable =
-    TopDriveSystem.ConfigApp.AppControl.AinSettingsRead.IAinSettingsReadNotifyRaisable;
 
 namespace TopDriveSystem.ConfigApp
 {

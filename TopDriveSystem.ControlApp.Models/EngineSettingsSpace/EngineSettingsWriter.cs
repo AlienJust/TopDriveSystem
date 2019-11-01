@@ -6,7 +6,7 @@ using TopDriveSystem.ControlApp.Models.TargetAddressHost;
 
 namespace TopDriveSystem.ControlApp.Models.EngineSettingsSpace
 {
-    internal class EngineSettingsWriter : IEngineSettingsWriter
+    public class EngineSettingsWriter : IEngineSettingsWriter
     {
         private readonly ICommandSenderHost _commandSenderHost;
         private readonly IEngineSettingsReader _engineSettingsReader;

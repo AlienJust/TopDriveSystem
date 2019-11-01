@@ -3,7 +3,7 @@ using TopDriveSystem.Commands.AinSettings;
 
 namespace TopDriveSystem.ControlApp.Models.AinSettingsWrite
 {
-    internal class AinSettingsPartWritable : IAinSettingsPart
+    public sealed class AinSettingsPartWritable : IAinSettingsPart
     {
         public decimal? KpW { get; set; }
         public decimal? KiW { get; set; }

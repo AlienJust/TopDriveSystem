@@ -11,19 +11,18 @@ using AlienJust.Support.Wpf;
 using TopDriveSystem.ConfigApp.AinCommand;
 using TopDriveSystem.ConfigApp.AinTelemetry;
 using TopDriveSystem.ConfigApp.AppControl;
-using TopDriveSystem.ConfigApp.AppControl.AinsCounter;
-using TopDriveSystem.ConfigApp.AppControl.AinSettingsRead;
-using TopDriveSystem.ConfigApp.AppControl.AinSettingsStorage;
-using TopDriveSystem.ConfigApp.AppControl.AinSettingsWrite;
-using TopDriveSystem.ConfigApp.AppControl.CommandSenderHost;
-using TopDriveSystem.ConfigApp.AppControl.Cycle;
-using TopDriveSystem.ConfigApp.AppControl.EngineSettingsSpace;
-using TopDriveSystem.ConfigApp.AppControl.LoggerHost;
-using TopDriveSystem.ConfigApp.AppControl.NotifySendingEnabled;
-using TopDriveSystem.ConfigApp.AppControl.ParamLogger;
-using TopDriveSystem.ConfigApp.AppControl.TargetAddressHost;
 using TopDriveSystem.ConfigApp.BsEthernetLogs;
-using IAinSettingsReadNotifyRaisable = TopDriveSystem.ConfigApp.AppControl.AinSettingsRead.IAinSettingsReadNotifyRaisable;
+using TopDriveSystem.ControlApp.Models.AinsCounter;
+using TopDriveSystem.ControlApp.Models.AinSettingsRead;
+using TopDriveSystem.ControlApp.Models.AinSettingsStorage;
+using TopDriveSystem.ControlApp.Models.AinSettingsWrite;
+using TopDriveSystem.ControlApp.Models.CommandSenderHost;
+using TopDriveSystem.ControlApp.Models.Cycle;
+using TopDriveSystem.ControlApp.Models.EngineSettingsSpace;
+using TopDriveSystem.ControlApp.Models.LoggerHost;
+using TopDriveSystem.ControlApp.Models.NotifySendingEnabled;
+using TopDriveSystem.ControlApp.Models.ParamLogger;
+using TopDriveSystem.ControlApp.Models.TargetAddressHost;
 
 namespace TopDriveSystem.ConfigApp
 {
@@ -187,7 +186,7 @@ namespace TopDriveSystem.ConfigApp
 
             _cycleThreadHolder = new CycleThreadHolderThreadSafe();
 
-            var ainSettingsStorage = new AinSettingsStorageThreadSafe(_ainsCounter);
+            var ainSettingsStorage = new AinSettingsStorageThreadSafe(_ainsCounter, _notifySendingEnabled);
             _ainSettingsStorage = ainSettingsStorage;
             _ainSettingsStorageSettable = ainSettingsStorage;
             _ainSettingsStorageUpdatedNotify = ainSettingsStorage;
@@ -227,13 +226,9 @@ namespace TopDriveSystem.ConfigApp
                 _engineSettingsReader, 
                 _engineSettingsStorageSettable);
 
-            // обнуление хранилища настроек при отключении
-            _notifySendingEnabled.SendingEnabledChanged += enabled =>
-            {
-                if (!enabled)
-                    for (byte i = 0; i < _ainsCounter.SelectedAinsCount; ++i)
-                        _ainSettingsStorageSettable.SetSettings(i, null);
-            };
+            
+            
+            
             
             _bsEthernetLogsReadCycleModel = new ReadCycleModel(_cmdSenderHost, targetAddressHost, notifySendingEnabled);
 

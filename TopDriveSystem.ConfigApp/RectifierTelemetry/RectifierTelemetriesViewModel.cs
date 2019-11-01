@@ -6,9 +6,9 @@ using AlienJust.Support.Loggers.Contracts;
 using AlienJust.Support.Mvvm;
 using AlienJust.Support.UI.Contracts;
 using TopDriveSystem.Commands.Rectifier;
-using TopDriveSystem.ConfigApp.AppControl.CommandSenderHost;
-using TopDriveSystem.ConfigApp.AppControl.Cycle;
-using TopDriveSystem.ConfigApp.AppControl.TargetAddressHost;
+using TopDriveSystem.ControlApp.Models.CommandSenderHost;
+using TopDriveSystem.ControlApp.Models.Cycle;
+using TopDriveSystem.ControlApp.Models.TargetAddressHost;
 
 namespace TopDriveSystem.ConfigApp.RectifierTelemetry
 {

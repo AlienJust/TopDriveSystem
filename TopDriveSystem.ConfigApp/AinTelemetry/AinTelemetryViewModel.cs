@@ -3,8 +3,8 @@ using System.Threading;
 using AlienJust.Support.Loggers.Contracts;
 using AlienJust.Support.Mvvm;
 using TopDriveSystem.Commands.AinTelemetry;
-using TopDriveSystem.ConfigApp.AppControl.CommandSenderHost;
-using TopDriveSystem.ConfigApp.AppControl.Cycle;
+using TopDriveSystem.ControlApp.Models.CommandSenderHost;
+using TopDriveSystem.ControlApp.Models.Cycle;
 
 namespace TopDriveSystem.ConfigApp.AinTelemetry
 {

@@ -2,7 +2,7 @@
 
 namespace TopDriveSystem.ControlApp.Models.EngineSettingsSpace
 {
-    internal class EngineSettingsStorageThreadSafe : IEngineSettingsStorageSettable, IEngineSettingsStorageUpdatedNotify
+    public class EngineSettingsStorageThreadSafe : IEngineSettingsStorageSettable, IEngineSettingsStorageUpdatedNotify
     {
         private readonly object _engineSettingsSync;
         private IEngineSettings _engineSettings;

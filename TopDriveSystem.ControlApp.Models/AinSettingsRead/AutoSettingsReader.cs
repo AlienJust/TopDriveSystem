@@ -6,7 +6,7 @@ using TopDriveSystem.ControlApp.Models.NotifySendingEnabled;
 
 namespace TopDriveSystem.ControlApp.Models.AinSettingsRead
 {
-    internal class AutoSettingsReader
+    public class AutoSettingsReader
     {
         private readonly IAinsCounter _ainsCounter;
         private readonly IAinSettingsReader _ainSettingsReader;

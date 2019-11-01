@@ -1,14 +1,14 @@
 ﻿using AlienJust.Support.Loggers.Contracts;
-using TopDriveSystem.ConfigApp.AppControl.AinsCounter;
-using TopDriveSystem.ConfigApp.AppControl.CommandSenderHost;
-using TopDriveSystem.ConfigApp.AppControl.Cycle;
-using TopDriveSystem.ConfigApp.AppControl.NotifySendingEnabled;
-using TopDriveSystem.ConfigApp.AppControl.ParamLogger;
-using TopDriveSystem.ConfigApp.AppControl.TargetAddressHost;
 using TopDriveSystem.ConfigApp.LookedLikeAbb;
 using TopDriveSystem.ConfigApp.LookedLikeAbb.Group07Parameters;
 using TopDriveSystem.ConfigApp.LookedLikeAbb.Group08Parameters;
 using TopDriveSystem.ConfigApp.LookedLikeAbb.Group09Parameters;
+using TopDriveSystem.ControlApp.Models.AinsCounter;
+using TopDriveSystem.ControlApp.Models.CommandSenderHost;
+using TopDriveSystem.ControlApp.Models.Cycle;
+using TopDriveSystem.ControlApp.Models.NotifySendingEnabled;
+using TopDriveSystem.ControlApp.Models.ParamLogger;
+using TopDriveSystem.ControlApp.Models.TargetAddressHost;
 
 namespace TopDriveSystem.ConfigApp.NewLook.Telemetry
 {

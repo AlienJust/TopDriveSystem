@@ -9,7 +9,7 @@ using TopDriveSystem.ControlApp.Models.TargetAddressHost;
 
 namespace TopDriveSystem.ControlApp.Models.EngineSettingsSpace
 {
-    internal class EngineSettingsReader : IEngineSettingsReader, IEngineSettingsReadNotifyRaisable
+    public class EngineSettingsReader : IEngineSettingsReader, IEngineSettingsReadNotifyRaisable
     {
         private readonly ICommandSenderHost _commandSenderHost;
         private readonly ILogger _logger;

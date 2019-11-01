@@ -5,7 +5,7 @@ using AlienJust.Support.Concurrent;
 
 namespace TopDriveSystem.ControlApp.Models.Cycle
 {
-    internal class CycleThreadHolderThreadSafe : ICycleThreadHolder
+    public class CycleThreadHolderThreadSafe : ICycleThreadHolder
     {
         private readonly SingleThreadedRelayQueueWorkerProceedAllItemsBeforeStopNoLog<Action>
             _backWorker; // TODO: use it to stop worker on app close

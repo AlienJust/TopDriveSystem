@@ -1,5 +1,5 @@
 ﻿using AlienJust.Support.Mvvm;
-using TopDriveSystem.ConfigApp.AppControl.ParamLogger;
+using TopDriveSystem.ControlApp.Models.ParamLogger;
 
 namespace TopDriveSystem.ConfigApp.LookedLikeAbb.Parameters.ParameterDoubleReadonly
 {

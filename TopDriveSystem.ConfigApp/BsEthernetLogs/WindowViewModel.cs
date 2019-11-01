@@ -83,26 +83,24 @@ namespace TopDriveSystem.ConfigApp.BsEthernetLogs
 
 
         #region IDisposable Support
-        private bool disposedValue = false; // To detect redundant calls
+        private bool _disposedValue = false; // To detect redundant calls
 
         protected virtual void Dispose(bool disposing)
         {
-            if (!disposedValue)
+            if (_disposedValue) return;
+            if (disposing)
             {
-                if (disposing)
-                {
-                    // TODO: dispose managed state (managed objects).
-                    IsActive = false;
-                    RaisePropertyChanged(() => IsActive);
-                    _model.StopBackgroundThreadAndWaitForIt();
-                    _model.AnotherLogLineWasReaded -= ModelOnAnotherLogLineWasReaded;
-                }
-
-                // TODO: free unmanaged resources (unmanaged objects) and override a finalizer below.
-                // TODO: set large fields to null.
-
-                disposedValue = true;
+                // TODO: dispose managed state (managed objects).
+                IsActive = false;
+                RaisePropertyChanged(() => IsActive);
+                _model.StopBackgroundThreadAndWaitForIt();
+                _model.AnotherLogLineWasReaded -= ModelOnAnotherLogLineWasReaded;
             }
+
+            // TODO: free unmanaged resources (unmanaged objects) and override a finalizer below.
+            // TODO: set large fields to null.
+
+            _disposedValue = true;
         }
 
         // TODO: override a finalizer only if Dispose(bool disposing) above has code to free unmanaged resources.

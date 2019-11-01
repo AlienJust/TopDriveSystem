@@ -3,7 +3,7 @@ using AlienJust.Support.Loggers.Contracts;
 
 namespace TopDriveSystem.ControlApp.Models.LoggerHost
 {
-    internal class LoggerRegistrationPointThreadSafe : ILoggerRegistrationPoint, ILogger
+    public class LoggerRegistrationPointThreadSafe : ILoggerRegistrationPoint, ILogger
     {
         private readonly List<ILogger> _registredLoggers;
         private readonly object _syncLoggers;

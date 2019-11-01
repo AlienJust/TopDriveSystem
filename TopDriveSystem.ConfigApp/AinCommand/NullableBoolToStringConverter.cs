@@ -8,9 +8,8 @@ namespace TopDriveSystem.ConfigApp.AinCommand
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var nb = value as bool?;
-            if (!nb.HasValue) return " ? ";
-            return nb.Value ? " ☒ " : " ☐ ";
+            if (!(value is bool nb)) return " ? ";
+            return nb ? " ☒ " : " ☐ ";
             //
         }
 
